@@ -6,45 +6,45 @@
 /*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 11:59:02 by asayad            #+#    #+#             */
-/*   Updated: 2024/11/06 14:50:27 by asayad           ###   ########.fr       */
+/*   Updated: 2024/11/20 20:41:22 by asayad           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
 
-int	map_in(t_list *file_nd, t_map *map_inf)
+int	map_in(t_list **file_nd, t_map **map_inf)
 {
 	char	*l;
 
-	l = (char *)file_nd->content;
+	l = (char *)((*file_nd)->content);
 	if (!is_empty(l))
 	{
-		if (!check_fst_line(l))
+		if (!check_fst_line(*file_nd))
 			return (0);
-		map_inf->map_in = true;
-		map_inf->map = &file_nd;
+		(*map_inf)->map_in = true;
+		(*map_inf)->map = file_nd;
 		return (1);
 	}
 	return (0);
 }
 
-int	check_fst_line(char *l)
+int	check_fst_line(t_list *l)
 {
-	int	i;
+	int		i;
 
 	i = 0;
-	while (i < ft_strlen(l))
+	while (i < ft_strlen((char *)(l->content)))
 	{
-		if (l[i] == ' ')
+		if (((char *)(l->content))[i] == ' ')
 			i++;
-		else if (l[i] != '1')
+		else if (((char *)(l->content))[i] != '1')
 		{
 			ft_putendl_fd("Invalid map !", 2);
 			return (0);
 		}
-		else if (l[i] == '1')
+		else if (((char *)(l->content))[i] == '1')
 		{
-			if (!check_rest_of_line(l + i))
+			if (!check_rest_of_line(((char *)(l->content)) + i, l))
 			{
 				ft_putendl_fd("Invalid map !", 2);
 				return (0);
@@ -57,18 +57,26 @@ int	check_fst_line(char *l)
 	return (1);
 }
 
-int	check_rest_of_line(char *l)
+int	check_rest_of_line(char *c, t_list *l)
 {
 	int	i;
+	int	j;
 
 	i = 0;
-	while (l[i])
+	if (l->next)
 	{
-		if (l[i] != '1' && l[i] != ' ')
-			return (0);
-		i++;
+		j = ft_strlen(c);
+		if (j > ft_strlen((char *)l->next->content))
+			j = ft_strlen((char *)l->next->content);
+		while (i < j)
+		{
+			if (c[i] != '1' && c[i] != ' ' && c[i] != '0')
+				return (0);
+			i++;
+		}
+		return (1);
 	}
-	return (1);
+	return (0);
 }
 
 const char	*find_path(char *l)
@@ -82,30 +90,27 @@ const char	*find_path(char *l)
 	return (NULL);
 }
 
-int	check_color(char *l, t_map *map_inf, char c)
+int	check_color(char *l, t_map **map_inf, char c)
 {
 	int		i;
-	char	*red;
-	char	*green;
-	char	*blue;
+	color	clrs;
 
 	i = 1;
-	green = NULL;
-	blue = NULL;
-	while (l[i] == ' ')
-		i++;
-	red = ft_strdup_c(l + i, ',');
-	if (ft_strlen(l + i) >= ft_strlen(red) + 2)
-		green = ft_strdup_c(l + i + ft_strlen(red) + 2, ',');
-	if (ft_strlen(l + i) >= ft_strlen(red) + ft_strlen(green) + 4)
-		blue = ft_strdup_c(l + i + ft_strlen(red) + ft_strlen(green) + 4, ',');
-	if (!red || !green || !blue)
+	skip_spaces(l, &i);
+	clrs = colors(l + i, 0);
+	if (clrs == 0xFFFFFFFF)
 		return (0);
-	if (!rgb(red, blue, green))
-		return (free(red), free(green), free(blue), 0);
 	if (c == 'f')
-		return (cub_floor(map_inf, red, green, blue));
+	{
+		(*map_inf)->red_f = clrs >> 16 & 0xFF;
+		(*map_inf)->green_f = clrs >> 8 & 0xFF;
+		(*map_inf)->blue_f = clrs & 0xFF;
+	}
 	if (c == 'c')
-		return (ceiling(map_inf, red, green, blue));
+	{
+		(*map_inf)->red_c = clrs >> 16 & 0xFF;
+		(*map_inf)->green_c = clrs >> 8 & 0xFF;
+		(*map_inf)->blue_c = clrs & 0xFF;
+	}
 	return (1);
 }

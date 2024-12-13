@@ -6,7 +6,7 @@
 /*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 11:15:59 by asayad            #+#    #+#             */
-/*   Updated: 2024/11/06 15:05:21 by asayad           ###   ########.fr       */
+/*   Updated: 2024/12/03 23:38:03 by asayad           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ int	main(int ac, char **av)
 		{
 			initialize_map(&map_inf);
 			if (!check_infile(av[1], &map_inf))
-				return (1);
+				return (0);
+			start_game(&map_inf);
 		}
 		else
 			ft_putendl_fd("Incompatible map !!", 2);
@@ -42,10 +43,11 @@ void	initialize_map(t_map *map_inf)
 	map_inf->ceiling = 0;
 	map_inf->floor = 0;
 	map_inf->map_in = false;
+	map_inf->map_size = 0;
 	map_inf->player_in = false;
 }
 
-t_list	*check_infile(char *in, t_map *map_inf)
+int	check_infile(char *in, t_map *map_inf)
 {
 	int		fd;
 	char	*s;
@@ -54,7 +56,7 @@ t_list	*check_infile(char *in, t_map *map_inf)
 	in_list = NULL;
 	fd = open(in, O_RDONLY, 0677);
 	if (fd < 0)
-		return (ft_putendl_fd(strerror(errno), 2), NULL);
+		return (ft_putendl_fd(strerror(errno), 2), 0);
 	s = get_next_line(fd);
 	while (s)
 	{
@@ -64,9 +66,10 @@ t_list	*check_infile(char *in, t_map *map_inf)
 		ft_lstadd_back(&in_list, ft_lstnew(s));
 		s = get_next_line(fd);
 	}
-	if (!check_if_valid_data(&in_list, map_inf))
-		return (NULL); //free inlist
-	return (in_list);
+	if (!check_if_valid_data(&in_list, &map_inf))
+		return (0); //free inlist
+	add_map_inf(&map_inf);
+	return (1);
 }
 
 char	*rm_spaces(char *s)
@@ -74,7 +77,10 @@ char	*rm_spaces(char *s)
 	int		j;
 	char	*r;
 
-	j = ft_strlen(s) - 2;
+	if (s[ft_strlen(s) - 1] == '\n')
+		j = ft_strlen(s) - 2;
+	else
+		j = ft_strlen(s) - 1;
 	while (j >= 0 && s[j] == ' ')
 		j--;
 	r = ft_strdup(s, j);
@@ -86,7 +92,7 @@ char	*rm_spaces(char *s)
 	return (r);
 }
 
-int	check_if_valid_data(t_list **in_list, t_map *map_inf)
+int	check_if_valid_data(t_list **in_list, t_map **map_inf)
 {
 	t_list	*tmp;
 	int		i;
@@ -94,20 +100,40 @@ int	check_if_valid_data(t_list **in_list, t_map *map_inf)
 	tmp = *in_list;
 	while (tmp)
 	{
-		i = analyze_line(tmp, map_inf);
-		if (!map_inf->map_in && i == 1)
+		i = analyze_line(&tmp, map_inf);
+		if (!(*map_inf)->map_in && i == 1)
 		{
 			tmp = tmp->next;
 			continue ;
 		}
-		if (!map_inf->map_in && (i == 2 || i == 3 || i == 4))
+		if (!(*map_inf)->map_in && (i == 2 || i == 3 || i == 4))
 			return (0);
-		if (map_inf->map_in)
+		if ((*map_inf)->map_in)
 			break ;
 		tmp = tmp->next;
 	}
 	if (!map_analysis(map_inf) || !cnvrt_lst_2_map(map_inf))
 		return (0);
-	check_nd_fill_map(map_inf);
+	if (!check_nd_fill_map(map_inf))
+		return (0);
 	return (1);
+}
+
+void	add_map_inf(t_map **map_inf)
+{
+	char	**map;
+	int		i;
+	int		tmp;
+
+	map = (*map_inf)->map_2d;
+	i = 0;
+	(*map_inf)->map_width = ft_strlen(map[i]);
+	while (map[i])
+	{
+		tmp = ft_strlen(map[i]);
+		if ((*map_inf)->map_width < tmp)
+			(*map_inf)->map_width = tmp;
+		i++;
+	}
+	(*map_inf)->map_height = table_size((*map_inf)->map_2d);
 }
