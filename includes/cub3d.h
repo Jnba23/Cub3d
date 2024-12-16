@@ -6,7 +6,7 @@
 /*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 13:38:41 by asayad            #+#    #+#             */
-/*   Updated: 2024/12/12 14:16:50 by asayad           ###   ########.fr       */
+/*   Updated: 2024/12/16 16:09:12 by asayad           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,6 +169,8 @@ void		render_tile(t_game *game, int x, int y, int color);
 void		render_player(t_game *game);
 void		reset_mvs_indic(t_game *game);
 void		render_rays(t_game *game);
+void		cast_ray(float va, t_game *game);
+void		render_ray(float va, t_game *game);
 
 /*			utils		*/
 
@@ -187,4 +189,6 @@ double		rad2deg(double angle_rad);
 float		y_scaled_mmp(int i, t_game *game_inf);
 float		x_scaled_mmp(int i, t_game *game_inf);
 int			can_move(float x, float y, t_game *game);
+int			va_x_right(float va);
+int			va_y_up(float va);
 #endif
