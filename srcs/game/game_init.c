@@ -6,7 +6,7 @@
 /*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 19:48:52 by asayad            #+#    #+#             */
-/*   Updated: 2024/12/16 23:06:23 by asayad           ###   ########.fr       */
+/*   Updated: 2024/12/18 15:46:39 by asayad           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,7 +152,7 @@ void	render_player(t_game *game)
 		{
 			if (pixel_x == fmod(game->player_x_pix, game->tile_width) + MINI_MAP_RADIUS && pixel_y == fmod(game->player_y_pix, game->tile_height) + MINI_MAP_RADIUS)
 			{
-				mlx_put_pixel(game->mmp_win, pixel_x, pixel_y, 0x00000000 | 255);
+				mlx_put_pixel(game->mmp_win, pixel_x, pixel_y, 0xFF000000 | 255);
 			}
 			else
 				mlx_put_pixel(game->mmp_win, pixel_x, pixel_y, 0xFFFFFFFF | 255);
@@ -169,7 +169,9 @@ void	render_rays(t_game *game)
 	double	ray_ang;
 	
 	ray_ang = deg2rad(RAY_ANG);
+	// game->rays->ray_lenght = RAY_L;
 	va = game->player_inf->rot_angle - deg2rad(FOV / 2);
+	// printf("va : %f\n", va);
 	while (va <= game->player_inf->rot_angle + deg2rad(FOV / 2))
 	{
 		cast_ray(va, game);
@@ -186,175 +188,191 @@ void	cast_ray(float va, t_game *game)
 	float	vy;
 	float	hx;
 	float	hy;
-	//calculate first horiz intersection : 
-	if (va_y_up(va))
-	{
-		//since P and A are on the same tile, we'll round up Py up or down depending on the ray's direction
+	//calculate first horiz intersection :
+	game->rays->up = va_y_up(va);
+	printf("ray_up : %d\n", game->rays->up);
+	//since P and A are on the same tile, we'll round up Py up or down depending on the ray's direction
+	if (game->rays->up)
 		vy = floor(game->player_y_pix / game->tile_height) * game->tile_height - 1;
-	}
 	else
 		vy = floor(game->player_y_pix / game->tile_height) * game->tile_height + game->tile_height;
-	vx = game->player_x_pix + (game->player_y_pix - vy) * tan(va);
+	vx = game->player_x_pix + fabsf(game->player_y_pix - vy) * tan(va);
+	// printf("vy : %f, map vy : %f\n", vy, vy / game->tile_height);
+	// printf("vx : %f, map vx : %f\n", vx, vx / game->tile_width);
 	if (floor(vy / game->tile_height) >= 0 && floor(vy / game->tile_height) < game->map_inf->map_height
-		&& floor(vx / game->tile_width) >= 0 && ft_strlen(game->map[(int)floor(vy / game->tile_height)])
+		&& floor(vx / game->tile_width) >= 0 && floor(vx / game->tile_width) < ft_strlen(game->map[(int)floor(vy / game->tile_height)])
 		&& game->map[(int)floor(vy / game->tile_height)][(int)floor(vx / game->tile_width)] != '1')
 	{
 		while (floor(vy / game->tile_height) >= 0 && floor(vy / game->tile_height) < game->map_inf->map_height
-		&& floor(vx / game->tile_width) >= 0 && ft_strlen(game->map[(int)floor(vy / game->tile_height)])
+		&& floor(vx / game->tile_width) >= 0 && floor(vx / game->tile_width) < ft_strlen(game->map[(int)floor(vy / game->tile_height)])
 		&& game->map[(int)floor(vy / game->tile_height)][(int)floor(vx / game->tile_width)] != '1')
 		{
-			if (va_y_up(va))
+			if (game->rays->up)
 				vy -= game->tile_height;
 			else
 				vy += game->tile_height;
-			vx = game->player_x_pix + (game->player_y_pix - vy) * tan(va);
+			vx = game->player_x_pix + fabsf(game->player_y_pix - vy) * tan(va);
 		}
 	}
 	//calculate second vertical intersection :
-	if (va_x_right(va))
+	game->rays->right = va_x_right(va);
+	if (game->rays->right)
 		hx = floor(game->player_x_pix / game->tile_width) * game->tile_width + game->tile_width;
 	else
 		hx = floor(game->player_x_pix / game->tile_width) * game->tile_width - 1;
-	hy = game->player_y_pix + tan(va) * (hx - game->player_x_pix);
-	printf("hy : %f, hx : %f\n", hy / game->tile_height, hx / game->tile_width);
+	hy = game->player_y_pix + tan(va) * fabsf(hx - game->player_x_pix);
+	// printf("hy : %f, hx : %f\n", hy / game->tile_height, hx / game->tile_width);
 	if (floor(hy / game->tile_height) >= 0 && floor(hy / game->tile_height) < game->map_inf->map_height
 		&& floor(hx / game->tile_width) >= 0 && ft_strlen(game->map[(int)floor(hy / game->tile_height)])
 		&& game->map[(int)floor(hy / game->tile_height)][(int)floor(hx / game->tile_width)] != '1')
 	{
 		while (floor(hy / game->tile_height) >= 0 && floor(hy / game->tile_height) < game->map_inf->map_height
-		&& floor(hx / game->tile_width) >= 0 && ft_strlen(game->map[(int)floor(hy / game->tile_height)])
+		&& floor(hx / game->tile_width) >= 0 &&  floor(hx / game->tile_width) < ft_strlen(game->map[(int)floor(hy / game->tile_height)])
 		&& game->map[(int)floor(hy / game->tile_height)][(int)floor(hx / game->tile_width)] != '1')
 		{
-			if (va_x_right(va))
+			if (game->rays->right)
 				hx += game->tile_width;
 			else
-				hx += game->tile_width;
-			hy = game->player_y_pix + tan(va) * (hx - game->player_x_pix);
+				hx -= game->tile_width;
+			hy = game->player_y_pix + tan(va) * fabsf(hx - game->player_x_pix);
 		}
 	}
-	if (square(vx) + square(vy) >= square(hx) + square(hy))
+	if (sqrt(square(vx - game->player_x_pix) + square(vy - game->player_y_pix)) >= sqrt(square(hx - game->player_x_pix) + square(hy - game->player_y_pix)))
 	{
-		game->rays->ray_lenght = sqrt(square(hx) + square(hy));
-		game->rays->x = hx;
-		game->rays->y = hy;
+		game->rays->ray_lenght = sqrt(square(hx - game->player_x_pix) + square(hy - game->player_y_pix));
+		game->rays->x = hx - game->player_x_pix;
+		game->rays->y = hy - game->player_y_pix;
 		game->rays->horiz = true;
 	}
 	else
 	{
-		game->rays->ray_lenght = sqrt(square(vx) + square(vy));
-		game->rays->x = vx;
-		game->rays->y = vy;
+		game->rays->ray_lenght = sqrt(square(vx - game->player_x_pix) + square(vy - game->player_y_pix));
+		game->rays->x = (vx - game->player_x_pix);
+		game->rays->y = (vy - game->player_y_pix);
 		game->rays->horiz = false;
 	}
 }
-//claude function :
-// void	cast_ray(float va, t_game *game)
+
+void	render_ray(float va, t_game *game) // draw line here 
+{
+	(void) va;
+	t_coor	coo;
+	int		i;
+	int		d_p; //dec_param updated
+
+	// fprintf(stderr, "ray_l :%f, r_l : %f\n", game->rays->ray_lenght, sqrt(square(game->rays->x) + square(game->rays->y)) / game->tile_height);
+	i = 0;
+	coo.x0 = (int)round(game->player_x_pix);
+	coo.x1 = (int)round(game->rays->x);
+	coo.y0 = (int)round(game->player_y_pix);
+	coo.y1 = (int)round(game->rays->y);
+	coo.dx = abs(coo.x0 - coo.x1);
+	coo.dy = abs(coo.y0 - coo.y1);
+	if (coo.x0 < coo.x1)
+		coo.sx = 1;
+	else
+		coo.sx = -1;
+	if (coo.y0 < coo.y1)
+		coo.sy = 1;
+	else
+		coo.sy = -1;
+	coo.dec_param = coo.dx - coo.dy;
+	while (1)
+	{
+		printf("x0 : %d, y0 : %d\n", coo.x0, coo.y0);
+		printf("x1 : %d, y1 : %d\n", coo.x1, coo.y1);
+		// if (coo.x0 >= 0 && coo.x0 < MAP_WIDTH && coo.y0 >= 0 && coo.y0 < MAP_HEIGHT)
+			mlx_put_pixel(game->mmp_win, coo.x0 + MINI_MAP_RADIUS, coo.y0 + MINI_MAP_RADIUS, 0xFF000000 | 255);
+		if (coo.x0 == coo.x1 && coo.y0 == coo.y1)
+			break ;
+		d_p = coo.dec_param * 2;
+		if (d_p > -coo.dy)
+		{
+			coo.dec_param -= coo.dy;
+			coo.x0 += coo.sx;
+		}
+		if (d_p < coo.dx)
+		{
+			coo.dec_param += coo.dy;
+			coo.y0 += coo.sy;
+		}
+	}
+	
+	// float	a;
+	// float	b;
+	// int		i;
+	// i = 0;
+	
+	// // printf("rl : %f\n", game->rays->ray_lenght);
+	// while (i < game->rays->ray_lenght)
+	// {	
+	// 	a = MINI_MAP_RADIUS + fmod(game->player_x_pix, game->tile_width) + (cos(va) * i);
+	// 	b = MINI_MAP_RADIUS + fmod(game->player_y_pix, game->tile_height) + (sin(va) * i);
+	// 	// printf("a : %f, b : %f\n", a, b);
+	// 	if (a >= 0 && b >= 0 && 
+    //         a < game->mmp_win->width && 
+    //         b < game->mmp_win->height)
+    //     {
+	// 		mlx_put_pixel(game->mmp_win, (int)a, (int)b, 0xFF000000 | 255);
+	// 	}
+	// 	i++;
+	// }
+}
+
+// void    initialize_line(t_game *game)
 // {
-//     float	vx;
-//     float	vy;
-//     float	hx;
-//     float	hy;
-//     int     map_y, map_x;  // Use integer indices for map access
+//     t_line *line;
 
-//     // First horizontal intersection
-//     if (va_y_up(va))
-//         vy = floor(game->player_y_pix / game->tile_height) * game->tile_height - 1;
-//     else
-//         vy = floor(game->player_y_pix / game->tile_height) * game->tile_height + game->tile_height;
-    
-//     vx = game->player_x_pix + (game->player_y_pix - vy) * tan(va);
-    
-//     // Horizontal ray traversal
-//     while (1)
-//     {
-//         map_y = (int)floor(vy / game->tile_height);
-//         map_x = (int)floor(vx / game->tile_width);
-        
-//         // Boundary checks
-//         if (map_y < 0 || map_y >= game->map_inf->map_height ||
-//             map_x < 0 || map_x >= (int)ft_strlen(game->map[map_y]))
-//             break;
-        
-//         if (game->map[map_y][map_x] == '1')
-//             break;
-        
-//         if (va_y_up(va))
-//             vy -= game->tile_height;
-//         else
-//             vy += game->tile_height;
-        
-//         vx = game->player_x_pix + (game->player_y_pix - vy) * tan(va);
-//     }
-
-//     // Vertical intersection
-//     if (va_x_right(va))
-//         hx = floor(game->player_x_pix / game->tile_width) * game->tile_width + game->tile_width;
-//     else
-//         hx = floor(game->player_x_pix / game->tile_width) * game->tile_width - 1;
-    
-//     hy = game->player_y_pix + tan(va) * (hx - game->player_x_pix);
-    
-//     // Vertical ray traversal
-//     while (1)
-//     {
-//         map_y = (int)floor(hy / game->tile_height);
-//         map_x = (int)floor(hx / game->tile_width);
-        
-//         // Boundary checks
-//         if (map_y < 0 || map_y >= game->map_inf->map_height ||
-//             map_x < 0 || map_x >= (int)ft_strlen(game->map[map_y]))
-//             break;
-        
-//         if (game->map[map_y][map_x] == '1')
-//             break;
-        
-//         if (va_x_right(va))
-//             hx += game->tile_width;
-//         else
-//             hx -= game->tile_width;
-        
-//         hy = game->player_y_pix + tan(va) * (hx - game->player_x_pix);
-//     }
-
-//     // Choose the shorter ray
-//     if (square(vx) + square(vy) >= square(hx) + square(hy))
-//     {
-//         game->rays->ray_lenght = sqrt(square(hx) + square(hy));
-//         game->rays->x = hx;
-//         game->rays->y = hy;
-//         game->rays->horiz = true;
-//     }
-//     else
-//     {
-//         game->rays->ray_lenght = sqrt(square(vx) + square(vy));
-//         game->rays->x = vx;
-//         game->rays->y = vy;
-//         game->rays->horiz = false;
-//     }
+//     line = malloc(sizeof(t_line));
+//     line->x = (int)floor(game->player_x_pix);
+//     line->y = (int)floor(game->player_y_pix);
+//     line->dx = abs((int)floor(game->rays->x) - line->x);
+//     line->dy = abs((int)floor(game->rays->y) - line->y);
+//     // printf("dx : %d, dy : %d\n", line->dx, line->dy);
+//     line->sx = -1;
+//     if (line->x < (int)floor(game->rays->x))
+//         line->sx = 1;
+//     line->sy = -1;
+//     if (line->y < (int)floor(game->rays->y))
+//         line->sy = 1;
+//     line->err = (line->dy * -1) / 2;
+//     if (line->dx > line->dy)
+//         line->err = line->dx / 2;
+//     game->line = line;
 // }
 
-void	render_ray(float va, t_game *game)
-{
-	float	a;
-	float	b;
-	int		i;
+// void    render_ray(t_game *game)
+// {
+//     int    e2;
 
-	i = 0;
-	// printf("rl : %f\n", game->rays->ray_lenght);
-	while (i < game->rays->ray_lenght)
-	{	
-		a = MINI_MAP_RADIUS + fmod(game->player_x_pix, game->tile_width) + (cos(va) * i);
-		b = MINI_MAP_RADIUS + fmod(game->player_y_pix, game->tile_height) + (sin(va) * i);
-		// printf("a : %f, b : %f\n", a, b);
-		if (a >= 0 && b >= 0 && 
-            a < game->mmp_win->width && 
-            b < game->mmp_win->height)
-        {
-			mlx_put_pixel(game->mmp_win, (int)a, (int)b, 0xFBFF000F);
-		}
-		i++;
-	}
-}
+//     e2 = 0;
+//     initialize_line(game);
+//     while (1)
+//     {
+//         if (game->line->x < 0 || game->line->y < 0)
+//             break ;
+//         printf("x === [%d] || y === [%d]\n", game->line->x, game->line->y);
+//         mlx_put_pixel(game->mmp_win, game->line->x, game->line->y, 0xFBFF000F);
+//         // printf("x_p === [%f] || y_p === [%f]\n", game->player_x_pix, game->player_y_pix);
+//         printf("rays_x === [%d] || rays_y === [%d]\n", (int)round(game->rays->x), (int)round(game->rays->y));
+//         if (game->line->x == (int)round(game->rays->x) && game->line->y == (int)round(game->rays->y))
+//         {
+//             printf("I'M ABOUT TO BREAK\n");
+//             break ;
+//         }
+//         e2 = game->line->err;
+//         if (e2 > game->line->dx * -1)
+//         {
+//             game->line->err -= game->line->dy;
+//             game->line->x += game->line->sx;
+//         }
+//         if (e2 < game->line->dy)
+//         {
+//             game->line->err += game->line->dx;
+//             game->line->y += game->line->sy;
+//         }
+//     }
+// }
 
 int	va_x_right(float va)
 {
@@ -366,8 +384,8 @@ int	va_x_right(float va)
 int	va_y_up(float va)
 {
 	if ((va >= 0 && va <= M_PI))
-		return (1);
-	return (0);
+		return (0);
+	return (1);
 }
 
 void	reset_mvs_indic(t_game *game)

@@ -6,7 +6,7 @@
 /*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 11:15:59 by asayad            #+#    #+#             */
-/*   Updated: 2024/12/03 23:38:03 by asayad           ###   ########.fr       */
+/*   Updated: 2024/12/17 09:46:06 by asayad           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,9 +112,9 @@ int	check_if_valid_data(t_list **in_list, t_map **map_inf)
 			break ;
 		tmp = tmp->next;
 	}
-	if (!map_analysis(map_inf) || !cnvrt_lst_2_map(map_inf))
+	if (!(*map_inf)->map_in || !map_analysis(map_inf) || !cnvrt_lst_2_map(map_inf))
 		return (0);
-	if (!check_nd_fill_map(map_inf))
+	if (!(*map_inf)->map_in || !check_nd_fill_map(map_inf))
 		return (0);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 13:38:41 by asayad            #+#    #+#             */
-/*   Updated: 2024/12/16 16:09:12 by asayad           ###   ########.fr       */
+/*   Updated: 2024/12/18 15:38:43 by asayad           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,20 @@ typedef struct s_ray
 	float	ray_lenght;
 	bool	horiz; //or vertical
 	bool	hit_door;
+	bool	up;
+	bool	right;
 } t_ray;
+
+typedef struct s_line
+{
+    int    x;
+    int y;
+    int dx;
+    int dy;
+    int sx;
+    int sy;
+    int err;
+}    t_line;
 
 typedef	struct s_game
 {
@@ -102,6 +115,7 @@ typedef	struct s_game
 	t_player	*player_inf;
 	t_map		*map_inf;
 	t_ray		*rays;
+	t_line		*line;
 	char		**map;
 	float		scale_factor_x;
 	float		scale_factor_y;
@@ -115,6 +129,19 @@ typedef	struct s_game
 	float		last_render_x;
 	float		last_render_y;
 }	t_game;
+
+typedef struct s_coor
+{
+	int		x0;
+	int		x1;
+	int		y0;
+	int		y1;
+	int		dx;
+	int		dy;
+	int		sx;
+	int		sy;
+	int		dec_param; //decision parameter
+}	t_coor;
 
 /*			Parssing			*/
 
@@ -170,6 +197,7 @@ void		render_player(t_game *game);
 void		reset_mvs_indic(t_game *game);
 void		render_rays(t_game *game);
 void		cast_ray(float va, t_game *game);
+// void		render_ray(float va, t_game *game);
 void		render_ray(float va, t_game *game);
 
 /*			utils		*/

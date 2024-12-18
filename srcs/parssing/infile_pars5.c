@@ -6,7 +6,7 @@
 /*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 13:32:07 by asayad            #+#    #+#             */
-/*   Updated: 2024/11/21 11:40:02 by asayad           ###   ########.fr       */
+/*   Updated: 2024/12/17 09:47:02 by asayad           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	check_pre_line(int pre_l, char **map_line, int idx)
 		if (map_line[idx][j] != '1' && map_line[idx - 1][j] != '1')
 			return (0);
 	}
-	else if (i < pre_l)
+	else if (i > 0 && i < pre_l)
 	{
 		i--;
 		if (map_line[idx - 1][i] != '1' && map_line[idx][i] != '1')
