@@ -6,7 +6,7 @@
 /*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 19:48:52 by asayad            #+#    #+#             */
-/*   Updated: 2024/12/18 15:46:39 by asayad           ###   ########.fr       */
+/*   Updated: 2024/12/19 10:19:17 by asayad           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,7 +169,7 @@ void	render_rays(t_game *game)
 	double	ray_ang;
 	
 	ray_ang = deg2rad(RAY_ANG);
-	// game->rays->ray_lenght = RAY_L;
+	game->rays->ray_lenght = RAY_L;
 	va = game->player_inf->rot_angle - deg2rad(FOV / 2);
 	// printf("va : %f\n", va);
 	while (va <= game->player_inf->rot_angle + deg2rad(FOV / 2))
@@ -190,7 +190,7 @@ void	cast_ray(float va, t_game *game)
 	float	hy;
 	//calculate first horiz intersection :
 	game->rays->up = va_y_up(va);
-	printf("ray_up : %d\n", game->rays->up);
+	// printf("ray_up : %d\n", game->rays->up);
 	//since P and A are on the same tile, we'll round up Py up or down depending on the ray's direction
 	if (game->rays->up)
 		vy = floor(game->player_y_pix / game->tile_height) * game->tile_height - 1;
@@ -209,7 +209,7 @@ void	cast_ray(float va, t_game *game)
 		{
 			if (game->rays->up)
 				vy -= game->tile_height;
-			else
+		else
 				vy += game->tile_height;
 			vx = game->player_x_pix + fabsf(game->player_y_pix - vy) * tan(va);
 		}
@@ -240,84 +240,121 @@ void	cast_ray(float va, t_game *game)
 	if (sqrt(square(vx - game->player_x_pix) + square(vy - game->player_y_pix)) >= sqrt(square(hx - game->player_x_pix) + square(hy - game->player_y_pix)))
 	{
 		game->rays->ray_lenght = sqrt(square(hx - game->player_x_pix) + square(hy - game->player_y_pix));
-		game->rays->x = hx - game->player_x_pix;
-		game->rays->y = hy - game->player_y_pix;
+		game->rays->x = hx ;//- game->player_x_pix;
+		game->rays->y = hy ;//- game->player_y_pix;
 		game->rays->horiz = true;
 	}
 	else
 	{
 		game->rays->ray_lenght = sqrt(square(vx - game->player_x_pix) + square(vy - game->player_y_pix));
-		game->rays->x = (vx - game->player_x_pix);
-		game->rays->y = (vy - game->player_y_pix);
+		game->rays->x = vx - game->player_x_pix;
+		game->rays->y = vy - game->player_y_pix;
 		game->rays->horiz = false;
 	}
 }
 
-void	render_ray(float va, t_game *game) // draw line here 
+void render_ray(float va, t_game *game)
 {
-	(void) va;
-	t_coor	coo;
-	int		i;
-	int		d_p; //dec_param updated
+	(void)va;
+    t_coor	coo;
+    int		i;
+    int		d_p;
+    int     max_iterations = 1000;  // Prevent infinite loop
 
-	// fprintf(stderr, "ray_l :%f, r_l : %f\n", game->rays->ray_lenght, sqrt(square(game->rays->x) + square(game->rays->y)) / game->tile_height);
-	i = 0;
-	coo.x0 = (int)round(game->player_x_pix);
-	coo.x1 = (int)round(game->rays->x);
-	coo.y0 = (int)round(game->player_y_pix);
-	coo.y1 = (int)round(game->rays->y);
-	coo.dx = abs(coo.x0 - coo.x1);
-	coo.dy = abs(coo.y0 - coo.y1);
-	if (coo.x0 < coo.x1)
-		coo.sx = 1;
-	else
-		coo.sx = -1;
-	if (coo.y0 < coo.y1)
-		coo.sy = 1;
-	else
-		coo.sy = -1;
-	coo.dec_param = coo.dx - coo.dy;
-	while (1)
-	{
-		printf("x0 : %d, y0 : %d\n", coo.x0, coo.y0);
-		printf("x1 : %d, y1 : %d\n", coo.x1, coo.y1);
-		// if (coo.x0 >= 0 && coo.x0 < MAP_WIDTH && coo.y0 >= 0 && coo.y0 < MAP_HEIGHT)
-			mlx_put_pixel(game->mmp_win, coo.x0 + MINI_MAP_RADIUS, coo.y0 + MINI_MAP_RADIUS, 0xFF000000 | 255);
-		if (coo.x0 == coo.x1 && coo.y0 == coo.y1)
-			break ;
-		d_p = coo.dec_param * 2;
-		if (d_p > -coo.dy)
-		{
-			coo.dec_param -= coo.dy;
-			coo.x0 += coo.sx;
-		}
-		if (d_p < coo.dx)
-		{
-			coo.dec_param += coo.dy;
-			coo.y0 += coo.sy;
-		}
-	}
-	
-	// float	a;
-	// float	b;
-	// int		i;
-	// i = 0;
-	
-	// // printf("rl : %f\n", game->rays->ray_lenght);
-	// while (i < game->rays->ray_lenght)
-	// {	
-	// 	a = MINI_MAP_RADIUS + fmod(game->player_x_pix, game->tile_width) + (cos(va) * i);
-	// 	b = MINI_MAP_RADIUS + fmod(game->player_y_pix, game->tile_height) + (sin(va) * i);
-	// 	// printf("a : %f, b : %f\n", a, b);
-	// 	if (a >= 0 && b >= 0 && 
-    //         a < game->mmp_win->width && 
-    //         b < game->mmp_win->height)
-    //     {
-	// 		mlx_put_pixel(game->mmp_win, (int)a, (int)b, 0xFF000000 | 255);
-	// 	}
-	// 	i++;
-	// }
+    // printf("Player Pixel Pos: (%f, %f)\n", game->player_x_pix, game->player_y_pix);
+    // printf("Ray Vector: (%f, %f)\n", game->rays->x, game->rays->y);
+    // printf("Ray Length: %f\n", game->rays->ray_lenght);
+    // printf("Tile Dimensions: (%f, %f)\n", game->tile_width, game->tile_height);
+    
+    coo.x0 = MINI_MAP_RADIUS + fmod(game->player_x_pix, game->tile_width);
+    coo.y0 = MINI_MAP_RADIUS + fmod(game->player_y_pix, game->tile_height);
+    
+    coo.x1 = coo.x0 + (int)round(game->rays->x);
+    coo.y1 = coo.y0 + (int)round(game->rays->y);
+    
+    // printf("Calculated Coordinates:\n");
+    // printf("x0: %d, y0: %d\n", coo.x0, coo.y0);
+    // printf("x1: %d, y1: %d\n", coo.x1, coo.y1);
+
+    coo.dx = abs(coo.x1 - coo.x0);
+    coo.dy = abs(coo.y1 - coo.y0);
+    
+    // printf("Deltas - dx: %d, dy: %d\n", coo.dx, coo.dy);
+
+    if (coo.x0 < 0 || coo.x0 >= MAP_WIDTH || 
+        coo.y0 < 0 || coo.y0 >= MAP_HEIGHT ||
+        coo.x1 < - MAP_WIDTH || coo.x1 >= MAP_WIDTH || 
+        coo.y1 < - MAP_HEIGHT || coo.y1 >= MAP_HEIGHT)
+    {
+        printf("ERROR: Ray coordinates out of minimap bounds\n");
+        return;
+    }
+
+    coo.sx = (coo.x0 < coo.x1) ? 1 : -1;
+    coo.sy = (coo.y0 < coo.y1) ? 1 : -1;
+    
+    coo.dec_param = coo.dx - coo.dy;
+    
+    // printf("Initial Drawing Params:\n");
+    // printf("Start: (%d, %d), End: (%d, %d)\n", coo.x0, coo.y0, coo.x1, coo.y1);
+    // printf("Step X: %d, Step Y: %d\n", coo.sx, coo.sy);
+
+    i = 0;
+    while (1)
+    {
+        mlx_put_pixel(game->mmp_win, coo.x0, coo.y0, 0xFF000000 | 255);
+        
+        // Check if we're close enough to the end point
+        if (abs(coo.x0 - coo.x1) <= 1 && abs(coo.y0 - coo.y1) <= 1)
+            break;
+        
+        d_p = coo.dec_param * 2;
+        
+        if (d_p > -coo.dy)
+        {
+            coo.dec_param -= coo.dy;
+            coo.x0 += coo.sx;
+        }
+        
+        if (d_p < coo.dx)
+        {
+            coo.dec_param += coo.dx;
+            coo.y0 += coo.sy;
+        }
+        
+        // i++;
+    }
+
+    if (i >= max_iterations)
+    {
+        printf("WARNING: Ray rendering hit max iterations\n");
+    }
+    
+    // printf("Ray rendering complete\n");
 }
+// 
+	
+// 	float	a;
+// 	float	b;
+// 	int		i;
+// 	i = 0;
+	
+// 	// printf("rl : %f\n", game->rays->ray_lenght);
+// 	while (i < game->rays->ray_lenght)
+// 	{	
+// 		a = MINI_MAP_RADIUS + fmod(game->player_x_pix, game->tile_width) + (cos(va) * i);
+// 		b = MINI_MAP_RADIUS + fmod(game->player_y_pix, game->tile_height) + (sin(va) * i);
+// 		if (a < 0 || b < 0)
+// 			printf("a : %f, b : %f\n", a, b);
+// 		if (a >= 0 && b >= 0 && 
+//             a < game->mmp_win->width && 
+//             b < game->mmp_win->height)
+//         {
+// 			mlx_put_pixel(game->mmp_win, (int)a, (int)b, 0xFF000000 | 255);
+// 		}
+// 		i++;
+// 	}
+// }
 
 // void    initialize_line(t_game *game)
 // {

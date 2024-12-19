@@ -68,4 +68,4 @@ fclean: clean
 
 re: fclean all
 
--include objs/*.d
+-include $(objs:.o=.d)
