@@ -6,7 +6,7 @@
 /*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 13:38:41 by asayad            #+#    #+#             */
-/*   Updated: 2024/12/18 17:13:02 by asayad           ###   ########.fr       */
+/*   Updated: 2024/12/20 19:10:14 by asayad           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -219,4 +219,5 @@ float		x_scaled_mmp(int i, t_game *game_inf);
 int			can_move(float x, float y, t_game *game);
 int			va_x_right(float va);
 int			va_y_up(float va);
+bool		valid_ray_intersection(t_game *game, float hx, float hy);
 #endif
