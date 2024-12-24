@@ -3,36 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   infile_pars.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 11:15:59 by asayad            #+#    #+#             */
-/*   Updated: 2024/12/17 09:46:06 by asayad           ###   ########.fr       */
+/*   Updated: 2024/12/22 11:12:41 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
-
-int	main(int ac, char **av)
-{
-	t_map	map_inf;
-
-	if (ac == 2)
-	{
-		if (ft_strlen(av[1]) >= 4 && !ft_strcmp(av[1]
-				+ (ft_strlen(av[1]) - 4), ".cub"))
-		{
-			initialize_map(&map_inf);
-			if (!check_infile(av[1], &map_inf))
-				return (0);
-			start_game(&map_inf);
-		}
-		else
-			ft_putendl_fd("Incompatible map !!", 2);
-	}
-	else
-		ft_putendl_fd("too many or few args !", 2);
-	return (1);
-}
 
 void	initialize_map(t_map *map_inf)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 17:32:13 by asayad            #+#    #+#             */
-/*   Updated: 2024/12/10 20:25:24 by asayad           ###   ########.fr       */
+/*   Updated: 2024/12/22 12:26:33 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,16 +52,16 @@ void	normalize_angle(float *angle)
 		*angle += 2 * M_PI;
 }
 
-float	x_scaled_mmp(int i, t_game *game_inf)
-{
-	float x;
+// float	x_scaled_mmp(int i, t_game *game_inf)
+// {
+// 	float x;
 
-	return (x = (i + game_inf->player_inf->player_x) * game_inf->scale);
-}
+// 	return (x = (i + game_inf->player_inf->player_x) * game_inf->scale);
+// }
 
-float	y_scaled_mmp(int i, t_game *game_inf)
-{
-	float y;
+// float	y_scaled_mmp(int i, t_game *game_inf)
+// {
+// 	float y;
 
-	return (y = (i + game_inf->player_inf->player_y) * game_inf->scale);
-}
+// 	return (y = (i + game_inf->player_inf->player_y) * game_inf->scale);
+// }
