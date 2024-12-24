@@ -6,7 +6,7 @@
 /*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 10:42:06 by hmoukit           #+#    #+#             */
-/*   Updated: 2024/12/24 14:35:18 by hmoukit          ###   ########.fr       */
+/*   Updated: 2024/12/24 20:56:06 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,21 @@ void	move_player(void *game)
 	t_game 		*gm;
 
 	gm = (t_game *)game;
-	// if (mlx_is_key_down(gm->game, MLX_KEY_W))
-	// 	render_move(gm, 'U');
-	// if (mlx_is_key_down(gm->game, MLX_KEY_S))
-	// 	render_move(gm, 'D');
-	// if (mlx_is_key_down(gm->game, MLX_KEY_A))
-	// 	render_move(gm, 'L');
-	// if (mlx_is_key_down(gm->game, MLX_KEY_D))
-	// 	render_move(gm, 'R');
-	// if (mlx_is_key_down(gm->game, MLX_KEY_LEFT))
-	// 	render_va(gm, 'L');
-	// if (mlx_is_key_down(gm->game, MLX_KEY_RIGHT))
-	// 	render_va(gm, 'R');
-	render_2D_map(gm);
+	if (mlx_is_key_down(gm->game, MLX_KEY_W))
+		render_move(gm, 'U');
+	if (mlx_is_key_down(gm->game, MLX_KEY_S))
+		render_move(gm, 'D');
+	if (mlx_is_key_down(gm->game, MLX_KEY_A))
+		render_move(gm, 'L');
+	if (mlx_is_key_down(gm->game, MLX_KEY_D))
+		render_move(gm, 'R');
+	if (mlx_is_key_down(gm->game, MLX_KEY_LEFT))
+		render_va(gm, 'L');
+	if (mlx_is_key_down(gm->game, MLX_KEY_RIGHT))
+		render_va(gm, 'R');
+	if (gm->render)
+		render_2D_map(gm);
+	gm->render = false;
 }
 
 void	render_2D_map(t_game *game)
@@ -70,12 +72,17 @@ void	render_player(t_game *game)
     float j;
 
 	j = game->pl_inf->pl_y * (float)TILE_SIZE;
-	while(j <= game->pl_inf->pl_y * (float)TILE_SIZE + fmod(game->pl_y_pix, (float)TILE_SIZE))
+	while(j <= game->pl_inf->pl_y * (float)TILE_SIZE
+		+ fmod(game->pl_y_pix, (float)TILE_SIZE))
 	{
 		i = game->pl_inf->pl_x * (float)TILE_SIZE;
-		while (i <=  game->pl_inf->pl_x * (float)TILE_SIZE + fmod(game->pl_x_pix, (float)TILE_SIZE))
+		while (i <=  game->pl_inf->pl_x
+			* (float)TILE_SIZE + fmod(game->pl_x_pix, (float)TILE_SIZE))
 		{
-			if (i ==  game->pl_inf->pl_x * (float)TILE_SIZE + fmod(game->pl_x_pix, (float)TILE_SIZE) && j == game->pl_inf->pl_y * (float)TILE_SIZE + fmod(game->pl_y_pix, (float)TILE_SIZE))
+			if (i ==  game->pl_inf->pl_x * (float)TILE_SIZE
+				+ fmod(game->pl_x_pix, (float)TILE_SIZE) 
+				&& j == game->pl_inf->pl_y * (float)TILE_SIZE
+				+ fmod(game->pl_y_pix, (float)TILE_SIZE))
 				mlx_put_pixel(game->game_win, i, j, 0xFF0000FF);
 			i++;
 		}
@@ -90,21 +97,34 @@ void	render_rays(t_game *game)
 
 	max_ang = game->pl_inf->rot_angle + deg2rad(FOV / 2.0);
 	game->inter->alpha = game->pl_inf->rot_angle - deg2rad(FOV / 2.0);
-	// while (game->inter->alpha < 0)
-	// {
-	// 	game->inter->alpha = fmod(game->inter->alpha, 2 *  M_PI) + 2 * M_PI;
-	// 	max_ang += 2 * M_PI;
-	// }
-	// while (game->inter->alpha > 2 * M_PI)
-	// 	game->inter->alpha = fmod(game->inter->alpha, 2 *  M_PI) + 2 * M_PI;
+	normalize_ang(&game->inter->alpha, &max_ang);
 	while (game->inter->alpha <= max_ang)
 	{
-		printf("alpha = {%f} | max_ang = {%f}\n", game->inter->alpha, max_ang);
 		inter_horizontal(game);
 		inter_vertical(game);
 		shortest_distance(game);
 		render_ray(game);
 		game->inter->alpha += deg2rad(RAY_ANG);
-		printf("alpha : %f\n", rad2deg(game->inter->alpha));
+		if (game->inter->alpha >= 2 * M_PI)
+		{
+			game->inter->alpha -= 2 * M_PI;
+			max_ang -= 2 * M_PI;
+		}
+	}
+	reset_mvs_indic(game);
+}
+
+void	normalize_ang(float *alpha, float *max_ang)
+{
+	if (*alpha != 0 && *alpha != M_PI / 2 && *alpha != M_PI
+		&& *alpha != 3 * M_PI / 2)
+	{
+		if (*alpha < 0)
+		{
+			*alpha = fmod(*alpha, 2 * M_PI) + 2 * M_PI;
+			*max_ang += 2 * M_PI;
+		}
+		else if (*alpha > 2 * M_PI)
+			*alpha -= 2 * M_PI;
 	}
 }

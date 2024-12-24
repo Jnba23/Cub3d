@@ -6,7 +6,7 @@
 /*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 17:32:13 by asayad            #+#    #+#             */
-/*   Updated: 2024/12/22 12:26:33 by hmoukit          ###   ########.fr       */
+/*   Updated: 2024/12/24 20:52:28 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,30 +38,8 @@ float	square(float i)
 	return (i * i);
 }
 
-float	ft_abs(float i)
+void	reset_mvs_indic(t_game *game)
 {
-	if (i < 0)
-		i *= -1;
-	return (i);
+	game->pl_inf->turn_dir = 0;
+	game->pl_inf->walk_dir = 0;
 }
-
-void	normalize_angle(float *angle)
-{
-	*angle = fmod(*angle, 2 * M_PI);
-	if (*angle < 0)
-		*angle += 2 * M_PI;
-}
-
-// float	x_scaled_mmp(int i, t_game *game_inf)
-// {
-// 	float x;
-
-// 	return (x = (i + game_inf->player_inf->player_x) * game_inf->scale);
-// }
-
-// float	y_scaled_mmp(int i, t_game *game_inf)
-// {
-// 	float y;
-
-// 	return (y = (i + game_inf->player_inf->player_y) * game_inf->scale);
-// }

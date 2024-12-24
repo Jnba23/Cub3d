@@ -6,7 +6,7 @@
 /*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 10:42:54 by hmoukit           #+#    #+#             */
-/*   Updated: 2024/12/22 22:22:41 by hmoukit          ###   ########.fr       */
+/*   Updated: 2024/12/24 20:42:47 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,14 @@ int	main(int ac, char **av)
 
 int	start_game(t_map *map_inf)
 {
-	t_game		game;
+	t_game		*game;
 	t_player	player_inf;
 	t_ray		ray;
 
-	game.rays = &ray;
 	game_struct_init(map_inf, &game, &player_inf);
-	window_init(&game, map_inf);
-	mlx_loop_hook(game.game, move_player, (void *)&game);
-	mlx_loop(game.game);
+	game->rays = &ray;
+	window_init(game, map_inf);
+	mlx_loop_hook(game->game, move_player, (void *)game);
+	mlx_loop(game->game);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 13:38:41 by asayad            #+#    #+#             */
-/*   Updated: 2024/12/24 14:28:19 by hmoukit          ###   ########.fr       */
+/*   Updated: 2024/12/24 20:52:40 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ typedef struct s_inter
 	float	vx;
 	float	vy;
 	float	alpha;
+	bool	edge;
 }	t_inter;
 
 
@@ -119,6 +120,7 @@ typedef	struct s_game
 	char		**map;
 	float		pl_x_pix;
 	float		pl_y_pix;
+	bool		render;
 }	t_game;
 
 typedef struct s_coor
@@ -131,7 +133,7 @@ typedef struct s_coor
 	int		dy;
 	int		sx;
 	int		sy;
-	int		dec_param; //decision parameter
+	int		dec_param;
 }	t_coor;
 
 /*			Parssing			*/
@@ -179,38 +181,25 @@ int			check_diff_dirs(char **map, int line, int c);
 void		check_sign(char **str, int *sign);
 void		add_map_inf(t_map **map_inf);
 void		window_init(t_game *game, t_map *map_inf);
-void		render_mini_map(t_game *game);
 
 /*			Game			*/
 int			start_game(t_map *map_inf);
-void		render_tile(t_game *game, int x, int y, int color);
-void		render_player(t_game *game);
 void		reset_mvs_indic(t_game *game);
-void		cast_ray(float va, t_game *game);
-// void		render_ray(float va, t_game *game);
 
 /*			utils		*/
 
 double		deg2rad(double angle_deg);
-void		free_ressources(t_map *map_inf);
-int 		get_rgba(int r, int g, int b, int a);
 float		square(float i);
 void		move_player(void *game);
-// void		game_struct_init(t_map *map_inf, t_game *game, t_player *player_inf, t_ray *rays);
-// void		render_move(t_game *game, char dir);
 void		update_map_u_d(t_game *game);
 void		update_map_l_r(t_game *game);
 void		render_va(t_game *game, char dir);
-float		ft_abs(float i);
 double		rad2deg(double angle_rad);
-// float		y_scaled_mmp(int i, t_game *game_inf);
-// float		x_scaled_mmp(int i, t_game *game_inf);
-// int			can_move(float x, float y, t_game *game);
-// int			va_y_up(float va);
 bool		valid_ray_intersection(t_game *game, float hx, float hy);
+void		reset_mvs_indic(t_game *game);
 
 // initializing
-void		game_struct_init(t_map *map_inf, t_game *game, t_player *pl_inf);
+void		game_struct_init(t_map *map_inf, t_game **game, t_player *pl_inf);
 
 // intersections
 int			va_y_up(float va);
@@ -224,6 +213,7 @@ int			can_move(float x, float y, t_game *game);
 void		update_map_l_r(t_game *game);
 void		render_move(t_game *game, char dir);
 void		render_va(t_game *game, char dir);
+int			can_you_move(float x, float y, t_game *game);
 
 // rendering
 void		render_2D_map(t_game *game);
@@ -231,6 +221,6 @@ void		render_player(t_game *game);
 void		render_rays(t_game *game);
 void		render_ray(t_game *game);
 void		shortest_distance(t_game *game);
-void		normalize_ang(float *alpha);
+void		normalize_ang(float *alpha, float *max_ang);
 
 #endif
