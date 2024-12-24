@@ -6,7 +6,7 @@
 /*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 16:13:15 by hmoukit           #+#    #+#             */
-/*   Updated: 2024/12/23 00:28:11 by hmoukit          ###   ########.fr       */
+/*   Updated: 2024/12/24 14:28:35 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ bool valid_ray_intersection(t_game *game, float hx, float hy)
 
 void	inter_horizontal(t_game *game)
 {
-	// printf("horiz ang : %f\n", rad2deg(game->inter->alpha));
+	normalize_ang(&game->inter->alpha);
 	game->rays->up = va_y_up(game->inter->alpha);
 	game->rays->right = va_x_right(game->inter->alpha);
 	if (game->rays->up)
@@ -64,7 +64,7 @@ void	inter_horizontal(t_game *game)
 
 void	inter_vertical(t_game *game)
 {
-	// printf("verti ang : %f\n", rad2deg(game->inter->alpha));
+	normalize_ang(&game->inter->alpha);
 	game->rays->up = va_y_up(game->inter->alpha);
 	game->rays->right = va_x_right(game->inter->alpha);
 	if (game->rays->right)
@@ -88,6 +88,17 @@ void	inter_vertical(t_game *game)
 			// else
 			game->inter->vy = game->inter->vx * tan(game->inter->alpha);
 		}
+	}
+}
+
+void	normalize_ang(float *alpha)
+{
+	if (*alpha != 0 && *alpha != M_PI / 2 && *alpha != M_PI && *alpha != 3 * M_PI / 2)
+	{
+		if (*alpha < 0)
+			*alpha = fmod(*alpha, 2 * M_PI) + 2 * M_PI;
+		else if (*alpha > 2 * M_PI)
+			*alpha -= 2 * M_PI;
 	}
 }
 
@@ -154,61 +165,3 @@ void render_ray(t_game *game)
         }
     }
 }
-
-
-// void    initialize_line(t_game *game)
-// {
-//     t_line *line;
-
-//     line = malloc(sizeof(t_line));
-//     line->x = game->pl_x_pix;
-//     line->y = game->pl_y_pix;
-// 	line->x1 = game->inter->hx;
-// 	line->y1 = game->inter->hy;
-//     line->dx = abs(line->x1 - line->x);
-//     line->dy = abs(line->y1 - line->y);
-//     // printf("dx : %d, dy : %d\n", line->dx, line->dy);
-//     line->sx = -1;
-//     if (line->x < line->x1)
-//         line->sx = 1;
-//     line->sy = -1;
-//     if (line->y < game->line->y1)
-//         line->sy = 1;
-//     line->err = (line->dy * -1) / 2;
-//     if (line->dx > line->dy)
-//         line->err = line->dx / 2;
-//     game->line = line;
-// }
-
-// void    render_ray(t_game *game)
-// {
-//     int    e2;
-
-//     e2 = 0;
-//     initialize_line(game);
-//     if (game->line->x < 0 || game->line->y < 0 || game->line->x > SCREEN_WIDTH || game->line->y > SCREEN_HEIGHT)
-//         return ;
-//     while (1)
-//     {
-//         // printf("x === [%d] || y === [%d]\n", game->line->x, game->line->y);
-//         mlx_put_pixel(game->game_win, game->line->x, game->line->y, 0xFF0000FF);
-//         // printf("x_p === [%f] || y_p === [%f]\n", game->player_x_pix, game->player_y_pix);
-//         // printf("rays_x === [%d] || rays_y === [%d]\n", (int)round(game->rays->x), (int)round(game->rays->y));
-//         if (abs(game->line->x - game->line->x1) <= 1 && abs(game->line->y - game->line->y1) <= 1)
-//         {
-//             printf("I'M ABOUT TO BREAK\n");
-//             break ;
-//         }
-//         e2 = game->line->err;
-//         if (e2 > game->line->dy * -1)
-//         {
-//             game->line->err -= game->line->dy;
-//             game->line->x += game->line->sx;
-//         }
-//         if (e2 < game->line->dx)
-//         {
-//             game->line->err += game->line->dx;
-//             game->line->y += game->line->sy;
-//         }
-//     }
-// }

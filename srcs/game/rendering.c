@@ -6,7 +6,7 @@
 /*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 10:42:06 by hmoukit           #+#    #+#             */
-/*   Updated: 2024/12/24 09:47:37 by hmoukit          ###   ########.fr       */
+/*   Updated: 2024/12/24 14:35:18 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,15 +90,16 @@ void	render_rays(t_game *game)
 
 	max_ang = game->pl_inf->rot_angle + deg2rad(FOV / 2.0);
 	game->inter->alpha = game->pl_inf->rot_angle - deg2rad(FOV / 2.0);
-	while (game->inter->alpha < 0)
-	{
-		game->inter->alpha += 2 * M_PI;
-		max_ang += 2 * M_PI;
-	}
-	while (game->inter->alpha > 2 * M_PI)
-		game->inter->alpha -= 2 * M_PI;
+	// while (game->inter->alpha < 0)
+	// {
+	// 	game->inter->alpha = fmod(game->inter->alpha, 2 *  M_PI) + 2 * M_PI;
+	// 	max_ang += 2 * M_PI;
+	// }
+	// while (game->inter->alpha > 2 * M_PI)
+	// 	game->inter->alpha = fmod(game->inter->alpha, 2 *  M_PI) + 2 * M_PI;
 	while (game->inter->alpha <= max_ang)
 	{
+		printf("alpha = {%f} | max_ang = {%f}\n", game->inter->alpha, max_ang);
 		inter_horizontal(game);
 		inter_vertical(game);
 		shortest_distance(game);

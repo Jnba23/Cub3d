@@ -6,7 +6,7 @@
 /*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 13:38:41 by asayad            #+#    #+#             */
-/*   Updated: 2024/12/24 09:47:14 by hmoukit          ###   ########.fr       */
+/*   Updated: 2024/12/24 14:28:19 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,19 +96,6 @@ typedef struct s_ray
 	bool	right;
 } t_ray;
 
-// typedef struct s_line
-// {
-//     int x;
-//     int y;
-// 	int x1;
-// 	int y1;
-//     int dx;
-//     int dy;
-//     int sx;
-//     int sy;
-//     int err;
-// }    t_line;
-
 typedef struct s_inter
 {
 	float	hx;
@@ -123,26 +110,15 @@ typedef	struct s_game
 {
 	mlx_t		*game;
 	mlx_image_t	*game_win;
-	// mlx_image_t	*mmp_win;
 	t_player	*pl_inf;
 	t_map		*map_inf;
 	t_ray		*rays;
 	t_inter		*inter;
 	int			map_pix_h;
 	int			map_pix_w;
-	// t_line		*line;
 	char		**map;
-	// float		scale_factor_x;
-	// float		scale_factor_y;
-	// float		scale;
-	// float		tile_height;
-	// float		tile_width;
-	// float		plane_origin_x;
-	// float		plane_origin_y;
 	float		pl_x_pix;
 	float		pl_y_pix;
-	// float		last_render_x;
-	// float		last_render_y;
 }	t_game;
 
 typedef struct s_coor
@@ -255,5 +231,6 @@ void		render_player(t_game *game);
 void		render_rays(t_game *game);
 void		render_ray(t_game *game);
 void		shortest_distance(t_game *game);
+void		normalize_ang(float *alpha);
 
 #endif

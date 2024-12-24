@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   infile_pars5.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 13:32:07 by asayad            #+#    #+#             */
-/*   Updated: 2024/12/17 09:47:02 by asayad           ###   ########.fr       */
+/*   Updated: 2024/12/24 11:03:01 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int	is_map_element(t_map *map_inf, int x, int y)
 			if (map_inf->player_in)
 				return (0);
 			map_inf->player_in = true;
-			map_inf->player_dir = map[x][y];
+			map_inf->pl_dir = map[x][y];
 			map_inf->p_pos_y = x;
 			map_inf->p_pos_x = y;
 		}

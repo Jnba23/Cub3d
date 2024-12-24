@@ -6,7 +6,7 @@
 /*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 10:41:48 by hmoukit           #+#    #+#             */
-/*   Updated: 2024/12/24 09:47:50 by hmoukit          ###   ########.fr       */
+/*   Updated: 2024/12/24 14:16:15 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	game_struct_init(t_map *map_inf, t_game *game, t_player *pl_inf)
 	game->pl_inf->walk_dir = 0;
 	game->pl_inf->turn_dir = 0;
 	game->pl_inf->rot_angle = 0; // remember to return it to the ORIGINS 
-	game->pl_inf->rot_speed = deg2rad(1);
+	game->pl_inf->rot_speed = 1;
 	game->map_pix_h = TILE_SIZE * game->map_inf->map_height;
 	game->map_pix_w = TILE_SIZE * game->map_inf->map_width;
 	game->pl_x_pix = game->pl_inf->pl_x * TILE_SIZE + TILE_SIZE / 2;
