@@ -6,7 +6,7 @@
 /*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 12:25:49 by hmoukit           #+#    #+#             */
-/*   Updated: 2024/12/24 20:59:09 by hmoukit          ###   ########.fr       */
+/*   Updated: 2024/12/24 21:06:40 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ void	update_map_u_d(t_game *game)
 	float	y;
 	float	p_step;
 
-	p_step = game->pl_inf->walk_dir * 6;
+	p_step = game->pl_inf->walk_dir * PLYR_SPEED;
 	x = p_step * cos(game->pl_inf->rot_angle);
 	y = p_step * sin(game->pl_inf->rot_angle);
 	if (can_move(x, y, game))
@@ -146,12 +146,12 @@ void	render_va(t_game *game, char dir)
 {
 	if(dir == 'L')
 	{
-		game->pl_inf->turn_dir = -1;
+		game->pl_inf->turn_dir = -6;
 		game->pl_inf->rot_angle += game->pl_inf->turn_dir * RAY_ANG;
 	}
 	else if (dir == 'R')
 	{
-		game->pl_inf->turn_dir = 1;
+		game->pl_inf->turn_dir = 6;
 		game->pl_inf->rot_angle += game->pl_inf->turn_dir * RAY_ANG;
 	}
 	if (game->pl_inf->rot_angle < 0)

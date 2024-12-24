@@ -6,7 +6,7 @@
 /*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 10:42:06 by hmoukit           #+#    #+#             */
-/*   Updated: 2024/12/24 20:56:06 by hmoukit          ###   ########.fr       */
+/*   Updated: 2024/12/24 21:03:35 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,10 @@ void	move_player(void *game)
 	if (mlx_is_key_down(gm->game, MLX_KEY_RIGHT))
 		render_va(gm, 'R');
 	if (gm->render)
+	{
 		render_2D_map(gm);
-	gm->render = false;
+		gm->render = false;
+	}
 }
 
 void	render_2D_map(t_game *game)

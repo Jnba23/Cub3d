@@ -6,7 +6,7 @@
 /*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 13:38:41 by asayad            #+#    #+#             */
-/*   Updated: 2024/12/24 20:52:40 by hmoukit          ###   ########.fr       */
+/*   Updated: 2024/12/24 21:08:33 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ typedef struct s_list
 # define MAP_WIDTH (float)(MINI_MAP_RADIUS * 2)
 # define FOV 60
 # define RAY_ANG ((float)FOV / (float)SCREEN_WIDTH)
-# define PLYR_SPEED 1
+# define PLYR_SPEED 7
 
 typedef struct s_map
 {
