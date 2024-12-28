@@ -108,9 +108,6 @@ void	update_map_u_d(t_game *game)
 
 void	render_move(t_game *game, char dir)
 {
-	char	**map;
-	
-	map = game->map;
 	if (dir == 'U' || dir == 'D')
 	{
 		if (dir == 'U')

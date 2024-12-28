@@ -41,6 +41,7 @@ typedef struct s_list
 # define FOV 60
 # define RAY_ANG ((float)FOV / (float)SCREEN_WIDTH)
 # define PLYR_SPEED 4
+# define REV_TILE 1.0 / TILE_SIZE
 # define PI 3.14159
 
 typedef struct s_map

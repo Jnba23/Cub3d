@@ -17,7 +17,8 @@ CC = cc
 
 CFLAGS = -Wall -Werror -Wextra -MMD -I$(INCS) -I$(INCMLX) -g3 -fsanitize=address,undefined
 
-MLX_FLAGS_FW = -L/Users/hmoukit/homebrew/opt/glfw/lib -lglfw -framework Cocoa -framework OpenGL -framework IOKit
+# MLX_FLAGS_FW = -L/Users/hmoukit/homebrew/opt/glfw/lib -lglfw -framework Cocoa -framework OpenGL -framework IOKit //MAC
+MLX_FLAGS_FW = $(MLX) -L/usr/lib/x86_64-linux-gnu/ -ldl -lglfw -pthread -lm -lX11
 
 PARSM = infile_pars.c infile_pars1.c infile_pars2.c infile_pars3.c infile_pars4.c infile_pars5.c pars_utils.c \
 	pars_utils1.c get_next_line.c get_next_line_utils.c
@@ -32,7 +33,7 @@ OBJ_GAME_M = $(GAMEF:.c=.o)
 OBJ_PARS_F = $(addprefix objs/, $(notdir $(OBJ_PARS_M)))
 OBJ_GAME_F = $(addprefix objs/, $(notdir $(OBJ_GAME_M)))
 
-MLX = MLX42/libmlx42.a
+MLX = MLX42/build/libmlx42.a
 
 INCS	= includes
 
@@ -49,7 +50,8 @@ $(MLX):
 	@make -C MLX42 >/dev/null
 
 $(NAME): $(OBJ_PARS_F) $(OBJ_GAME_F)
-	$(CC) $(CFLAGS) $(MLX)  $(MLX_FLAGS_FW) $^ -o $@
+	$(CC) -v $(CFLAGS) -o $@ $^ $(MLX_FLAGS_FW) $(MLX)
+# $(CC) $(CFLAGS) $(MLX)  $(MLX_FLAGS_FW) $^ -o $@ //MAC
 
 objs/%.o: srcs/parssing/%.c
 	mkdir -p objs

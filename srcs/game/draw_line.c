@@ -25,15 +25,25 @@ void render_ray(t_game *game)
     coo.dy = abs(coo.y1 - coo.y0);
     if (coo.x0 < 0 || coo.x0 >= SCREEN_HEIGHT || 
         coo.y0 < 0 || coo.y0 >= SCREEN_HEIGHT)
+    {
         return;
+    }
 	if (coo.x0 < coo.x1)
-    	coo.sx = 1 ;
+    {
+        coo.sx = 1 ;
+    }
 	else
-		coo.sx = -1;
+	{
+        coo.sx = -1;
+    }
 	if (coo.y0 < coo.y1)
-    	coo.sy = 1;
+    {
+        coo.sy = 1;
+    }
 	else
-		coo.sy = -1;
+	{
+        coo.sy = -1;
+    }
     coo.dec_param = coo.dx - coo.dy;
     while (1)
     {

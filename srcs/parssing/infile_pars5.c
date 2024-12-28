@@ -15,11 +15,9 @@
 int	check_nd_fill_map(t_map **map_inf)
 {
 	int		i;
-	int		j;
 	char	**map;
 
 	i = 1;
-	j = 0;
 	map = (*map_inf)->map_2d;
 	while (map[i])
 	{
@@ -121,11 +119,6 @@ void	skip_spaces(char *line, int *i)
 
 int	check_diff_dirs(char **map, int line, int c)
 {
-	int	pre_l;
-	int	next_l;
-
-	pre_l = ft_strlen(map[line - 1]);
-	next_l = ft_strlen(map[line + 1]);
 	if (map[line][c] == '0' || map[line][c] == 'N' || map[line][c] == 'S'
 		|| map[line][c] == 'E' || map[line][c] == 'W')
 	{
