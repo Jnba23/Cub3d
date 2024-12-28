@@ -6,11 +6,34 @@
 /*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 10:42:06 by hmoukit           #+#    #+#             */
-/*   Updated: 2024/12/24 21:03:35 by hmoukit          ###   ########.fr       */
+/*   Updated: 2024/12/28 04:34:02 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
+
+void	render_rays(t_game *game)
+{
+	float	max_ang;
+
+	max_ang = game->pl_inf->rot_angle + deg2rad(FOV / 2.0);
+	game->inter->alpha = game->pl_inf->rot_angle - deg2rad(FOV / 2.0);
+	normalize_ang(&game->inter->alpha, &max_ang);
+	while (game->inter->alpha <= max_ang)
+	{
+		inter_horizontal(game);
+		inter_vertical(game);
+		shortest_distance(game);
+		render_ray(game);
+		game->inter->alpha += deg2rad(RAY_ANG);
+		if (game->inter->alpha > 2 * PI)
+		{
+			game->inter->alpha -= 2 * PI;
+			max_ang -= 2 * PI;
+		}
+	}
+	// reset_mvs_indic(game);
+}
 
 void	move_player(void *game)
 {
@@ -91,42 +114,4 @@ void	render_player(t_game *game)
 		j++;
 	}
 	render_rays(game);
-}
-
-void	render_rays(t_game *game)
-{
-	float	max_ang;
-
-	max_ang = game->pl_inf->rot_angle + deg2rad(FOV / 2.0);
-	game->inter->alpha = game->pl_inf->rot_angle - deg2rad(FOV / 2.0);
-	normalize_ang(&game->inter->alpha, &max_ang);
-	while (game->inter->alpha <= max_ang)
-	{
-		inter_horizontal(game);
-		inter_vertical(game);
-		shortest_distance(game);
-		render_ray(game);
-		game->inter->alpha += deg2rad(RAY_ANG);
-		if (game->inter->alpha >= 2 * M_PI)
-		{
-			game->inter->alpha -= 2 * M_PI;
-			max_ang -= 2 * M_PI;
-		}
-	}
-	reset_mvs_indic(game);
-}
-
-void	normalize_ang(float *alpha, float *max_ang)
-{
-	if (*alpha != 0 && *alpha != M_PI / 2 && *alpha != M_PI
-		&& *alpha != 3 * M_PI / 2)
-	{
-		if (*alpha < 0)
-		{
-			*alpha = fmod(*alpha, 2 * M_PI) + 2 * M_PI;
-			*max_ang += 2 * M_PI;
-		}
-		else if (*alpha > 2 * M_PI)
-			*alpha -= 2 * M_PI;
-	}
 }
