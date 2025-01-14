@@ -6,7 +6,7 @@
 /*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 10:41:48 by hmoukit           #+#    #+#             */
-/*   Updated: 2024/12/28 04:30:17 by hmoukit          ###   ########.fr       */
+/*   Updated: 2025/01/12 14:46:37 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	game_struct_init(t_map *map_inf, t_game **game, t_player *pl_inf)
 	(*game)->pl_inf->pl_dir = map_inf->pl_dir;
 	(*game)->pl_inf->walk_dir = 0;
 	(*game)->pl_inf->turn_dir = 0;
-	(*game)->pl_inf->rot_angle = deg2rad(240);
+	(*game)->pl_inf->rot_angle = deg2rad(270);
 	(*game)->map_pix_h = TILE_SIZE * (*game)->map_inf->map_height;
 	(*game)->map_pix_w = TILE_SIZE * (*game)->map_inf->map_width;
 	(*game)->pl_x_pix = (*game)->pl_inf->pl_x * TILE_SIZE + TILE_SIZE / 2;
@@ -34,6 +34,8 @@ void	game_struct_init(t_map *map_inf, t_game **game, t_player *pl_inf)
 	(*game)->inter->vx = 0.0;
 	(*game)->inter->vy = 0.0;
 	(*game)->render = true;
+	(*game)->d = 0;
+	// (*game)->wall_h = 0;
 }
 
 void	window_init(t_game *game, t_map *map_inf)

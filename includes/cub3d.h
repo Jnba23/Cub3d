@@ -6,7 +6,7 @@
 /*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 13:38:41 by asayad            #+#    #+#             */
-/*   Updated: 2024/12/28 04:33:28 by hmoukit          ###   ########.fr       */
+/*   Updated: 2025/01/13 20:08:58 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,9 @@ typedef struct s_list
 # define FOV 60
 # define RAY_ANG ((float)FOV / (float)SCREEN_WIDTH)
 # define PLYR_SPEED 4
-# define PI 3.14159
+# define REV_TILE 1.0 / TILE_SIZE
+# define PI 3.14
+# define DISTANCE_P SCREEN_WIDTH / (2 * tan(FOV/2)) //
 
 typedef struct s_map
 {
@@ -125,6 +127,7 @@ typedef	struct s_game
 {
 	mlx_t		*game;
 	mlx_image_t	*game_win;
+	mlx_image_t	*mmap_image; // to draw the minimap
 	t_player	*pl_inf;
 	t_map		*map_inf;
 	t_ray		*rays;
@@ -135,6 +138,8 @@ typedef	struct s_game
 	float		pl_x_pix;
 	float		pl_y_pix;
 	bool		render;
+	int			d;
+	int			wall_h;
 }	t_game;
 
 /*			Parssing			*/

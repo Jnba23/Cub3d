@@ -6,7 +6,7 @@
 /*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 16:13:15 by hmoukit           #+#    #+#             */
-/*   Updated: 2024/12/28 04:30:49 by hmoukit          ###   ########.fr       */
+/*   Updated: 2025/01/13 18:21:24 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,13 @@ void	shortest_distance(t_game *game)
 	{
 		game->rays->x = game->pl_x_pix + game->inter->vx;
 		game->rays->y = game->pl_y_pix + game->inter->vy;
+		game->d = d2;
 	}
 	else
 	{
 		game->rays->x = game->pl_x_pix + game->inter->hx;
 		game->rays->y = game->pl_y_pix + game->inter->hy;
+		game->d = d1;
 	}
 }
 
@@ -78,3 +80,65 @@ void	inter_vertical(t_game *game)
 		}
 	}
 }
+
+// void inter_horizontal(t_game *game)
+// {
+//     game->rays->up = va_y_up(game->inter->alpha);
+//     game->rays->right = va_x_right(game->inter->alpha);
+
+//     if (game->rays->up)
+//         game->inter->hy = (game->pl_y_pix - (game->pl_inf->pl_y * TILE_SIZE - 1)) * -1;
+//     else
+//         game->inter->hy = (game->pl_inf->pl_y * TILE_SIZE + TILE_SIZE) - game->pl_y_pix;
+
+//     // Avoid division by zero for vertical rays
+//     if (sin(game->inter->alpha) != 0)
+//         game->inter->hx = game->inter->hy / tan(game->inter->alpha);
+//     else
+//         game->inter->hx = 0;
+
+//     if (valid_ray_intersection(game, game->inter->hx, game->inter->hy))
+//     {
+//         while (valid_ray_intersection(game, game->inter->hx, game->inter->hy))
+//         {
+//             if (game->rays->up)
+//                 game->inter->hy -= TILE_SIZE;
+//             else
+//                 game->inter->hy += TILE_SIZE;
+
+//             if (sin(game->inter->alpha) != 0)
+//                 game->inter->hx = game->inter->hy / tan(game->inter->alpha);
+//         }
+//     }
+// }
+
+// void inter_vertical(t_game *game)
+// {
+//     game->rays->up = va_y_up(game->inter->alpha);
+//     game->rays->right = va_x_right(game->inter->alpha);
+
+//     if (game->rays->right)
+//         game->inter->vx = (game->pl_inf->pl_x * TILE_SIZE + TILE_SIZE) - game->pl_x_pix;
+//     else
+//         game->inter->vx = (game->pl_x_pix - (game->pl_inf->pl_x * TILE_SIZE - 1)) * -1;
+
+//     // Avoid multiplication by zero for horizontal rays
+//     if (cos(game->inter->alpha) != 0)
+//         game->inter->vy = game->inter->vx * tan(game->inter->alpha);
+//     else
+//         game->inter->vy = 0;
+
+//     if (valid_ray_intersection(game, game->inter->vx, game->inter->vy))
+//     {
+//         while (valid_ray_intersection(game, game->inter->vx, game->inter->vy))
+//         {
+//             if (game->rays->right)
+//                 game->inter->vx += TILE_SIZE;
+//             else
+//                 game->inter->vx -= TILE_SIZE;
+
+//             if (cos(game->inter->alpha) != 0)
+//                 game->inter->vy = game->inter->vx * tan(game->inter->alpha);
+//         }
+//     }
+// }

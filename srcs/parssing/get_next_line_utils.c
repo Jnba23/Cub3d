@@ -27,12 +27,10 @@ int	ft_strlen(char *s)
 int	ft_strchr(char *s, char c)
 {
 	int	i;
-	int	l;
 
 	i = 0;
 	if (!s)
 		return (-2);
-	l = ft_strlen(s);
 	while (*(s + i))
 	{
 		if (*(s + i) == c)
