@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rendering.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
+/*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 10:42:06 by hmoukit           #+#    #+#             */
-/*   Updated: 2025/01/13 20:03:56 by hmoukit          ###   ########.fr       */
+/*   Updated: 2025/01/14 18:50:34 by asayad           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,13 @@ void render_wall(t_game *game, int ray)
 	int		top_pix;
     float	angle_beta;
 	
-	angle_beta = game->inter->alpha - game->pl_inf->rot_angle;
+	angle_beta = game->inter->alpha - game->pl_inf->rot_angle; // PI / 2 || 3 * PI / 2
 	game->d *= cos(angle_beta);
+	// if (!cos(angle_beta) || !game->d)
+	// {
+	// 	puts("alloooooooooo");
+	// 	game->d = 1;
+	// }
 	wall_h = ((float)TILE_SIZE / (float)game->d) * ((SCREEN_WIDTH / 2) / tan(deg2rad(FOV / 2)));
 	bott_pix = SCREEN_HEIGHT / 2 + wall_h / 2;
 	if (bott_pix > SCREEN_HEIGHT)
@@ -130,57 +135,57 @@ void	move_player(void *game)
 
 void	render_2D_map(t_game *game)
 {
-	int	x;
-	int	y;
+	// int	x;
+	// int	y;
 
-	y = 0;
-	while (y < game->map_pix_h)
-	{
-		x = 0;
-		while (x < game->map_pix_w)
-		{
-			if (game->map[y / TILE_SIZE][x / TILE_SIZE] == '1')
-			{
-				if (y % TILE_SIZE == 0 || x % TILE_SIZE == 0)
-					mlx_put_pixel(game->game_win, x, y, 0x00000000);
-				else
-					mlx_put_pixel(game->game_win, x, y, 0x000080FF);
-			}
-			else
-			{
-				if (y % TILE_SIZE == 0 || x % TILE_SIZE == 0)
-					mlx_put_pixel(game->game_win, x, y, 0x00000000);
-				else
-					mlx_put_pixel(game->game_win, x, y, 0xFFD700FF);
-			}
-			x++;
-		}
-		y++;
-	}
+	// y = 0;
+	// while (y < game->map_pix_h)
+	// {
+	// 	x = 0;
+	// 	while (x < game->map_pix_w)
+	// 	{
+	// 		if (game->map[y / TILE_SIZE][x / TILE_SIZE] == '1')
+	// 		{
+	// 			if (y % TILE_SIZE == 0 || x % TILE_SIZE == 0)
+	// 				mlx_put_pixel(game->game_win, x, y, 0x00000000);
+	// 			else
+	// 				mlx_put_pixel(game->game_win, x, y, 0x000080FF);
+	// 		}
+	// 		else
+	// 		{
+	// 			if (y % TILE_SIZE == 0 || x % TILE_SIZE == 0)
+	// 				mlx_put_pixel(game->game_win, x, y, 0x00000000);
+	// 			else
+	// 				mlx_put_pixel(game->game_win, x, y, 0xFFD700FF);
+	// 		}
+	// 		x++;
+	// 	}
+	// 	y++;
+	// }
 	render_player(game);
 }
 
 void	render_player(t_game *game)
 {
-    float i;
-    float j;
+    // float i;
+    // float j;
 
-	j = game->pl_inf->pl_y * (float)TILE_SIZE;
-	while(j <= game->pl_inf->pl_y * (float)TILE_SIZE
-		+ fmod(game->pl_y_pix, (float)TILE_SIZE))
-	{
-		i = game->pl_inf->pl_x * (float)TILE_SIZE;
-		while (i <=  game->pl_inf->pl_x
-			* (float)TILE_SIZE + fmod(game->pl_x_pix, (float)TILE_SIZE))
-		{
-			if (i ==  game->pl_inf->pl_x * (float)TILE_SIZE
-				+ fmod(game->pl_x_pix, (float)TILE_SIZE) 
-				&& j == game->pl_inf->pl_y * (float)TILE_SIZE
-				+ fmod(game->pl_y_pix, (float)TILE_SIZE))
-				mlx_put_pixel(game->game_win, i, j, 0xFF0000FF);
-			i++;
-		}
-		j++;
-	}
+	// j = game->pl_inf->pl_y * (float)TILE_SIZE;
+	// while(j <= game->pl_inf->pl_y * (float)TILE_SIZE
+	// 	+ fmod(game->pl_y_pix, (float)TILE_SIZE))
+	// {
+	// 	i = game->pl_inf->pl_x * (float)TILE_SIZE;
+	// 	while (i <=  game->pl_inf->pl_x
+	// 		* (float)TILE_SIZE + fmod(game->pl_x_pix, (float)TILE_SIZE))
+	// 	{
+	// 		if (i ==  game->pl_inf->pl_x * (float)TILE_SIZE
+	// 			+ fmod(game->pl_x_pix, (float)TILE_SIZE) 
+	// 			&& j == game->pl_inf->pl_y * (float)TILE_SIZE
+	// 			+ fmod(game->pl_y_pix, (float)TILE_SIZE))
+	// 			mlx_put_pixel(game->game_win, i, j, 0xFF0000FF);
+	// 		i++;
+	// 	}
+	// 	j++;
+	// }
 	render_rays(game);
 }

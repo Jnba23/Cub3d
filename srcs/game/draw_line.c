@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_line.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
+/*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 16:14:49 by hmoukit           #+#    #+#             */
-/*   Updated: 2025/01/13 20:01:13 by hmoukit          ###   ########.fr       */
+/*   Updated: 2025/01/14 11:17:22 by asayad           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,6 @@ void render_ray(t_game *game)
     coo.dec_param = coo.dx - coo.dy;
     while (1)
     {
-		// if (!can_move(coo.x0, coo.y0, game, 1)) // this make this shit slower 
-		// 	break ;
 		mlx_put_pixel(game->game_win, coo.x0, coo.y0, 0xFF0000FF);
         if (abs(coo.x0 - coo.x1) <= 1 && abs(coo.y0 - coo.y1) <= 1)
             break ;

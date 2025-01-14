@@ -3,47 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   movements.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
+/*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 12:25:49 by hmoukit           #+#    #+#             */
-/*   Updated: 2024/12/28 04:31:23 by hmoukit          ###   ########.fr       */
+/*   Updated: 2025/01/14 18:21:30 by asayad           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
 
-int	can_move(float x, float y, t_game *game, int i)
+int	can_move(float x, float y, t_game *game)
 {
-	float 	a[3][2];
+	float 	a[5][2];
 	int 	j;
 	int		x_coo;
 	int		y_coo;
 
 	j = 0;
-	if (!i)
-	{
-		a[0][0] = y + game->pl_y_pix;
-		a[0][1] = x + game->pl_x_pix;
-		a[1][0] = y + game->pl_y_pix + 1.50f;
-		a[1][1] = x + game->pl_x_pix + 1.50f;
-		a[2][0] = y + game->pl_y_pix - 1.50f;
-		a[2][1] = x + game->pl_x_pix - 1.50f;
-	}
-	else
-	{
-		a[0][0] = y;
-		a[0][1] = x;
-		a[1][0] = y + 1.50f;
-		a[1][1] = x + 1.50f;
-		a[2][0] = y - 1.50f;
-		a[2][1] = x - 1.50f;
-	}
+	a[0][0] = y + game->pl_y_pix;
+	a[0][1] = x + game->pl_x_pix;
+	a[1][0] = y + game->pl_y_pix;
+	a[1][1] = x + game->pl_x_pix + 2.0f;
+	a[2][0] = y + game->pl_y_pix;
+	a[2][1] = x + game->pl_x_pix - 2.0f;
+	a[3][0] = y + game->pl_y_pix + 2.0f;
+	a[3][1] = x + game->pl_x_pix;
+	a[4][0] = y + game->pl_y_pix - 2.0f;
+	a[4][1] = x + game->pl_x_pix;
 	while (j < 3)
 	{
 		y_coo = (int)floor(a[j][0] / TILE_SIZE);
 		x_coo = (int)floor(a[j][1] / TILE_SIZE);
-		if (y_coo < 0 || y_coo > game->map_inf->map_height || x_coo < 0
-			|| x_coo > ft_strlen(game->map[y_coo]))
+		if (y_coo < 0 || y_coo >= game->map_inf->map_height || x_coo < 0
+			|| x_coo >= ft_strlen(game->map[y_coo]))
 			return (0);
 		if (game->map[y_coo][x_coo] == '1')
 			return (0) ;
@@ -65,7 +57,7 @@ void	update_map_l_r(t_game *game)
 		game->pl_inf->rot_angle -= 2 * PI;
 	x = p_step * cos(game->pl_inf->rot_angle - (PI / 2));
 	y = p_step * sin(game->pl_inf->rot_angle - (PI / 2));
-	if (can_move(x, y, game, 0))
+	if (can_move(x, y, game))
 	{
 		game->pl_y_pix += y;
 		game->pl_x_pix += x;
@@ -90,7 +82,7 @@ void	update_map_u_d(t_game *game)
 	p_step = game->pl_inf->walk_dir * PLYR_SPEED;
 	x = p_step * cos(game->pl_inf->rot_angle);
 	y = p_step * sin(game->pl_inf->rot_angle);
-	if (can_move(x, y, game, 0))
+	if (can_move(x, y, game))
 	{
 		game->pl_y_pix += y;
 		game->pl_x_pix += x;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   intersections.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
+/*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 16:13:15 by hmoukit           #+#    #+#             */
-/*   Updated: 2025/01/13 18:21:24 by hmoukit          ###   ########.fr       */
+/*   Updated: 2025/01/14 18:57:56 by asayad           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	shortest_distance(t_game *game)
 {
-	int	d1;
-	int	d2;
+	float	d1;
+	float	d2;
 	
 	d1 = sqrt(square(game->inter->hx) + square(game->inter->hy));
 	d2 = sqrt(square(game->inter->vx) + square(game->inter->vy));
@@ -53,6 +53,8 @@ void	inter_horizontal(t_game *game)
 			else
 				game->inter->hy += TILE_SIZE;
 			game->inter->hx = game->inter->hy / tan(game->inter->alpha);
+			// if (game->inter->alpha > 0 || game->inter->alpha < PI / 2 || game->inter->alpha > PI || game->inter->alpha < 3 * PI / 2)
+			// 	printf("Horiz ray alpha : %f\n", rad2deg(game->inter->alpha));
 		}
 	}
 }
@@ -77,6 +79,8 @@ void	inter_vertical(t_game *game)
 			else
 				game->inter->vx -= TILE_SIZE;
 			game->inter->vy = game->inter->vx * tan(game->inter->alpha);
+			// if (game->inter->alpha > 0 || game->inter->alpha < PI / 2 || game->inter->alpha > PI || game->inter->alpha < 3 * PI / 2)
+			// 	printf("Verti ray alpha : %f\n", rad2deg(game->inter->alpha));
 		}
 	}
 }

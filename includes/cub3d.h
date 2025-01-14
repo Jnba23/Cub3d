@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
+/*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 13:38:41 by asayad            #+#    #+#             */
-/*   Updated: 2025/01/13 20:08:58 by hmoukit          ###   ########.fr       */
+/*   Updated: 2025/01/14 18:49:27 by asayad           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,18 +32,18 @@ typedef struct s_list
 	struct s_list	*next;
 }	t_list;
 
-# define SCREEN_WIDTH 2000
-# define SCREEN_HEIGHT 2000
+# define SCREEN_WIDTH 1200
+# define SCREEN_HEIGHT 1200
 # define TILE_SIZE	64
 # define MINI_MAP_RADIUS ((float)(SCREEN_WIDTH * 0.08))
 # define MAP_HEIGHT (float)(MINI_MAP_RADIUS * 2)
 # define MAP_WIDTH (float)(MINI_MAP_RADIUS * 2)
 # define FOV 60
-# define RAY_ANG ((float)FOV / (float)SCREEN_WIDTH)
+# define RAY_ANG (float)((float)FOV / (float)SCREEN_WIDTH)
 # define PLYR_SPEED 4
-# define REV_TILE 1.0 / TILE_SIZE
+# define REV_TILE (float)(1.0 / TILE_SIZE)
 # define PI 3.14
-# define DISTANCE_P SCREEN_WIDTH / (2 * tan(FOV/2)) //
+# define DISTANCE_P (float)(SCREEN_WIDTH / (2 * tan(FOV/2)))
 
 typedef struct s_map
 {
@@ -138,7 +138,7 @@ typedef	struct s_game
 	float		pl_x_pix;
 	float		pl_y_pix;
 	bool		render;
-	int			d;
+	float		d;
 	int			wall_h;
 }	t_game;
 
@@ -192,13 +192,13 @@ int			start_game(t_map *map_inf);
 // void		reset_mvs_indic(t_game *game);
 
 /*			utils		*/
-double		deg2rad(double angle_deg);
+float		deg2rad(float angle_deg);
 float		square(float i);
 void		move_player(void *game);
 void		update_map_u_d(t_game *game);
 void		update_map_l_r(t_game *game);
 void		render_va(t_game *game, char dir);
-double		rad2deg(double angle_rad);
+float		rad2deg(float angle_rad);
 bool		valid_ray_intersection(t_game *game, float hx, float hy);
 // void		reset_mvs_indic(t_game *game);
 
@@ -213,7 +213,7 @@ void		inter_vertical(t_game *game);
 bool		valid_ray_intersection(t_game *game, float hx, float hy);
 
 // movements
-int			can_move(float x, float y, t_game *game, int i);
+int			can_move(float x, float y, t_game *game);
 void		update_map_l_r(t_game *game);
 void		render_move(t_game *game, char dir);
 void		render_va(t_game *game, char dir);
