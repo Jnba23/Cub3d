@@ -6,7 +6,7 @@
 /*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 13:38:41 by asayad            #+#    #+#             */
-/*   Updated: 2025/01/14 18:49:27 by asayad           ###   ########.fr       */
+/*   Updated: 2025/01/16 11:43:39 by asayad           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,9 +89,18 @@ typedef	struct s_player
 	float		rot_speed;
 }	t_player;
 
+typedef struct s_inter
+{
+	float	hx;
+	float	hy;
+	float	vx;
+	float	vy;
+}	t_inter;
 
 typedef struct s_ray
 {
+	t_inter	*inter;
+	float	alpha;
 	float	x;
 	float	y;
 	float	ray_lenght;
@@ -99,16 +108,9 @@ typedef struct s_ray
 	bool	hit_door;
 	bool	up;
 	bool	right;
+	float	d;
 } t_ray;
 
-typedef struct s_inter
-{
-	float	hx;
-	float	hy;
-	float	vx;
-	float	vy;
-	float	alpha;
-}	t_inter;
 
 typedef struct s_coor
 {
@@ -131,14 +133,12 @@ typedef	struct s_game
 	t_player	*pl_inf;
 	t_map		*map_inf;
 	t_ray		*rays;
-	t_inter		*inter;
 	int			map_pix_h;
 	int			map_pix_w;
 	char		**map;
 	float		pl_x_pix;
 	float		pl_y_pix;
 	bool		render;
-	float		d;
 	int			wall_h;
 }	t_game;
 
@@ -208,8 +208,8 @@ void		game_struct_init(t_map *map_inf, t_game **game, t_player *pl_inf);
 // intersections
 int			va_y_up(float va);
 int			va_x_right(float va);
-void		inter_horizontal(t_game *game);
-void		inter_vertical(t_game *game);
+void		inter_horizontal(t_game *game, int ray);
+void		inter_vertical(t_game *game, int ray);
 bool		valid_ray_intersection(t_game *game, float hx, float hy);
 
 // movements
@@ -221,9 +221,11 @@ void		render_va(t_game *game, char dir);
 // rendering
 void		render_2D_map(t_game *game);
 void		render_player(t_game *game);
-void		render_rays(t_game *game);
-void		render_ray(t_game *game);
-void		shortest_distance(t_game *game);
+void		ray_casting(t_game *game);
+void		render_ray(t_game *game, int i);
+void		render_3D(t_game *game);
+void		draw_wall(int i, t_game *game, int bott_pix, int top_pix);
+void		shortest_distance(t_game *game, int ray);
 void		normalize_ang(float *alpha, float *max_ang);
 
 #endif

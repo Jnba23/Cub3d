@@ -6,21 +6,21 @@
 /*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 16:14:49 by hmoukit           #+#    #+#             */
-/*   Updated: 2025/01/14 11:17:22 by asayad           ###   ########.fr       */
+/*   Updated: 2025/01/16 10:36:04 by asayad           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
 
-void render_ray(t_game *game)
+void render_ray(t_game *game, int ray)
 {
     t_coor	coo;
     int		d_p;
 
     coo.x0 = (int)game->pl_x_pix;
     coo.y0 = (int)game->pl_y_pix;
-    coo.x1 = game->rays->x;
-    coo.y1 = game->rays->y;
+    coo.x1 = game->rays[ray].x;
+    coo.y1 = game->rays[ray].y;
     coo.dx = abs(coo.x1 - coo.x0);
     coo.dy = abs(coo.y1 - coo.y0);
     if (coo.x0 < 0 || coo.x0 >= SCREEN_HEIGHT || 

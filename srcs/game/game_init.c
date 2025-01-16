@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_init.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
+/*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 10:41:48 by hmoukit           #+#    #+#             */
-/*   Updated: 2025/01/12 14:46:37 by hmoukit          ###   ########.fr       */
+/*   Updated: 2025/01/16 11:27:07 by asayad           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,13 @@
 
 void	game_struct_init(t_map *map_inf, t_game **game, t_player *pl_inf)
 {
+	int	i;
+
+	i = -1;
 	(*game) = malloc(sizeof(t_game));
+	(*game)->rays = malloc(sizeof(t_ray) * SCREEN_WIDTH);
+	while (++i < SCREEN_WIDTH)
+		(*game)->rays[i].inter = malloc(sizeof(t_inter));
 	(*game)->map = map_inf->map_2d;
 	(*game)->map_inf = map_inf;
 	(*game)->pl_inf = pl_inf;
@@ -28,14 +34,16 @@ void	game_struct_init(t_map *map_inf, t_game **game, t_player *pl_inf)
 	(*game)->map_pix_w = TILE_SIZE * (*game)->map_inf->map_width;
 	(*game)->pl_x_pix = (*game)->pl_inf->pl_x * TILE_SIZE + TILE_SIZE / 2;
 	(*game)->pl_y_pix = (*game)->pl_inf->pl_y * TILE_SIZE + TILE_SIZE / 2;
-	(*game)->inter = malloc(sizeof(t_inter));
-	(*game)->inter->hx = 0.0;
-	(*game)->inter->hy = 0.0;
-	(*game)->inter->vx = 0.0;
-	(*game)->inter->vy = 0.0;
+	i = -1;
+	while(++i < SCREEN_WIDTH)
+	{
+		(*game)->rays[i].inter->hx = 0.0;
+		(*game)->rays[i].inter->hy = 0.0;
+		(*game)->rays[i].inter->vx = 0.0;
+		(*game)->rays[i].inter->vy = 0.0;
+		(*game)->rays[i].d = 0;
+	}
 	(*game)->render = true;
-	(*game)->d = 0;
-	// (*game)->wall_h = 0;
 }
 
 void	window_init(t_game *game, t_map *map_inf)
