@@ -6,15 +6,15 @@
 /*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 12:25:49 by hmoukit           #+#    #+#             */
-/*   Updated: 2025/01/14 18:21:30 by asayad           ###   ########.fr       */
+/*   Updated: 2025/01/18 21:25:12 by asayad           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
 
-int	can_move(float x, float y, t_game *game)
+int	can_move(double x, double y, t_game *game)
 {
-	float 	a[5][2];
+	double 	a[5][2];
 	int 	j;
 	int		x_coo;
 	int		y_coo;
@@ -46,9 +46,9 @@ int	can_move(float x, float y, t_game *game)
 
 void	update_map_l_r(t_game *game)
 {
-	float	x;
-	float	y;
-	float	p_step;
+	double	x;
+	double	y;
+	double	p_step;
 
 	p_step = game->pl_inf->turn_dir * PLYR_SPEED;
 	if (game->pl_inf->rot_angle < 0)
@@ -75,9 +75,9 @@ void	update_map_l_r(t_game *game)
 
 void	update_map_u_d(t_game *game)
 {
-	float	x;
-	float	y;
-	float	p_step;
+	double	x;
+	double	y;
+	double	p_step;
 
 	p_step = game->pl_inf->walk_dir * PLYR_SPEED;
 	x = p_step * cos(game->pl_inf->rot_angle);

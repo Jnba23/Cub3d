@@ -6,7 +6,7 @@
 /*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 13:38:41 by asayad            #+#    #+#             */
-/*   Updated: 2025/01/14 18:49:27 by asayad           ###   ########.fr       */
+/*   Updated: 2025/01/18 23:37:15 by asayad           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,17 +33,18 @@ typedef struct s_list
 }	t_list;
 
 # define SCREEN_WIDTH 1200
-# define SCREEN_HEIGHT 1200
+# define SCREEN_HEIGHT 1000
 # define TILE_SIZE	64
-# define MINI_MAP_RADIUS ((float)(SCREEN_WIDTH * 0.08))
-# define MAP_HEIGHT (float)(MINI_MAP_RADIUS * 2)
-# define MAP_WIDTH (float)(MINI_MAP_RADIUS * 2)
+# define MINI_MAP_RADIUS ((double)(SCREEN_WIDTH * 0.08))
+# define MAP_HEIGHT (double)(MINI_MAP_RADIUS * 2)
+# define MAP_WIDTH (double)(MINI_MAP_RADIUS * 2)
 # define FOV 60
-# define RAY_ANG (float)((float)FOV / (float)SCREEN_WIDTH)
+# define RAY_ANG (double)((double)FOV / (double)SCREEN_WIDTH)
 # define PLYR_SPEED 4
-# define REV_TILE (float)(1.0 / TILE_SIZE)
+# define REV_TILE (double)(1.0 / TILE_SIZE)
 # define PI 3.14
-# define DISTANCE_P (float)(SCREEN_WIDTH / (2 * tan(FOV/2)))
+# define DISTANCE_P (double)(SCREEN_WIDTH / (2 * tan(FOV/2)))
+# define EPSILON 0.000001
 
 typedef struct s_map
 {
@@ -85,29 +86,30 @@ typedef	struct s_player
 	int			walk_dir;
 	int			turn_dir;
 	char		pl_dir;
-	float		rot_angle;
-	float		rot_speed;
+	double		rot_angle;
+	double		rot_speed;
 }	t_player;
 
 
 typedef struct s_ray
 {
-	float	x;
-	float	y;
-	float	ray_lenght;
+	double	x;
+	double	y;
+	double	ray_lenght;
 	bool	horiz;
 	bool	hit_door;
 	bool	up;
 	bool	right;
+	double	d;
 } t_ray;
 
 typedef struct s_inter
 {
-	float	hx;
-	float	hy;
-	float	vx;
-	float	vy;
-	float	alpha;
+	double	hx;
+	double	hy;
+	double	vx;
+	double	vy;
+	double	alpha;
 }	t_inter;
 
 typedef struct s_coor
@@ -126,7 +128,7 @@ typedef struct s_coor
 typedef	struct s_game
 {
 	mlx_t		*game;
-	mlx_image_t	*game_win;
+	mlx_image_t	*game_img;
 	mlx_image_t	*mmap_image; // to draw the minimap
 	t_player	*pl_inf;
 	t_map		*map_inf;
@@ -135,11 +137,11 @@ typedef	struct s_game
 	int			map_pix_h;
 	int			map_pix_w;
 	char		**map;
-	float		pl_x_pix;
-	float		pl_y_pix;
+	double		pl_x_pix;
+	double		pl_y_pix;
 	bool		render;
-	float		d;
 	int			wall_h;
+	double		ray_ang;
 }	t_game;
 
 /*			Parssing			*/
@@ -192,28 +194,28 @@ int			start_game(t_map *map_inf);
 // void		reset_mvs_indic(t_game *game);
 
 /*			utils		*/
-float		deg2rad(float angle_deg);
-float		square(float i);
-void		move_player(void *game);
+double		deg2rad(double angle_deg);
+double		square(double i);
+void		cube3d(void *game);
 void		update_map_u_d(t_game *game);
 void		update_map_l_r(t_game *game);
 void		render_va(t_game *game, char dir);
-float		rad2deg(float angle_rad);
-bool		valid_ray_intersection(t_game *game, float hx, float hy);
+double		rad2deg(double angle_rad);
+bool		valid_ray_intersection(t_game *game, double hx, double hy);
 // void		reset_mvs_indic(t_game *game);
 
 // initializing
 void		game_struct_init(t_map *map_inf, t_game **game, t_player *pl_inf);
 
 // intersections
-int			va_y_up(float va);
-int			va_x_right(float va);
-void		inter_horizontal(t_game *game);
-void		inter_vertical(t_game *game);
-bool		valid_ray_intersection(t_game *game, float hx, float hy);
+int			va_y_up(double va);
+int			va_x_right(double va);
+void		inter_horizontal(t_game *game, int ray);
+void		inter_vertical(t_game *game, int ray);
+bool		valid_ray_intersection(t_game *game, double hx, double hy);
 
 // movements
-int			can_move(float x, float y, t_game *game);
+int			can_move(double x, double y, t_game *game);
 void		update_map_l_r(t_game *game);
 void		render_move(t_game *game, char dir);
 void		render_va(t_game *game, char dir);
@@ -221,9 +223,11 @@ void		render_va(t_game *game, char dir);
 // rendering
 void		render_2D_map(t_game *game);
 void		render_player(t_game *game);
-void		render_rays(t_game *game);
-void		render_ray(t_game *game);
-void		shortest_distance(t_game *game);
-void		normalize_ang(float *alpha, float *max_ang);
+void		cast_rays(t_game *game);
+void		render_ray(t_game *game, int ray);
+void		shortest_distance(t_game *game, int ray);
+void		normalize_ang(double *alpha);
+void		render_3D_game(t_game *game);
+void		draw_wall(int i, t_game *game, int bott_pix, int top_pix);
 
 #endif
