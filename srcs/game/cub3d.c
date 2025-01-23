@@ -6,7 +6,7 @@
 /*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 10:42:54 by hmoukit           #+#    #+#             */
-/*   Updated: 2025/01/18 23:24:05 by asayad           ###   ########.fr       */
+/*   Updated: 2025/01/23 20:13:55 by asayad           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int	start_game(t_map *map_inf)
 	game_struct_init(map_inf, &game, &player_inf);
 	window_init(game, map_inf);
 	mlx_loop_hook(game->game, cube3d, (void *)game);
+	init_textures(game);
 	mlx_loop(game->game);
 	return (0);
 }

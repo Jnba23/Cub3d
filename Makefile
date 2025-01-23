@@ -15,7 +15,7 @@ RESET	= \033[0m
 
 CC = cc
 
-CFLAGS = -Wall -Werror -Wextra -MMD -I$(INCS) -I$(INCMLX) -g3 -Ofast -fsanitize=address,undefined
+CFLAGS = -Wall -Werror -Wextra -MMD -I$(INCS) -I$(INCMLX) -g3 -Ofast #-fsanitize=address,undefined
 
 MLX_FLAGS_FW = -L/Users/asayad/.brew/opt/glfw/lib -lglfw -framework Cocoa -framework OpenGL -framework IOKit
 # MLX_FLAGS_FW = -L/Users/hmoukit/homebrew/opt/glfw/lib -lglfw -framework Cocoa -framework OpenGL -framework IOKit

@@ -6,7 +6,7 @@
 /*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 10:42:06 by hmoukit           #+#    #+#             */
-/*   Updated: 2025/01/23 17:39:00 by asayad           ###   ########.fr       */
+/*   Updated: 2025/01/23 22:08:48 by asayad           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,13 @@ void	cube3d(void *game)
 		gm->render = false;
 	}
 }
+
 void	render_2D_map(t_game *game)
 {
 	t_mmap	m_map;
 
-	m_map.diameter = MINI_MAP_RADIUS * 2.0;
-	m_map.scale = m_map.diameter / (8 * TILE_SIZE);
+	m_map.diameter = MMAP_DIAMETER;
+	m_map.scale = SCALE;
 	m_map.gm_x0 = game->pl_x_pix - (MINI_MAP_RADIUS / m_map.scale);
 	m_map.gm_y0 = game->pl_y_pix - (MINI_MAP_RADIUS / m_map.scale);
 	m_map.img_y = -1.0;
@@ -87,7 +88,7 @@ void	mmap_cnst(t_game *game, t_mmap *m_map)
 	mlx_resize_image(m_map->n, 40, 40);
 	mlx_image_to_window(game->game, m_map->n, MINI_MAP_RADIUS - 20, 0);
 	draw_player(game);
-	render_ray(game);
+	// render_ray(game);
 }
 
 void	draw_player(t_game *game)
@@ -102,7 +103,7 @@ void	draw_player(t_game *game)
 		while (++y <= 2)
 		{
 			if (pow(x, 2) + pow(y, 2) <= 4)
-				mlx_put_pixel(game->mmap_image, MINI_MAP_RADIUS + x, MINI_MAP_RADIUS + y, 0x000000FF);
+				mlx_put_pixel(game->mmap_image, MINI_MAP_RADIUS + x, MINI_MAP_RADIUS + y, 0xFF0000FF);
 		}
 	}
 }

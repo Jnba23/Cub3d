@@ -6,7 +6,7 @@
 /*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 22:20:42 by asayad            #+#    #+#             */
-/*   Updated: 2025/01/23 18:04:35 by asayad           ###   ########.fr       */
+/*   Updated: 2025/01/23 20:30:49 by asayad           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ void render_3D_game(t_game *game)
 		draw_ceiling_floor(i, game, game->rays[i].bott_pix, game->rays[i].top_pix);
 		if (!draw_textured_wall(game, i))
 			printf("draw_textured_wall returned 0\n");
-		// draw_wall(i, game, game->rays[i].bott_pix, game->rays[i].top_pix);
 		game->inter->alpha += game->ray_ang;
 	}
 }

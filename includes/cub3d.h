@@ -6,7 +6,7 @@
 /*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 13:38:41 by asayad            #+#    #+#             */
-/*   Updated: 2025/01/23 18:05:28 by asayad           ###   ########.fr       */
+/*   Updated: 2025/01/23 20:38:07 by asayad           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,14 @@ typedef struct s_list
 # define SCREEN_WIDTH 1200
 # define SCREEN_HEIGHT 1000
 # define TILE_SIZE	64
-# define MINI_MAP_RADIUS ((float)(SCREEN_WIDTH * 0.08))
+# define MINI_MAP_RADIUS ((float)(SCREEN_WIDTH * 0.08))  
+# define MMAP_DIAMETER MINI_MAP_RADIUS * 2
+# define SCALE (float)(MMAP_DIAMETER / (8 * TILE_SIZE))
 # define RADIUS_SQUARE (float)(MINI_MAP_RADIUS * MINI_MAP_RADIUS)
 # define STRIP_RADIUS_SQUARE (float)((MINI_MAP_RADIUS - 10.0) * (MINI_MAP_RADIUS - 10.0))
 # define FOV 60	
 # define RAY_ANG (float)((float)FOV / (float)SCREEN_WIDTH)
-# define PLYR_SPEED 4
+# define PLYR_SPEED 10
 # define REV_TILE (float)(1.0 / (float)TILE_SIZE)
 # define PI 3.14
 # define DISTANCE_P (float)(SCREEN_WIDTH / (2 * tan(FOV/2)))
