@@ -6,15 +6,15 @@
 /*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 12:25:49 by hmoukit           #+#    #+#             */
-/*   Updated: 2025/01/18 21:25:12 by asayad           ###   ########.fr       */
+/*   Updated: 2025/01/23 17:06:47 by asayad           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
 
-int	can_move(double x, double y, t_game *game)
+int	can_move(float x, float y, t_game *game)
 {
-	double 	a[5][2];
+	float 	a[3][2];
 	int 	j;
 	int		x_coo;
 	int		y_coo;
@@ -22,14 +22,10 @@ int	can_move(double x, double y, t_game *game)
 	j = 0;
 	a[0][0] = y + game->pl_y_pix;
 	a[0][1] = x + game->pl_x_pix;
-	a[1][0] = y + game->pl_y_pix;
-	a[1][1] = x + game->pl_x_pix + 2.0f;
-	a[2][0] = y + game->pl_y_pix;
-	a[2][1] = x + game->pl_x_pix - 2.0f;
-	a[3][0] = y + game->pl_y_pix + 2.0f;
-	a[3][1] = x + game->pl_x_pix;
-	a[4][0] = y + game->pl_y_pix - 2.0f;
-	a[4][1] = x + game->pl_x_pix;
+	a[1][0] = y + game->pl_y_pix + 0.001f;
+	a[1][1] = x + game->pl_x_pix + 0.001f;
+	a[2][0] = y + game->pl_y_pix - 0.001f;
+	a[2][1] = x + game->pl_x_pix - 0.001f;
 	while (j < 3)
 	{
 		y_coo = (int)floor(a[j][0] / TILE_SIZE);
@@ -44,11 +40,32 @@ int	can_move(double x, double y, t_game *game)
 	return (1);
 }
 
+void	render_move(t_game *game, char dir)
+{
+	if (dir == 'U' || dir == 'D')
+	{
+		if (dir == 'U')
+			game->pl_inf->walk_dir = 1;
+		else
+			game->pl_inf->walk_dir = -1;
+		update_map_u_d(game);
+	}
+	if (dir == 'L' || dir == 'R')
+	{
+		if (dir == 'L')
+			game->pl_inf->turn_dir = 1;
+		else
+			game->pl_inf->turn_dir = -1;
+		update_map_l_r(game);
+	}
+	game->render = true;
+}
+
 void	update_map_l_r(t_game *game)
 {
-	double	x;
-	double	y;
-	double	p_step;
+	float	x;
+	float	y;
+	float	p_step;
 
 	p_step = game->pl_inf->turn_dir * PLYR_SPEED;
 	if (game->pl_inf->rot_angle < 0)
@@ -75,9 +92,9 @@ void	update_map_l_r(t_game *game)
 
 void	update_map_u_d(t_game *game)
 {
-	double	x;
-	double	y;
-	double	p_step;
+	float	x;
+	float	y;
+	float	p_step;
 
 	p_step = game->pl_inf->walk_dir * PLYR_SPEED;
 	x = p_step * cos(game->pl_inf->rot_angle);
@@ -96,27 +113,6 @@ void	update_map_u_d(t_game *game)
 			game->pl_inf->pl_dir;
 		}
 	}
-}
-
-void	render_move(t_game *game, char dir)
-{
-	if (dir == 'U' || dir == 'D')
-	{
-		if (dir == 'U')
-			game->pl_inf->walk_dir = 1;
-		else
-			game->pl_inf->walk_dir = -1;
-		update_map_u_d(game);
-	}
-	if (dir == 'L' || dir == 'R')
-	{
-		if (dir == 'L')
-			game->pl_inf->turn_dir = 1;
-		else
-			game->pl_inf->turn_dir = -1;
-		update_map_l_r(game);
-	}
-	game->render = true;
 }
 
 void	render_va(t_game *game, char dir)

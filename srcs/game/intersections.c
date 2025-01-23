@@ -6,7 +6,7 @@
 /*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 16:13:15 by hmoukit           #+#    #+#             */
-/*   Updated: 2025/01/18 23:44:12 by asayad           ###   ########.fr       */
+/*   Updated: 2025/01/23 14:48:56 by asayad           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,25 @@
 
 void shortest_distance(t_game *game, int ray)
 {
-    double d1;
-    double d2;
-    
-    d1 = sqrt(square(game->inter->hx) + square(game->inter->hy));
-    d2 = sqrt(square(game->inter->vx) + square(game->inter->vy));
-    if (d1 > d2)
-    {
-        game->rays[ray].horiz = true;
-        game->rays[ray].x = game->pl_x_pix + game->inter->vx;
-        game->rays[ray].y = game->pl_y_pix + game->inter->vy;
-        game->rays[ray].d = d2;
-    }
-    else
-    {
-        game->rays[ray].horiz = false;
-        game->rays[ray].x = game->pl_x_pix + game->inter->hx;
-        game->rays[ray].y = game->pl_y_pix + game->inter->hy;
-        game->rays[ray].d = d1;
-    }
+	float d1;
+	float d2;
+	
+	d1 = sqrt(square(game->inter->hx) + square(game->inter->hy));
+	d2 = sqrt(square(game->inter->vx) + square(game->inter->vy));
+	if (d1 > d2)
+	{
+		game->rays[ray].horiz = true;
+		game->rays[ray].x = game->pl_x_pix + game->inter->vx;
+		game->rays[ray].y = game->pl_y_pix + game->inter->vy;
+		game->rays[ray].d = d2;
+	}
+	else
+	{
+		game->rays[ray].horiz = false;
+		game->rays[ray].x = game->pl_x_pix + game->inter->hx;
+		game->rays[ray].y = game->pl_y_pix + game->inter->hy;
+		game->rays[ray].d = d1;
+	}
 }
 
 void	inter_horizontal(t_game *game, int ray)
@@ -40,7 +40,7 @@ void	inter_horizontal(t_game *game, int ray)
 	game->rays[ray].up = va_y_up(game->inter->alpha);
 	game->rays[ray].right = va_x_right(game->inter->alpha);
 	if (game->rays[ray].up)
-		game->inter->hy = (game->pl_y_pix - (floor(game->pl_y_pix / TILE_SIZE) * TILE_SIZE)) * -1 + EPSILON;
+		game->inter->hy = (game->pl_y_pix - (floor(game->pl_y_pix / TILE_SIZE) * TILE_SIZE)) * - 1 + EPSILON;
 	else
 		game->inter->hy = floor(game->pl_y_pix / TILE_SIZE) * TILE_SIZE - game->pl_y_pix + TILE_SIZE;
 	game->inter->hx = (game->inter->hy / tan(game->inter->alpha));

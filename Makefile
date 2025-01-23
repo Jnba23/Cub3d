@@ -15,14 +15,15 @@ RESET	= \033[0m
 
 CC = cc
 
-CFLAGS = -Wall -Werror -Wextra -MMD -I$(INCS) -I$(INCMLX) -g3 -fsanitize=address,undefined
+CFLAGS = -Wall -Werror -Wextra -MMD -I$(INCS) -I$(INCMLX) -g3 -Ofast -fsanitize=address,undefined
 
 MLX_FLAGS_FW = -L/Users/asayad/.brew/opt/glfw/lib -lglfw -framework Cocoa -framework OpenGL -framework IOKit
 # MLX_FLAGS_FW = -L/Users/hmoukit/homebrew/opt/glfw/lib -lglfw -framework Cocoa -framework OpenGL -framework IOKit
 
 PARSM = infile_pars.c infile_pars1.c infile_pars2.c infile_pars3.c infile_pars4.c infile_pars5.c pars_utils.c \
 	pars_utils1.c get_next_line.c get_next_line_utils.c
-GAMEM = game_init.c utils.c utils_2.c ray_casting.c cub3d.c rendering_2D.c rendering_3D.c movements.c intersections.c draw_line.c
+GAMEM = game_init.c utils.c utils_2.c ray_casting.c cub3d.c rendering_2D.c rendering_3D.c movements.c intersections.c draw_line.c \
+		textures.c
 
 PARSF = $(addprefix srcs/parssing/, $(PARSM))
 GAMEF = $(addprefix srcs/game/, $(GAMEM))

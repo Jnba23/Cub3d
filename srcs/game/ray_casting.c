@@ -6,7 +6,7 @@
 /*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 10:42:03 by hmoukit           #+#    #+#             */
-/*   Updated: 2025/01/18 23:39:39 by asayad           ###   ########.fr       */
+/*   Updated: 2025/01/23 17:46:21 by asayad           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	cast_rays(t_game *game)
 		inter_horizontal(game, ray);
 		inter_vertical(game, ray);
 		shortest_distance(game, ray);
-		// render_ray(game, ray);
 		game->inter->alpha += game->ray_ang;
 		normalize_ang(&game->inter->alpha);
 	}

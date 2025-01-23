@@ -1,7 +1,10 @@
 {
 	"files.associations": {
+		".cub": "cpp",
 		"cub3d.h": "c",
 		"stdbool.h": "c",
-		"get_next_line.h": "c"
+		"get_next_line.h": "c",
+		"chrono": "c",
+		"complex": "c"
 	}
 }

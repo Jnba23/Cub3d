@@ -6,7 +6,7 @@
 /*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 11:59:02 by asayad            #+#    #+#             */
-/*   Updated: 2024/11/20 20:41:22 by asayad           ###   ########.fr       */
+/*   Updated: 2025/01/22 14:17:21 by asayad           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,16 +42,16 @@ int	check_fst_line(t_list *l)
 			ft_putendl_fd("Invalid map !", 2);
 			return (0);
 		}
-		else if (((char *)(l->content))[i] == '1')
-		{
-			if (!check_rest_of_line(((char *)(l->content)) + i, l))
-			{
-				ft_putendl_fd("Invalid map !", 2);
-				return (0);
-			}
-			else
-				break ;
-		}
+		// else if (((char *)(l->content))[i] == '1')
+		// {
+		// 	if (!check_rest_of_line(((char *)(l->content)) + i, l))
+		// 	{
+		// 		ft_putendl_fd("Invalid map !", 2);
+		// 		return (0);
+		// 	}
+		// 	else
+		// 		break ;
+		// }
 		i++;
 	}
 	return (1);
