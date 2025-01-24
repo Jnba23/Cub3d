@@ -88,22 +88,22 @@ void	mmap_cnst(t_game *game, t_mmap *m_map)
 	mlx_resize_image(m_map->n, 40, 40);
 	mlx_image_to_window(game->game, m_map->n, MINI_MAP_RADIUS - 20, 0);
 	draw_player(game);
-	// render_ray(game);
 }
 
 void	draw_player(t_game *game)
 {
-	int x;
-	int y;
+	float	start_ang;
+	float	end_ang;
+	t_coor	coo;
 	
-	x = -3;
-	while (++x <= 2)
+	start_ang = game->pl_inf->rot_angle - deg2rad(FOV / 2);
+	end_ang = game->pl_inf->rot_angle + deg2rad(FOV / 2);
+	coo.x1 = -3;
+	while (start_ang <= end_ang)
 	{
-		y = -3;
-		while (++y <= 2)
-		{
-			if (pow(x, 2) + pow(y, 2) <= 4)
-				mlx_put_pixel(game->mmap_image, MINI_MAP_RADIUS + x, MINI_MAP_RADIUS + y, 0xFF0000FF);
-		}
+		coo.x1 = (int)(cos(start_ang) * 15) + MINI_MAP_RADIUS;
+		coo.y1 = (int)(sin(start_ang) * 15) + MINI_MAP_RADIUS;
+		render_ray(game, &coo);
+		start_ang += deg2rad(RAY_ANG);
 	}
 }

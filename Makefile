@@ -15,10 +15,11 @@ RESET	= \033[0m
 
 CC = cc
 
-CFLAGS = -Wall -Werror -Wextra -MMD -I$(INCS) -I$(INCMLX) -g3 -Ofast #-fsanitize=address,undefined
+CFLAGS = -Wall -Werror -Wextra -MMD -I$(INCS) -I$(INCMLX) -g3 -Ofast -fsanitize=address,undefined
 
-MLX_FLAGS_FW = -L/Users/asayad/.brew/opt/glfw/lib -lglfw -framework Cocoa -framework OpenGL -framework IOKit
-# MLX_FLAGS_FW = -L/Users/hmoukit/homebrew/opt/glfw/lib -lglfw -framework Cocoa -framework OpenGL -framework IOKit
+MLX_FLAGS_FW = -L/Users/asayad/.brew/opt/glfw/lib -lglfw -lm #linux_wadoud
+# MLX_FLAGS_FW = -L/Users/asayad/.brew/opt/glfw/lib -lglfw -lm -framework Cocoa -framework OpenGL -framework IOKit #MAC-Wadoud
+# MLX_FLAGS_FW = -L/Users/hmoukit/homebrew/opt/glfw/lib -lglfw -framework Cocoa -framework OpenGL -framework IOKit #MAC-Hajar
 
 PARSM = infile_pars.c infile_pars1.c infile_pars2.c infile_pars3.c infile_pars4.c infile_pars5.c pars_utils.c \
 	pars_utils1.c get_next_line.c get_next_line_utils.c
@@ -51,7 +52,8 @@ $(MLX):
 	@make -C MLX42/cmake >/dev/null
 
 $(NAME): $(OBJ_PARS_F) $(OBJ_GAME_F)
-	$(CC) $(CFLAGS) $(MLX)  $(MLX_FLAGS_FW) $^ -o $@
+	$(CC) $(CFLAGS) $^ $(MLX)  $(MLX_FLAGS_FW) -o $@
+#	$(CC) $(CFLAGS) $(MLX)  $(MLX_FLAGS_FW) $^ -o $@ //MAC
 
 objs/%.o: srcs/parssing/%.c
 	mkdir -p objs

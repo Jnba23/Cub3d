@@ -33,7 +33,7 @@ typedef struct s_list
 }	t_list;
 
 # define SCREEN_WIDTH 1200
-# define SCREEN_HEIGHT 1000
+# define SCREEN_HEIGHT 1200
 # define TILE_SIZE	64
 # define MINI_MAP_RADIUS ((float)(SCREEN_WIDTH * 0.08))  
 # define MMAP_DIAMETER MINI_MAP_RADIUS * 2
@@ -256,7 +256,7 @@ void		render_va(t_game *game, char dir);
 /*			rendering		*/
 void		render_2D_map(t_game *game);
 void		cast_rays(t_game *game);
-void		render_ray(t_game *game);
+void		render_ray(t_game *game, t_coor *coo);
 void		shortest_distance(t_game *game, int ray);
 void		normalize_ang(float *alpha);
 void		render_3D_game(t_game *game);

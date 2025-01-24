@@ -12,32 +12,28 @@
 
 #include <cub3d.h>
 
-void render_ray(t_game *game)
+void render_ray(t_game *game, t_coor *coo)
 {
-    t_coor	coo;
-
-    coo.x0 = (int)MINI_MAP_RADIUS;
-    coo.y0 = (int)MINI_MAP_RADIUS;
-    coo.x1 = (int)MINI_MAP_RADIUS;
-    coo.y1 = (int)MINI_MAP_RADIUS - 20;
-    coo.dx = abs(coo.x1 - coo.x0);
-    coo.dy = abs(coo.y1 - coo.y0);
-	if (coo.x0 < coo.x1)
-        coo.sx = 1 ;
+    coo->x0 = (int)MINI_MAP_RADIUS;
+    coo->y0 = (int)MINI_MAP_RADIUS;
+    coo->dx = abs(coo->x1 - coo->x0);
+    coo->dy = abs(coo->y1 - coo->y0);
+	if (coo->x0 < coo->x1)
+        coo->sx = 1 ;
 	else
-        coo.sx = -1;
-	if (coo.y0 < coo.y1)
-        coo.sy = 1;
+        coo->sx = -1;
+	if (coo->y0 < coo->y1)
+        coo->sy = 1;
 	else
-        coo.sy = -1;
-    coo.dec_param = coo.dx - coo.dy;
-    draw_ray(game, &coo);
+        coo->sy = -1;
+    coo->dec_param = coo->dx - coo->dy;
+    draw_ray(game, coo);
 }
 
 void    draw_ray(t_game *game, t_coor *coo)
 {
     int		d_p;
-    
+
     while (1)
     {
         mlx_put_pixel(game->mmap_image, coo->x0, coo->y0, 0xFF0000FF);

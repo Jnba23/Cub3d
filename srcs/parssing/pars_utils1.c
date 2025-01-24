@@ -68,8 +68,12 @@ void	ft_putendl_fd(char *s, int fd)
 	if (!s || fd < 0)
 		return ;
 	while (s[i])
-		write(2, &s[i++], 1);
-	write(fd, "\n", 1);
+	{
+		if (write(fd, &s[i++], 1) == -1)
+			perror("Write failed !");
+	}
+	if (write(fd, "\n", 1) == -1)
+		perror("Write failed !");
 }
 
 int	table_size(char ** map)
