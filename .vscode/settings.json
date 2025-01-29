@@ -5,6 +5,7 @@
 		"stdbool.h": "c",
 		"get_next_line.h": "c",
 		"chrono": "c",
-		"complex": "c"
+		"complex": "c",
+		"sstream": "c"
 	}
 }

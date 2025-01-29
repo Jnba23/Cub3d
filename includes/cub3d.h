@@ -6,7 +6,7 @@
 /*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 13:38:41 by asayad            #+#    #+#             */
-/*   Updated: 2025/01/23 20:38:07 by asayad           ###   ########.fr       */
+/*   Updated: 2025/01/29 19:47:05 by asayad           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,12 @@ typedef	struct s_player
 	float		rot_speed;
 }	t_player;
 
+typedef struct s_color
+{
+	int	nbr_cnt;
+	int	comma_cnt;
+	int	i;
+}	t_clr;
 
 typedef struct s_ray
 {
@@ -162,6 +168,7 @@ typedef	struct s_game
 {
 	mlx_t		*game;
 	mlx_image_t	*game_img;
+	t_mmap		*mmap_inf;
 	mlx_image_t	*mmap_image; // to draw the minimap
 	t_player	*pl_inf;
 	t_map		*map_inf;
@@ -190,7 +197,7 @@ char		*rm_spaces(char *s);
 int			analyze_line(t_list **file_nd, t_map **map_inf);
 int			colors_nd_texture(char *l, t_map **map_inf);
 int			open_textures(char *l, t_map **map_inf, char *dir);
-int			textures(char *l, mlx_texture_t **direction);
+int			textures(char *l, mlx_texture_t **direction, t_map **map_inf);
 int			map_in(t_list **file_nd, t_map **map_inf);
 int			check_rest_of_line(char *c, t_list *l);
 int			check_fst_line(t_list *l);
@@ -202,7 +209,7 @@ void		ft_putendl_fd(char *s, int fd);
 int			map_elements(t_map **map_inf);
 int			check_color(char *l, t_map **map_inf, char c);
 char		*ft_strdup_c(char *s, char c);
-color		colors(char *rgb_s, int i);
+int			colors(color *clrs,char *rgb_s, int i);
 int			ft_atoi(char **str, bool *a);
 int			ft_isdigit(int c);
 int			is_empty(char *l);
@@ -211,7 +218,7 @@ int			check_rest_of_map(t_list **map);
 void		free_table(t_map **map_inf, int j);
 int			check_nd_fill_map(t_map **map_inf);
 void		ft_strcpy(char *src, char *dst);
-int			check_pre_line(int pre_l, char **map_line, int idx);
+int			check_pre_line(char **map_line, int idx);
 int			table_size(char **map);
 int			is_map_element(t_map *map_inf, int x, int y);
 int			check_player(char **map, int i, int j);
@@ -219,9 +226,18 @@ void		skip_spaces(char *line, int *i);
 void		skip_spaces_ptr(char **line);
 int			check_line(t_map **map_inf, int idx);
 int			check_diff_dirs(char **map, int line, int c);
-void		check_sign(char **str, int *sign);
+int			check_sign(char **str);
 void		add_map_inf(t_map **map_inf);
 void		window_init(t_game *game, t_map *map_inf);
+void		free_in_list(t_list *lst);
+int			check_begin_lines(char **map, int idx);
+int			check_end_lines(char **map, int idx);
+int			ones_nd_spaces(char *l, int i);
+void		free_textures(t_map **map_inf);
+int			check_clrs_struct(char *l);
+int			ft_isspace(char c);
+void		delete_images(t_game *game);
+void		quit_game(t_game *game);
 
 /*			Game			*/
 int			start_game(t_map *map_inf);

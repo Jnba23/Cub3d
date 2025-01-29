@@ -6,20 +6,24 @@
 /*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 10:42:54 by hmoukit           #+#    #+#             */
-/*   Updated: 2025/01/23 20:13:55 by asayad           ###   ########.fr       */
+/*   Updated: 2025/01/29 18:32:22 by asayad           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
-
+void f()
+{
+	system("leaks cub3d");
+}
 int	main(int ac, char **av)
 {
 	t_map	map_inf;
 
+	atexit(f);
 	if (ac == 2)
 	{
 		if (ft_strlen(av[1]) >= 4 && !ft_strcmp(av[1]
-				+ (ft_strlen(av[1]) - 4), ".cub"))
+				+ (ft_strlen(av[1]) - 4), ".cub") && ft_strlen(av[1]) > 4)
 		{
 			initialize_map(&map_inf);
 			if (!check_infile(av[1], &map_inf))

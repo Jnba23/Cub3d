@@ -15,14 +15,13 @@ RESET	= \033[0m
 
 CC = cc
 
-CFLAGS = -Wall -Werror -Wextra -MMD -I$(INCS) -I$(INCMLX) -g3 -Ofast -fsanitize=address,undefined
+CFLAGS = -Wall -Werror -Wextra -MMD -I$(INCS) -I$(INCMLX) -g3 -Ofast #-fsanitize=address,undefined
 
-MLX_FLAGS_FW = -L/Users/asayad/.brew/opt/glfw/lib -lglfw -lm #linux_wadoud
-# MLX_FLAGS_FW = -L/Users/asayad/.brew/opt/glfw/lib -lglfw -lm -framework Cocoa -framework OpenGL -framework IOKit #MAC-Wadoud
-# MLX_FLAGS_FW = -L/Users/hmoukit/homebrew/opt/glfw/lib -lglfw -framework Cocoa -framework OpenGL -framework IOKit #MAC-Hajar
+# MLX_FLAGS_FW = -L/Users/asayad/.brew/opt/glfw/lib -lglfw -lm #linux_wadoud
+MLX_FLAGS_FW = -L/Users/asayad/.brew/opt/glfw/lib -lglfw -lm -framework Cocoa -framework OpenGL -framework IOKit #MAC-Wadoud
 
 PARSM = infile_pars.c infile_pars1.c infile_pars2.c infile_pars3.c infile_pars4.c infile_pars5.c pars_utils.c \
-	pars_utils1.c get_next_line.c get_next_line_utils.c
+	pars_utils1.c pars_utils2.c get_next_line.c get_next_line_utils.c
 GAMEM = game_init.c utils.c utils_2.c ray_casting.c cub3d.c rendering_2D.c rendering_3D.c movements.c intersections.c draw_line.c \
 		textures.c
 
@@ -35,7 +34,7 @@ OBJ_GAME_M = $(GAMEF:.c=.o)
 OBJ_PARS_F = $(addprefix objs/, $(notdir $(OBJ_PARS_M)))
 OBJ_GAME_F = $(addprefix objs/, $(notdir $(OBJ_GAME_M)))
 
-MLX = MLX42/cmake/libmlx42.a
+MLX = MLX42/libmlx42.a
 
 INCS	= includes
 
@@ -49,11 +48,12 @@ all: $(MLX) $(NAME)
 
 $(MLX):
 	@echo "$(BRED)Building MLX $(RESET)"
-	@make -C MLX42/cmake >/dev/null
+	@cmake -B MLX42/build -S MLX42/ > /dev/null
+	@make -C MLX42/ > /dev/null
+#  -C MLX42/cmake >
 
 $(NAME): $(OBJ_PARS_F) $(OBJ_GAME_F)
-	$(CC) $(CFLAGS) $^ $(MLX)  $(MLX_FLAGS_FW) -o $@
-#	$(CC) $(CFLAGS) $(MLX)  $(MLX_FLAGS_FW) $^ -o $@ //MAC
+	$(CC) $(CFLAGS) $(MLX)  $(MLX_FLAGS_FW) $^ -o $@
 
 objs/%.o: srcs/parssing/%.c
 	mkdir -p objs
@@ -64,12 +64,11 @@ objs/%.o: srcs/game/%.c
 	$(CC) $(CFLAGS) $< -c -o $@
 
 clean:
-	rm -rf objs
+	@rm -rf objs
 
 fclean: clean
-	make clean -C MLX42/cmake
-	rm -rf MLX42/build
-	rm -f $(NAME)
+	@if [ -f Makefile ]; then make clean -C MLX42; fi
+	@rm -f $(NAME)
 
 re: fclean all
 

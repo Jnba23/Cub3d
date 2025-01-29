@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   infile_pars5.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
+/*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 13:32:07 by asayad            #+#    #+#             */
-/*   Updated: 2024/12/24 11:03:01 by hmoukit          ###   ########.fr       */
+/*   Updated: 2025/01/29 13:01:36 by asayad           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	check_nd_fill_map(t_map **map_inf)
 	map = (*map_inf)->map_2d;
 	while (map[i])
 	{
-		if (!check_pre_line(ft_strlen(map[i - 1]), map, i))
+		if (!check_pre_line(map, i))
 			return (ft_putendl_fd("Map not surrounded by walls !", 2), 0);
 		if (!check_line(map_inf, i))
 			return (ft_putendl_fd("Invalid map !", 2), 0);
@@ -30,23 +30,61 @@ int	check_nd_fill_map(t_map **map_inf)
 	return (1);
 }
 
-int	check_pre_line(int pre_l, char **map_line, int idx)
+int	check_pre_line(char **map_line, int idx)
 {
 	int	i;
 	int	j;
 
-	i = ft_strlen(map_line[idx]);
-	j = i - (i - pre_l);
-	if (i >= pre_l)
+	i = 0;
+	j = 0;
+	if (!check_begin_lines(map_line, idx))
+		return (0);
+	if (!check_end_lines(map_line, idx))
+		return (0);
+	return (1);
+}
+
+int check_begin_lines(char **map, int idx)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	skip_spaces(map[idx], &i);
+	skip_spaces(map[idx - 1], &j);
+	if (i == j && (map[idx][i] != '1' || map[idx - 1][i] != '1'))
+		return (0);
+	if (i < j)
 	{
-		j--;
-		if (map_line[idx][j] != '1' && map_line[idx - 1][j] != '1')
+		if (j - 1 < ft_strlen(map[idx]) && (map[idx - 1][j] != '1' || map[idx][j - 1] != '1'))
 			return (0);
 	}
-	else if (i > 0 && i < pre_l)
+	else if (i > j)
 	{
-		i--;
-		if (map_line[idx - 1][i] != '1' && map_line[idx][i] != '1')
+		if (i - 1 < ft_strlen(map[idx - 1]) && (map[idx][i] != '1' || map[idx - 1][i - 1] != '1'))
+			return (0);
+	}
+	return (1);
+}
+
+int check_end_lines(char **map, int idx)
+{
+	int	i;
+	int	j;
+
+	i = ft_strlen(map[idx]);
+	j = ft_strlen(map[idx - 1]);
+	if (i == j && (map[idx][i - 1] != '1' || map[idx - 1][i - 1] != '1'))
+		return (0);
+	if (i < j)
+	{
+		if (map[idx][i - 1] != '1' || map[idx - 1][i] != '1' || !ones_nd_spaces(map[idx - 1], i + 1))
+			return (0);
+	}
+	else if (i > j)
+	{
+		if (map[idx - 1][j - 1] != '1' || map[idx][j] != '1' || !ones_nd_spaces(map[idx], j + 1))
 			return (0);
 	}
 	return (1);
@@ -55,18 +93,31 @@ int	check_pre_line(int pre_l, char **map_line, int idx)
 int	check_line(t_map **map_inf, int idx)
 {
 	int	i;
+	int	j;
 	char	**map;
 
 	i = 0;
 	map = (*map_inf)->map_2d;
 	skip_spaces(map[idx], &i);
+	j = i;
 	if (!is_map_element(*map_inf, idx, i))
 		return (0);
 	while (map[idx][i])
 	{
-		if (map[idx][0] != '1' || map[idx][ft_strlen(map[idx]) - 1] != '1')
+		if (map[idx][j] != '1' || map[idx][ft_strlen(map[idx]) - 1] != '1')
 			return (ft_putendl_fd("Map not surrounded by walls !", 2), 0);
 		if (!check_diff_dirs(map, idx, i))
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+int	ones_nd_spaces(char *l, int i)
+{
+	while (l[i])
+	{
+		if (l[i] != '1' && l[i] != ' ')
 			return (0);
 		i++;
 	}
@@ -135,7 +186,6 @@ int	check_diff_dirs(char **map, int line, int c)
 		}
 		if (line == table_size(map) - 1)
 		{
-			puts("-------");
 			puts(map[line]);
 			if (map[line][c] == '0')
 				return (0);

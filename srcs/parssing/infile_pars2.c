@@ -6,7 +6,7 @@
 /*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 11:59:02 by asayad            #+#    #+#             */
-/*   Updated: 2025/01/22 14:17:21 by asayad           ###   ########.fr       */
+/*   Updated: 2025/01/29 18:27:27 by asayad           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,23 +35,12 @@ int	check_fst_line(t_list *l)
 	i = 0;
 	while (i < ft_strlen((char *)(l->content)))
 	{
-		if (((char *)(l->content))[i] == ' ')
-			i++;
-		else if (((char *)(l->content))[i] != '1')
+		if (((char *)(l->content))[i] == ' ' 
+			|| ((char *)(l->content))[i] != '1')
 		{
 			ft_putendl_fd("Invalid map !", 2);
 			return (0);
 		}
-		// else if (((char *)(l->content))[i] == '1')
-		// {
-		// 	if (!check_rest_of_line(((char *)(l->content)) + i, l))
-		// 	{
-		// 		ft_putendl_fd("Invalid map !", 2);
-		// 		return (0);
-		// 	}
-		// 	else
-		// 		break ;
-		// }
 		i++;
 	}
 	return (1);
@@ -97,8 +86,9 @@ int	check_color(char *l, t_map **map_inf, char c)
 
 	i = 1;
 	skip_spaces(l, &i);
-	clrs = colors(l + i, 0);
-	if (clrs == 0xFFFFFFFF)
+	if (!check_clrs_struct(l + i))
+		return (0);
+	if (!colors(&clrs, l + i, 0))
 		return (0);
 	if (c == 'f')
 	{
@@ -113,4 +103,39 @@ int	check_color(char *l, t_map **map_inf, char c)
 		(*map_inf)->blue_c = clrs & 0xFF;
 	}
 	return (1);
+}
+
+int	check_clrs_struct(char *l)
+{
+	t_clr	vars;
+
+	vars.comma_cnt = 0;
+	vars.nbr_cnt = 0;
+	vars.i = -1;
+	while (l[++vars.i])
+	{
+		if (ft_isdigit(l[vars.i]))
+			vars.nbr_cnt++;
+		else if (ft_isspace(l[vars.i]))
+			continue ;
+		else if (l[vars.i] == ',')
+		{
+			vars.comma_cnt++;
+			if (vars.nbr_cnt == 0 || vars.nbr_cnt > 3)
+				return (0);
+			vars.nbr_cnt = 0;
+		}
+		else
+			return (0);
+	}
+	if (vars.comma_cnt != 2)
+		return (0);
+	return (1);
+}
+
+int	ft_isspace(char c)
+{
+	if ((c >= 9 && c <= 13) || c == 32)
+		return (1);
+	return (0);
 }

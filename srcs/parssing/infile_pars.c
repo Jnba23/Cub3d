@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   infile_pars.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
+/*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 11:15:59 by asayad            #+#    #+#             */
-/*   Updated: 2024/12/22 11:12:41 by hmoukit          ###   ########.fr       */
+/*   Updated: 2025/01/29 18:39:13 by asayad           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,13 @@
 void	initialize_map(t_map *map_inf)
 {
 	map_inf->no = 0;
+	map_inf->north = 0;
 	map_inf->so = 0;
+	map_inf->south = 0;
 	map_inf->ea = 0;
+	map_inf->east = 0;
 	map_inf->we = 0;
+	map_inf->west = 0;
 	map_inf->ceiling = 0;
 	map_inf->floor = 0;
 	map_inf->map_in = false;
@@ -38,14 +42,15 @@ int	check_infile(char *in, t_map *map_inf)
 	s = get_next_line(fd);
 	while (s)
 	{
-		if (ft_strncmp(s, "NO", 2) && ft_strncmp(s, "SO", 2)
-			&& ft_strncmp(s, "WE", 2) && ft_strncmp(s, "EA", 2))
+		if (ft_strncmp(s, "NO ", 3) && ft_strncmp(s, "SO ", 3)
+			&& ft_strncmp(s, "WE ", 3) && ft_strncmp(s, "EA ", 3))
 			s = rm_spaces(s);
 		ft_lstadd_back(&in_list, ft_lstnew(s));
 		s = get_next_line(fd);
 	}
 	if (!check_if_valid_data(&in_list, &map_inf))
-		return (0); //free inlist
+		return (free_in_list(in_list), 0);
+	free_in_list(in_list);
 	add_map_inf(&map_inf);
 	return (1);
 }
@@ -84,16 +89,16 @@ int	check_if_valid_data(t_list **in_list, t_map **map_inf)
 			tmp = tmp->next;
 			continue ;
 		}
-		if (!(*map_inf)->map_in && (i == 2 || i == 3 || i == 4))
-			return (0);
+		if (!(*map_inf)->map_in && (i == 2 || i == 3))
+			return (free_textures(map_inf), 0);
 		if ((*map_inf)->map_in)
 			break ;
 		tmp = tmp->next;
 	}
 	if (!(*map_inf)->map_in || !map_analysis(map_inf) || !cnvrt_lst_2_map(map_inf))
-		return (0);
+		return (free_textures(map_inf), 0);
 	if (!(*map_inf)->map_in || !check_nd_fill_map(map_inf))
-		return (0);
+		return (free_textures(map_inf), free_table(map_inf, (*map_inf)->map_size), 0);
 	return (1);
 }
 

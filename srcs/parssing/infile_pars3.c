@@ -6,26 +6,30 @@
 /*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 11:57:51 by asayad            #+#    #+#             */
-/*   Updated: 2024/11/16 16:09:17 by asayad           ###   ########.fr       */
+/*   Updated: 2025/01/29 16:59:34 by asayad           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
 
-color	colors(char *rgb_s, int i)
+int	colors(color *clrs, char *rgb_s, int i)
 {
-	color	clrs;
-	bool	a;
+	bool			a;
+	unsigned int	val;
 
-	if (i == 3)
-		return (0);
-	// if (!ft_isdigit(*rgb_s) && i < )
+	if (i == 2)
+		return (1);
 	a = false;
-	clrs = ft_atoi(&rgb_s, &a);
+	if (i == 0)
+		*clrs = 0;
+	val = ft_atoi(&rgb_s, &a);
+	if (val == 0 && a == true)
+		return (0);
+	*clrs |= val << (2 - i) * 8;
 	skip_spaces_ptr(&rgb_s);
-	if (!ft_isdigit(*rgb_s) || a || (a && clrs == 0))
-		return (0xFFFFFFFF);
-	return ((clrs << (2 - i) * 8) & colors(rgb_s, i + 1));
+	if (!ft_isdigit(*rgb_s))
+		return (0);
+	return (colors(clrs, rgb_s, i + 1));
 }
 
 int	map_analysis(t_map **map_inf)

@@ -6,7 +6,7 @@
 /*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 10:41:48 by hmoukit           #+#    #+#             */
-/*   Updated: 2025/01/23 17:55:05 by asayad           ###   ########.fr       */
+/*   Updated: 2025/01/29 19:52:16 by asayad           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,23 @@ void	game_struct_init(t_map *map_inf, t_game **game, t_player *pl_inf)
 
 void	window_init(t_game *game, t_map *map_inf)
 {
-	(void)map_inf;
 	game->game = mlx_init(SCREEN_WIDTH, SCREEN_HEIGHT, "lo3ba", 1);
 	game->game_img = mlx_new_image(game->game, SCREEN_WIDTH, SCREEN_HEIGHT);
 	game->mmap_image = mlx_new_image(game->game, 2 * MINI_MAP_RADIUS, 2 * MINI_MAP_RADIUS);
-	mlx_image_to_window(game->game, game->game_img, 0, 0);
-	mlx_image_to_window(game->game, game->mmap_image, 5, 5);
+	if (!game->game || !game->game_img || !game->mmap_image)
+	{
+		free_table(&map_inf, map_inf->map_size);
+		free_textures(&map_inf);
+		delete_images(game);
+		exit(1);
+	}
+	if (mlx_image_to_window(game->game, game->game_img, 0, 0) == -1
+		|| mlx_image_to_window(game->game, game->mmap_image, 5, 5) == -1)
+	{
+		free_table(&map_inf, map_inf->map_size);
+		free_textures(&map_inf);
+		delete_images(game);
+		exit(1);
+	}
+		
 }

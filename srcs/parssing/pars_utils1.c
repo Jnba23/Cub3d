@@ -6,7 +6,7 @@
 /*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 12:06:41 by asayad            #+#    #+#             */
-/*   Updated: 2024/11/16 15:17:04 by asayad           ###   ########.fr       */
+/*   Updated: 2025/01/29 16:59:05 by asayad           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ int	ft_atoi(char **str, bool *a)
 	sign = 1;
 	b = false;
 	skip_spaces_ptr(&(*str));
-	check_sign(&(*str), &sign);
+	if (!check_sign(&(*str)))
+		return (*a = true, 0);
 	while (**str == '0')
 		(*str)++;
 	while (**str >= 48 && **str <= 57)
@@ -30,27 +31,29 @@ int	ft_atoi(char **str, bool *a)
 		b = true;
 		num = (num * 10) + (**str - 48);
 		if (num > 255)
-			return (*a = true, 0);
+			return (0);
 		(*str)++;
 	}
-	if ((num == 0 && b == false) || sign < 0)
+	if (b == false)
 		return (*a = true, 0);
-	return (num * sign);
+	return (num);
 }
+
 void	skip_spaces_ptr(char **line)
 {
 	while ((**line >= 9 && **line <= 13) || **line == 32 || **line == ',')
 		(*line)++;
 }
 
-void	check_sign(char **str, int *sign)
+int	check_sign(char **str)
 {
 	if (**str == '+' || **str == '-')
 	{
 		if (**str == '-')
-			*sign *= -1;
+			return (0);
 		str++;
 	}
+	return (1);
 }
 
 int	ft_isdigit(int c)

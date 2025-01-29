@@ -6,7 +6,7 @@
 /*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 10:42:06 by hmoukit           #+#    #+#             */
-/*   Updated: 2025/01/23 22:08:48 by asayad           ###   ########.fr       */
+/*   Updated: 2025/01/29 19:53:51 by asayad           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ void	cube3d(void *game)
 		render_va(gm, 'L');
 	if (mlx_is_key_down(gm->game, MLX_KEY_RIGHT))
 		render_va(gm, 'R');
+	if (mlx_is_key_down(gm->game, MLX_KEY_ESCAPE))
+		quit_game(gm);
 	if (gm->render)
 	{
 		render_2D_map(gm);
@@ -47,6 +49,7 @@ void	render_2D_map(t_game *game)
 	m_map.gm_x0 = game->pl_x_pix - (MINI_MAP_RADIUS / m_map.scale);
 	m_map.gm_y0 = game->pl_y_pix - (MINI_MAP_RADIUS / m_map.scale);
 	m_map.img_y = -1.0;
+	game->mmap_inf = &m_map;
 	while (++m_map.img_y < m_map.diameter)
 	{
 		m_map.img_x = -1.0;
@@ -84,9 +87,26 @@ void	mmap_2D(t_game *game, t_mmap *m_map)
 
 void	mmap_cnst(t_game *game, t_mmap *m_map)
 {
-	m_map->n = mlx_texture_to_image(game->game, mlx_load_png("./n_arr.png"));
+	mlx_texture_t *n;
+	
+	n = mlx_load_png("./n_arr.png");
+	if (!n)
+	{
+		free_textures(&game->map_inf);
+		free_table(&game->map_inf, game->map_inf->map_size);
+		delete_images(game);
+		exit(1);
+	}
+	m_map->n = mlx_texture_to_image(game->game, n);
 	mlx_resize_image(m_map->n, 40, 40);
-	mlx_image_to_window(game->game, m_map->n, MINI_MAP_RADIUS - 20, 0);
+	if (mlx_image_to_window(game->game, m_map->n, MINI_MAP_RADIUS - 20, 0) == -1)
+	{
+		free_table(&game->map_inf, game->map_inf->map_size);
+		free_textures(&game->map_inf);
+		delete_images(game);
+		mlx_delete_image(game->game, m_map->n);
+		exit(1);
+	}
 	draw_player(game);
 }
 
