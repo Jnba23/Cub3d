@@ -18,21 +18,36 @@ CC = cc
 CFLAGS = -Wall -Werror -Wextra -MMD -I$(INCS) -I$(INCMLX) -g3 -Ofast #-fsanitize=address,undefined
 
 # MLX_FLAGS_FW = -L/Users/asayad/.brew/opt/glfw/lib -lglfw -lm #linux_wadoud
-MLX_FLAGS_FW = -L/Users/asayad/.brew/opt/glfw/lib -lglfw -lm -framework Cocoa -framework OpenGL -framework IOKit #MAC-Wadoud
+# MLX_FLAGS_FW = -L/Users/asayad/.brew/opt/glfw/lib -lglfw -lm -framework Cocoa -framework OpenGL -framework IOKit #MAC-Wadoud
+MLX_FLAGS_FW = -L/Users/hmoukit/homebrew/opt/glfw/lib -lglfw -lm -framework Cocoa -framework OpenGL -framework IOKit #MAC-Hajar
 
 PARSM = infile_pars.c infile_pars1.c infile_pars2.c infile_pars3.c infile_pars4.c infile_pars5.c pars_utils.c \
 	pars_utils1.c pars_utils2.c get_next_line.c get_next_line_utils.c
 GAMEM = game_init.c utils.c utils_2.c ray_casting.c cub3d.c rendering_2D.c rendering_3D.c movements.c intersections.c draw_line.c \
 		textures.c
 
-PARSF = $(addprefix srcs/parssing/, $(PARSM))
-GAMEF = $(addprefix srcs/game/, $(GAMEM))
+PARSB = infile_pars_bonus.c infile_pars1_bonus.c infile_pars2_bonus.c infile_pars3_bonus.c infile_pars4_bonus.c infile_pars5_bonus.c \
+		pars_utils_bonus.c pars_utils1_bonus.c pars_utils2_bonus.c get_next_line.c get_next_line_utils.c
+GAMEB = animation_bonus.c cub3d_bonus.c draw_line_bonus.c game_init_bonus.c intersections_bonus.c mouse_bonus.c movements_bonus.c \
+		ray_casting_bonus.c rendering_2D_bonus.c rendering_3D_bonus.c textures_bonus.c utils_bonus.c utils_2_bonus.c
+
+PARSF = $(addprefix mandatory/parssing/, $(PARSM))
+GAMEF = $(addprefix mandatory/game/, $(GAMEM))
+
+PARSBO = $(addprefix bonus/parssing/, $(PARSB))
+GAMEBO = $(addprefix bonus/game/, $(GAMEB))
 
 OBJ_PARS_M = $(PARSF:.c=.o)
 OBJ_GAME_M = $(GAMEF:.c=.o)
 
-OBJ_PARS_F = $(addprefix objs/, $(notdir $(OBJ_PARS_M)))
-OBJ_GAME_F = $(addprefix objs/, $(notdir $(OBJ_GAME_M)))
+OBJ_PARS_B = $(PARSBO:.c=.o)
+OBJ_GAME_B = $(GAMEBO:.c=.o)
+
+OBJ_PARS_F = $(addprefix objs_man/, $(notdir $(OBJ_PARS_M)))
+OBJ_GAME_F = $(addprefix objs_man/, $(notdir $(OBJ_GAME_M)))
+
+OBJ_PARS_BO = $(addprefix objs_bon/, $(notdir $(OBJ_PARS_B)))
+OBJ_GAME_BO = $(addprefix objs_bon/, $(notdir $(OBJ_GAME_B)))
 
 MLX = MLX42/libmlx42.a
 
@@ -42,9 +57,15 @@ INCMLX	= MLX42/include/MLX42/
 
 NAME 	= cub3d
 
-HEADER	= cub3d.h ./get_next_line/get_next_line.h
+HEADER_MAN	= ./includes/cub3d.h ./includes/get_next_line.h
+
+BONUS	= cub3d_bonus
+
+HEADER_BON	= ./includes/cub3d_bonus.h ./includes/get_next_line.h
 
 all: $(MLX) $(NAME)
+
+bonus: $(MLX) $(BONUS)
 
 $(MLX):
 	@echo "$(BRED)Building MLX $(RESET)"
@@ -55,16 +76,28 @@ $(MLX):
 $(NAME): $(OBJ_PARS_F) $(OBJ_GAME_F)
 	$(CC) $(CFLAGS) $(MLX)  $(MLX_FLAGS_FW) $^ -o $@
 
-objs/%.o: srcs/parssing/%.c
-	mkdir -p objs
+objs_man/%.o: mandatory/parssing/%.c
+	mkdir -p objs_man
 	$(CC) $(CFLAGS) $< -c -o $@
 
-objs/%.o: srcs/game/%.c
-	mkdir -p objs
+objs_man/%.o: mandatory/game/%.c
+	mkdir -p objs_man
+	$(CC) $(CFLAGS) $< -c -o $@
+
+$(BONUS): $(OBJ_PARS_BO) $(OBJ_GAME_BO)
+	$(CC) $(CFLAGS) $(MLX)  $(MLX_FLAGS_FW) $^ -o $@
+
+objs_bon/%.o: bonus/parssing/%.c
+	mkdir -p objs_bon
+	$(CC) $(CFLAGS) $< -c -o $@
+
+objs_bon/%.o: bonus/game/%.c
+	mkdir -p objs_bon
 	$(CC) $(CFLAGS) $< -c -o $@
 
 clean:
-	@rm -rf objs
+	@rm -rf objs_man
+	@rm -rf objs_bon
 
 fclean: clean
 	@if [ -f Makefile ]; then make clean -C MLX42; fi
@@ -72,4 +105,4 @@ fclean: clean
 
 re: fclean all
 
--include objs/*.d
+-include objs_man/*.d objs_bon/*.d
