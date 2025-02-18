@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   intersections.c                                    :+:      :+:    :+:   */
+/*   intersections_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 16:13:15 by hmoukit           #+#    #+#             */
-/*   Updated: 2025/02/18 18:32:48 by hmoukit          ###   ########.fr       */
+/*   Updated: 2025/02/18 20:08:06 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ void shortest_distance(t_game *game, int ray)
 		game->rays[ray].d = d2;
 		game->rays[ray].interx = game->inter->vx;
 		game->rays[ray].intery = game->inter->vy;
+		if (game->door_ver)
+			game->rays[ray].hit_door = 1;
 	}
 	else
 	{
@@ -36,11 +38,14 @@ void shortest_distance(t_game *game, int ray)
 		game->rays[ray].d = d1;
 		game->rays[ray].interx = game->inter->hx;
 		game->rays[ray].intery = game->inter->hy;
+		if (game->door_hor)
+			game->rays[ray].hit_door = 1;		
 	}
 }
 
 void	inter_horizontal(t_game *game, int ray)
 {
+	game->hor = 1;
 	game->rays[ray].up = va_y_up(game->inter->alpha);
 	game->rays[ray].right = va_x_right(game->inter->alpha);
 	if (game->rays[ray].up)
@@ -60,6 +65,7 @@ void	inter_horizontal(t_game *game, int ray)
 
 void	inter_vertical(t_game *game, int ray)
 {
+	game->ver = 1;
 	game->rays[ray].right = va_x_right(game->inter->alpha);
 	game->rays[ray].up = va_y_up(game->inter->alpha);
 	if (game->rays[ray].right)

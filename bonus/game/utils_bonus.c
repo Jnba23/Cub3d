@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   utils_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 17:32:13 by asayad            #+#    #+#             */
-/*   Updated: 2025/02/18 18:32:48 by hmoukit          ###   ########.fr       */
+/*   Updated: 2025/02/18 20:09:04 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int	va_x_right(float va)
 
 bool valid_ray_intersection(t_game *game, float hx, float hy, int ray)
 {
+	(void)ray;
 	float 	a[3][2];
 	int 	j;
 	int		x_coo;
@@ -48,9 +49,14 @@ bool valid_ray_intersection(t_game *game, float hx, float hy, int ray)
 			|| x_coo >= ft_strlen(game->map[y_coo])
 			|| game->map[y_coo][x_coo] == '1')
 			return (0);
-		if (game->map[y_coo][x_coo] == 'D')
+		if (game->map[y_coo][x_coo] == 'D' && game->hor)
 		{
-			game->rays[ray].hit_door = 1;
+			game->door_hor = 1;
+			return (0);
+		}
+		else if (game->map[y_coo][x_coo] == 'D' && game->ver)
+		{
+			game->door_ver = 1;
 			return (0);
 		}
 		j++;

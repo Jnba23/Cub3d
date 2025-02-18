@@ -6,7 +6,7 @@
 /*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 18:29:49 by hmoukit           #+#    #+#             */
-/*   Updated: 2025/02/18 19:32:40 by hmoukit          ###   ########.fr       */
+/*   Updated: 2025/02/18 20:08:50 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,9 +193,11 @@ typedef	struct s_game
 	int			y_d;
 	int			torch_frame;
 	int			i;
-	int			inside_door;
 	bool		ver;
 	bool		hor;
+	bool		door_ver;
+	bool		door_hor;
+	int			inside_door;
 }	t_game;
 
 /*			Parssing			*/

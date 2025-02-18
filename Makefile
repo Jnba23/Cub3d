@@ -101,7 +101,7 @@ clean:
 
 fclean: clean
 	@if [ -f Makefile ]; then make clean -C MLX42; fi
-	@rm -f $(NAME)
+	@rm -f $(NAME) $(BONUS)
 
 re: fclean all
 
