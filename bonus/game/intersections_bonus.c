@@ -6,27 +6,12 @@
 /*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 16:13:15 by hmoukit           #+#    #+#             */
-/*   Updated: 2025/02/19 16:31:50 by hmoukit          ###   ########.fr       */
+/*   Updated: 2025/02/19 20:55:07 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d_bonus.h>
 
-// int	is_door(t_game *game, float x, float y)
-// {
-// 	int	map_x;
-// 	int	map_y;
-
-// 	map_x = (int)(x / TILE_SIZE);
-// 	map_y = (int)(y / TILE_SIZE);
-// 	if (map_x >= 0 && map_y >= 0 && map_x < game->map_inf->map_width
-// 		&& map_y < game->map_inf->map_height)
-// 	{
-// 		if (game->map[map_y][map_x] == 'D')
-// 			return (1);
-// 	}
-// 	return (0);
-// }
 void	shortest_distance(t_game *game, int ray)
 {
 	float	d1;
@@ -47,6 +32,19 @@ void	shortest_distance(t_game *game, int ray)
 		game->rays[ray].x = game->pl_x_pix + game->inter->hx;
 		game->rays[ray].y = game->pl_y_pix + game->inter->hy;
 		game->rays[ray].d = d1;
+	}
+	if (is_door(game->rays[ray].x, game->rays[ray].y, game))
+	{
+		puts("here dooor");
+		game->door_x = game->rays[ray].x / TILE_SIZE;
+		game->door_y = game->rays[ray].y / TILE_SIZE;
+		game->rays[ray].hit_door = 1;
+	}
+	else
+	{
+		printf("%f, %f\n", game->rays[ray].x / TILE_SIZE, game->rays[ray].y / TILE_SIZE);
+		puts("not dooor");
+		game->rays[ray].hit_door = 0;
 	}
 }
 

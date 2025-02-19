@@ -6,7 +6,7 @@
 /*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 18:29:49 by hmoukit           #+#    #+#             */
-/*   Updated: 2025/02/19 19:33:27 by hmoukit          ###   ########.fr       */
+/*   Updated: 2025/02/19 20:27:04 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,6 +193,8 @@ typedef	struct s_game
 	int			torch_frame;
 	int			i;
 	int			inside_door;
+	int			door_x;
+	int			door_y;
 }	t_game;
 
 /*			Parssing			*/
@@ -309,5 +311,6 @@ void		mouse_hook(double xpos, double ypos, void *param);
 /*			animation		*/
 void		init_torch_animation(t_game *game);
 void 		animate_torch(void *param);
+int	is_door(float x, float y, t_game *game);
 
 #endif
