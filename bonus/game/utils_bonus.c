@@ -6,7 +6,7 @@
 /*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 17:32:13 by asayad            #+#    #+#             */
-/*   Updated: 2025/02/18 20:09:04 by hmoukit          ###   ########.fr       */
+/*   Updated: 2025/02/19 15:17:57 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,14 +49,9 @@ bool valid_ray_intersection(t_game *game, float hx, float hy, int ray)
 			|| x_coo >= ft_strlen(game->map[y_coo])
 			|| game->map[y_coo][x_coo] == '1')
 			return (0);
-		if (game->map[y_coo][x_coo] == 'D' && game->hor)
+		if (game->map[y_coo][x_coo] == 'D')
 		{
-			game->door_hor = 1;
-			return (0);
-		}
-		else if (game->map[y_coo][x_coo] == 'D' && game->ver)
-		{
-			game->door_ver = 1;
+			// game->rays[ray].hit_door = 1;
 			return (0);
 		}
 		j++;

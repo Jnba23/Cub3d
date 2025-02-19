@@ -6,7 +6,7 @@
 /*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 10:41:48 by hmoukit           #+#    #+#             */
-/*   Updated: 2025/02/18 20:08:34 by hmoukit          ###   ########.fr       */
+/*   Updated: 2025/02/19 15:02:28 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,6 @@ void	game_struct_init(t_map *map_inf, t_game **game, t_player *pl_inf)
 	if (!(*game)->img)
 		return ;
 	(*game)->torch_frame = 0;
-	(*game)->ver = 0;
-	(*game)->hor = 0;
-	(*game)->door_hor = 0;
-	(*game)->door_ver = 0;
 	(*game)->inside_door = 0;
 }
 

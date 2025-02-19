@@ -6,11 +6,27 @@
 /*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 16:13:15 by hmoukit           #+#    #+#             */
-/*   Updated: 2025/02/18 20:08:06 by hmoukit          ###   ########.fr       */
+/*   Updated: 2025/02/19 15:45:03 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d_bonus.h>
+
+int is_door(t_game *game, float x, float y)
+{
+    int map_x;
+    int map_y;
+
+	map_x = (int)(x / TILE_SIZE);
+	map_y = (int)(y / TILE_SIZE);
+    if (map_x >= 0 && map_y >= 0 && map_x < game->map_inf->map_width
+		&& map_y < game->map_inf->map_height)
+    {
+        if (game->map[map_y][map_x] == 'D')
+            return (1);
+    }
+    return (0);
+}
 
 void shortest_distance(t_game *game, int ray)
 {
@@ -25,27 +41,22 @@ void shortest_distance(t_game *game, int ray)
 		game->rays[ray].x = game->pl_x_pix + game->inter->vx;
 		game->rays[ray].y = game->pl_y_pix + game->inter->vy;
 		game->rays[ray].d = d2;
-		game->rays[ray].interx = game->inter->vx;
-		game->rays[ray].intery = game->inter->vy;
-		if (game->door_ver)
-			game->rays[ray].hit_door = 1;
 	}
 	else
 	{
 		game->rays[ray].horiz = false;
 		game->rays[ray].x = game->pl_x_pix + game->inter->hx;
 		game->rays[ray].y = game->pl_y_pix + game->inter->hy;
-		game->rays[ray].d = d1;
-		game->rays[ray].interx = game->inter->hx;
-		game->rays[ray].intery = game->inter->hy;
-		if (game->door_hor)
-			game->rays[ray].hit_door = 1;		
+		game->rays[ray].d = d1;	
 	}
+	if (is_door(game, game->rays[ray].x, game->rays[ray].y))
+		game->rays[ray].hit_door = 1;
+	else
+		game->rays[ray].hit_door = 0;
 }
 
 void	inter_horizontal(t_game *game, int ray)
 {
-	game->hor = 1;
 	game->rays[ray].up = va_y_up(game->inter->alpha);
 	game->rays[ray].right = va_x_right(game->inter->alpha);
 	if (game->rays[ray].up)
@@ -65,7 +76,6 @@ void	inter_horizontal(t_game *game, int ray)
 
 void	inter_vertical(t_game *game, int ray)
 {
-	game->ver = 1;
 	game->rays[ray].right = va_x_right(game->inter->alpha);
 	game->rays[ray].up = va_y_up(game->inter->alpha);
 	if (game->rays[ray].right)

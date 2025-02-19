@@ -6,7 +6,7 @@
 /*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 18:29:49 by hmoukit           #+#    #+#             */
-/*   Updated: 2025/02/18 20:08:50 by hmoukit          ###   ########.fr       */
+/*   Updated: 2025/02/19 15:14:01 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,8 +126,6 @@ typedef struct s_ray
 	double	wall_h;
 	int		bott_pix;
 	int		top_pix;
-	float	interx;
-	float	intery;
 } t_ray;
 
 typedef struct s_inter
@@ -189,14 +187,8 @@ typedef	struct s_game
 	float		ray_ang;
 	t_texture	*text;
 	mlx_image_t	**img;
-	int 		x_d;
-	int			y_d;
 	int			torch_frame;
 	int			i;
-	bool		ver;
-	bool		hor;
-	bool		door_ver;
-	bool		door_hor;
 	int			inside_door;
 }	t_game;
 

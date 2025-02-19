@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rendering_3D.c                                     :+:      :+:    :+:   */
+/*   rendering_3D_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 22:20:42 by asayad            #+#    #+#             */
-/*   Updated: 2025/02/18 18:43:59 by hmoukit          ###   ########.fr       */
+/*   Updated: 2025/02/19 15:10:05 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void render_3D_game(t_game *game)
     float min_distance;
     int i;
 	int wall_center;
+
     game->inter->alpha = game->pl_inf->rot_angle - deg2rad(FOV / 2.0);
 	min_distance = TILE_SIZE * 0.1;
 	i = -1;
