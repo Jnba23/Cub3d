@@ -3,23 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 10:42:54 by hmoukit           #+#    #+#             */
-/*   Updated: 2025/01/29 18:32:22 by asayad           ###   ########.fr       */
+/*   Updated: 2025/02/19 19:12:41 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
-void f()
-{
-	system("leaks cub3d");
-}
+
+// void f()
+// {
+// 	system("leaks cub3d");
+// }
+
 int	main(int ac, char **av)
 {
 	t_map	map_inf;
 
-	atexit(f);
+	// atexit(f);
 	if (ac == 2)
 	{
 		if (ft_strlen(av[1]) >= 4 && !ft_strcmp(av[1]

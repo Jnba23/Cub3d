@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pars_utils1.c                                      :+:      :+:    :+:   */
+/*   pars_utils1_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 12:06:41 by asayad            #+#    #+#             */
-/*   Updated: 2025/02/18 18:32:48 by hmoukit          ###   ########.fr       */
+/*   Updated: 2025/02/19 19:09:59 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,10 @@ void	ft_putendl_fd(char *s, int fd)
 		perror("Write failed !");
 }
 
-int	table_size(char ** map)
+int	table_size(char **map)
 {
 	int		i;
-	
+
 	i = 0;
 	if (!map || !map[0])
 		return (0);

@@ -6,7 +6,7 @@
 /*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 10:42:54 by hmoukit           #+#    #+#             */
-/*   Updated: 2025/02/19 13:06:34 by hmoukit          ###   ########.fr       */
+/*   Updated: 2025/02/19 17:19:39 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,9 @@ int	start_game(t_map *map_inf)
 
 void	cube3d(void *game)
 {
-	t_game 		*gm;
+	t_game	*gm;
 
 	gm = (t_game *)game;
-	int i = -1;
-	while (++i < SCREEN_WIDTH)
-		gm->rays[i].hit_door = 0;
 	if (mlx_is_key_down(gm->game, MLX_KEY_W))
 		render_move(gm, 'U');
 	if (mlx_is_key_down(gm->game, MLX_KEY_S))
@@ -80,7 +77,7 @@ void	cube3d(void *game)
 	{
 		render_2D_map(gm);
 		cast_rays(gm);
-		render_3D_game(gm);
+		render_3d_game(gm);
 		gm->render = false;
 	}
 }

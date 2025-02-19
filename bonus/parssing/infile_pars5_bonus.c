@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   infile_pars5.c                                     :+:      :+:    :+:   */
+/*   infile_pars5_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 13:32:07 by asayad            #+#    #+#             */
-/*   Updated: 2025/02/18 18:32:48 by hmoukit          ###   ########.fr       */
+/*   Updated: 2025/02/19 19:08:43 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	check_pre_line(char **map_line, int idx)
 	return (1);
 }
 
-int check_begin_lines(char **map, int idx)
+int	check_begin_lines(char **map, int idx)
 {
 	int	i;
 	int	j;
@@ -57,18 +57,20 @@ int check_begin_lines(char **map, int idx)
 		return (0);
 	if (i < j)
 	{
-		if (j - 1 < ft_strlen(map[idx]) && (map[idx - 1][j] != '1' || map[idx][j - 1] != '1'))
+		if (j - 1 < ft_strlen(map[idx]) && (map[idx - 1][j] != '1'
+			|| map[idx][j - 1] != '1'))
 			return (0);
 	}
 	else if (i > j)
 	{
-		if (i - 1 < ft_strlen(map[idx - 1]) && (map[idx][i] != '1' || map[idx - 1][i - 1] != '1'))
+		if (i - 1 < ft_strlen(map[idx - 1]) && (map[idx][i] != '1'
+			|| map[idx - 1][i - 1] != '1'))
 			return (0);
 	}
 	return (1);
 }
 
-int check_end_lines(char **map, int idx)
+int	check_end_lines(char **map, int idx)
 {
 	int	i;
 	int	j;
@@ -79,12 +81,14 @@ int check_end_lines(char **map, int idx)
 		return (0);
 	if (i < j)
 	{
-		if (map[idx][i - 1] != '1' || map[idx - 1][i] != '1' || !ones_nd_spaces(map[idx - 1], i + 1))
+		if (map[idx][i - 1] != '1' || map[idx - 1][i] != '1'
+			|| !ones_nd_spaces(map[idx - 1], i + 1))
 			return (0);
 	}
 	else if (i > j)
 	{
-		if (map[idx - 1][j - 1] != '1' || map[idx][j] != '1' || !ones_nd_spaces(map[idx], j + 1))
+		if (map[idx - 1][j - 1] != '1' || map[idx][j] != '1'
+			|| !ones_nd_spaces(map[idx], j + 1))
 			return (0);
 	}
 	return (1);
@@ -92,8 +96,8 @@ int check_end_lines(char **map, int idx)
 
 int	check_line(t_map **map_inf, int idx)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
 	char	**map;
 
 	i = 0;
@@ -131,10 +135,12 @@ int	is_map_element(t_map *map_inf, int x, int y)
 	map = map_inf->map_2d;
 	while (map[x][y])
 	{
-		if (map[x][y] != '0' && map[x][y] != '1' && map[x][y] != 'N' && map[x][y] != 'S'
-			&& map[x][y] != 'E' && map[x][y] != 'W' &&map[x][y] != 'D')
+		if (map[x][y] != '0' && map[x][y] != '1' && map[x][y] != 'N'
+			&& map[x][y] != 'S' && map[x][y] != 'E' && map[x][y] != 'W'
+			&& map[x][y] != 'D')
 			return (0);
-		if (map[x][y] == 'N' || map[x][y] == 'S' || map[x][y] == 'E' || map[x][y] == 'W')
+		if (map[x][y] == 'N' || map[x][y] == 'S' || map[x][y] == 'E'
+			|| map[x][y] == 'W')
 		{
 			if (map_inf->player_in)
 				return (0);
@@ -150,9 +156,11 @@ int	is_map_element(t_map *map_inf, int x, int y)
 
 int	check_player(char **map, int i, int j)
 {
-	if (map[i] + j + 1 && map[i][j + 1] == ' ' && map[i][j - 1] == ' ')
+	if (map[i] + j + 1 && map[i][j + 1] == ' '
+		&& map[i][j - 1] == ' ')
 	{
-		if (i > ft_strlen(map[i - 1]) || (map + i + 1 && i > ft_strlen(map[i + 1])))
+		if (i > ft_strlen(map[i - 1])
+			|| (map + i + 1 && i > ft_strlen(map[i + 1])))
 			return (0);
 	}
 	return (1);
@@ -175,9 +183,9 @@ int	check_diff_dirs(char **map, int line, int c)
 	{
 		if (map[line][c + 1] == ' ')
 			return (0);
-		if (c  >= ft_strlen(map[line - 1]))
+		if (c >= ft_strlen(map[line - 1]))
 			return (0);
-		if (c  >= ft_strlen(map[line + 1]))
+		if (c >= ft_strlen(map[line + 1]))
 			return (0);
 		if (line == 1)
 		{

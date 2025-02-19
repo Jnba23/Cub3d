@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_init.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 10:41:48 by hmoukit           #+#    #+#             */
-/*   Updated: 2025/01/29 19:52:16 by asayad           ###   ########.fr       */
+/*   Updated: 2025/02/19 19:20:04 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,8 @@ void	window_init(t_game *game, t_map *map_inf)
 {
 	game->game = mlx_init(SCREEN_WIDTH, SCREEN_HEIGHT, "lo3ba", 1);
 	game->game_img = mlx_new_image(game->game, SCREEN_WIDTH, SCREEN_HEIGHT);
-	game->mmap_image = mlx_new_image(game->game, 2 * MINI_MAP_RADIUS, 2 * MINI_MAP_RADIUS);
+	game->mmap_image = mlx_new_image(game->game, 2 * MINI_MAP_RADIUS,
+			2 * MINI_MAP_RADIUS);
 	if (!game->game || !game->game_img || !game->mmap_image)
 	{
 		free_table(&map_inf, map_inf->map_size);

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   infile_pars2.c                                     :+:      :+:    :+:   */
+/*   infile_pars2_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 11:59:02 by asayad            #+#    #+#             */
-/*   Updated: 2025/02/18 18:32:48 by hmoukit          ###   ########.fr       */
+/*   Updated: 2025/02/19 19:02:42 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	check_fst_line(t_list *l)
 	i = 0;
 	while (i < ft_strlen((char *)(l->content)))
 	{
-		if (((char *)(l->content))[i] == ' ' 
+		if (((char *)(l->content))[i] == ' '
 			|| ((char *)(l->content))[i] != '1')
 		{
 			ft_putendl_fd("Invalid map !", 2);

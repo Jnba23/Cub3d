@@ -6,6 +6,7 @@
 		"get_next_line.h": "c",
 		"chrono": "c",
 		"complex": "c",
-		"sstream": "c"
+		"sstream": "c",
+		"cub3d_bonus.h": "c"
 	}
 }

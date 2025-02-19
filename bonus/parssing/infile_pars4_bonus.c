@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   infile_pars4.c                                     :+:      :+:    :+:   */
+/*   infile_pars4_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 11:54:40 by asayad            #+#    #+#             */
-/*   Updated: 2025/02/18 18:32:48 by hmoukit          ###   ########.fr       */
+/*   Updated: 2025/02/19 19:03:50 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	cnvrt_lst_2_map(t_map **map_inf)
 		l = (char *)tmp->content;
 		(*map_inf)->map_2d[j] = malloc (sizeof(char) * (ft_strlen(l) + 1));
 		if (!(*map_inf)->map_2d[j])
-			return(free_table(map_inf, j), 0);
+			return (free_table(map_inf, j), 0);
 		ft_strcpy(l, (*map_inf)->map_2d[j]);
 		tmp = tmp->next;
 		j++;

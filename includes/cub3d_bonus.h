@@ -6,7 +6,7 @@
 /*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 18:29:49 by hmoukit           #+#    #+#             */
-/*   Updated: 2025/02/19 15:14:01 by hmoukit          ###   ########.fr       */
+/*   Updated: 2025/02/19 19:33:27 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ typedef struct	s_texture
 	double		wall_x;
 	double		pos;
 	uint8_t		*pixel;
+	float		true_wall_h;
 } 	t_texture;
 
 typedef	struct s_player
@@ -126,6 +127,8 @@ typedef struct s_ray
 	double	wall_h;
 	int		bott_pix;
 	int		top_pix;
+	// float	interx;
+	// float	intery;
 } t_ray;
 
 typedef struct s_inter
@@ -204,7 +207,7 @@ char		*rm_spaces(char *s);
 int			analyze_line(t_list **file_nd, t_map **map_inf);
 int			colors_nd_texture(char *l, t_map **map_inf);
 int			open_textures(char *l, t_map **map_inf, char *dir);
-int			textures(char *l, mlx_texture_t **direction);
+int			textures(char *l, mlx_texture_t **direction, t_map **map_inf);
 int			map_in(t_list **file_nd, t_map **map_inf);
 int			check_rest_of_line(char *c, t_list *l);
 int			check_fst_line(t_list *l);
@@ -256,9 +259,10 @@ void		cube3d(void *game);
 void		render_va(t_game *game, char dir);
 float		rad2deg(float angle_rad);
 bool		valid_ray_intersection(t_game *game, float hx, float hy, int ray);
+int			get_rgba(int r, int g, int b, int a);
 
 /*			initializing	*/
-void		game_struct_init(t_map *map_inf, t_game **game, t_player *pl_inf);
+int			game_struct_init(t_map *map_inf, t_game **game, t_player *pl_inf);
 
 /*			intersections	*/
 int			va_y_up(float va);
@@ -279,7 +283,7 @@ void		cast_rays(t_game *game);
 void		render_ray(t_game *game, t_coor *coo);
 void		shortest_distance(t_game *game, int ray);
 void		normalize_ang(float *alpha);
-void		render_3D_game(t_game *game);
+void		render_3d_game(t_game *game);
 void		draw_wall(int i, t_game *game, int bott_pix, int top_pix);
 void		draw_ceiling_floor(int i, t_game *game, int bott_pix, int top_pix);
 

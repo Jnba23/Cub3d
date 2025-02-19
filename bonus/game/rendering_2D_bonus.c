@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rendering_2D.c                                     :+:      :+:    :+:   */
+/*   rendering_2D_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 10:42:06 by hmoukit           #+#    #+#             */
-/*   Updated: 2025/02/18 18:56:04 by hmoukit          ###   ########.fr       */
+/*   Updated: 2025/02/19 17:05:36 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	mmap_cnst(t_game *game, t_mmap *m_map)
 	if (!n)
 	{
 		printf("MINI MAP\n");
-		// free_textures(&game->map_inf);
+		free_textures(&game->map_inf);
 		free_table(&game->map_inf, game->map_inf->map_size);
 		delete_images(game);
 		exit(1);
@@ -75,7 +75,7 @@ void	mmap_cnst(t_game *game, t_mmap *m_map)
 	if (mlx_image_to_window(game->game, m_map->n, MINI_MAP_RADIUS - 20, 0) == -1)
 	{
 		free_table(&game->map_inf, game->map_inf->map_size);
-		// free_textures(&game->map_inf);
+		free_textures(&game->map_inf);
 		delete_images(game);
 		mlx_delete_image(game->game, m_map->n);
 		exit(1);

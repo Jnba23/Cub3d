@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pars_utils2.c                                      :+:      :+:    :+:   */
+/*   pars_utils2_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 20:48:25 by asayad            #+#    #+#             */
-/*   Updated: 2025/02/18 18:32:48 by hmoukit          ###   ########.fr       */
+/*   Updated: 2025/02/19 19:10:34 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include<cub3d_bonus.h>
+#include <cub3d_bonus.h>
 
 void	free_in_list(t_list *lst)
 {
-	t_list *tmp;
+	t_list	*tmp;
 
 	while (lst)
 	{

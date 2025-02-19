@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   infile_pars.c                                      :+:      :+:    :+:   */
+/*   infile_pars_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 11:15:59 by asayad            #+#    #+#             */
-/*   Updated: 2025/02/18 18:32:48 by hmoukit          ###   ########.fr       */
+/*   Updated: 2025/02/19 18:34:48 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ int	check_infile(char *in, t_map *map_inf)
 	while (s)
 	{
 		if (ft_strncmp(s, "NO ", 3) && ft_strncmp(s, "SO ", 3)
-			&& ft_strncmp(s, "WE ", 3) && ft_strncmp(s, "EA ", 3) && ft_strncmp(s, "D ", 2))
+			&& ft_strncmp(s, "WE ", 3) && ft_strncmp(s, "EA ", 3)
+			&& ft_strncmp(s, "D ", 2))
 			s = rm_spaces(s);
 		ft_lstadd_back(&in_list, ft_lstnew(s));
 		s = get_next_line(fd);
@@ -91,18 +92,17 @@ int	check_if_valid_data(t_list **in_list, t_map **map_inf)
 			continue ;
 		}
 		if (!(*map_inf)->map_in && (i == 2 || i == 3))
-			return (0);
-			// return (free_textures(map_inf), 0);
+			return (free_textures(map_inf), 0);
 		if ((*map_inf)->map_in)
 			break ;
 		tmp = tmp->next;
 	}
-	if (!(*map_inf)->map_in || !map_analysis(map_inf) || !cnvrt_lst_2_map(map_inf))
-		return (0);
-		// return (free_textures(map_inf), 0);
+	if (!(*map_inf)->map_in || !map_analysis(map_inf)
+		|| !cnvrt_lst_2_map(map_inf))
+		return (free_textures(map_inf), 0);
 	if (!(*map_inf)->map_in || !check_nd_fill_map(map_inf))
-		return (0);
-		// return (free_textures(map_inf), free_table(map_inf, (*map_inf)->map_size), 0);
+		return (free_textures(map_inf), free_table(map_inf,
+				(*map_inf)->map_size), 0);
 	return (1);
 }
 

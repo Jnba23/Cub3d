@@ -6,7 +6,7 @@
 #    By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/19 13:03:43 by hmoukit           #+#    #+#              #
-#    Updated: 2025/02/19 13:03:49 by hmoukit          ###   ########.fr        #
+#    Updated: 2025/02/19 17:31:14 by hmoukit          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,8 @@ GAMEM = game_init.c utils.c utils_2.c ray_casting.c cub3d.c rendering_2D.c rende
 PARSB = infile_pars_bonus.c infile_pars1_bonus.c infile_pars2_bonus.c infile_pars3_bonus.c infile_pars4_bonus.c infile_pars5_bonus.c \
 		pars_utils_bonus.c pars_utils1_bonus.c pars_utils2_bonus.c get_next_line.c get_next_line_utils.c
 GAMEB = animation_bonus.c cub3d_bonus.c draw_line_bonus.c game_init_bonus.c intersections_bonus.c mouse_bonus.c movements_bonus.c \
-		ray_casting_bonus.c rendering_2D_bonus.c rendering_3D_bonus.c textures_bonus.c utils_bonus.c utils_2_bonus.c
+		ray_casting_bonus.c rendering_2D_bonus.c rendering_3D_bonus.c textures_bonus.c utils_bonus.c utils_2_bonus.c utils_3_bonus.c \
+		update_move.c textures_drawing.c
 
 PARSF = $(addprefix mandatory/parssing/, $(PARSM))
 GAMEF = $(addprefix mandatory/game/, $(GAMEM))
