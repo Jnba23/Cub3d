@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_init.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 10:41:48 by hmoukit           #+#    #+#             */
-/*   Updated: 2025/02/20 10:55:24 by asayad           ###   ########.fr       */
+/*   Updated: 2025/02/20 14:57:09 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	init_game_struct(t_map *map_inf, t_game **game, t_player *pl_inf)
 	(*game)->pl_inf->walk_dir = 0;
 	(*game)->pl_inf->turn_dir = 0;
 	(*game)->ray_ang = deg2rad(RAY_ANG);
-	(*game)->pl_inf->rot_angle = deg2rad((3 * PI) / 2);
+	rot_ang(*game);
 	(*game)->map_pix_h = TILE_SIZE * (*game)->map_inf->map_height;
 	(*game)->map_pix_w = TILE_SIZE * (*game)->map_inf->map_width;
 	(*game)->pl_x_pix = (float)((*game)->pl_inf->pl_x

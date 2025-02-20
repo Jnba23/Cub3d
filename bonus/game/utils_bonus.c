@@ -6,7 +6,7 @@
 /*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 17:32:13 by asayad            #+#    #+#             */
-/*   Updated: 2025/02/19 20:21:39 by hmoukit          ###   ########.fr       */
+/*   Updated: 2025/02/20 14:24:26 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,14 @@ bool	valid_ray_intersection(t_game *game, float hx, float hy, int ray)
 		x_c = (int)floor(a[j][1] * REV_TILE);
 		if (y_c < 0 || y_c >= game->map_inf->map_height || x_c < 0 || x_c
 			>= ft_strlen(game->map[y_c]) || game->map[y_c][x_c] == '1')
+		{	printf("I'm HERE wall\n");
 			return (0);
+		}
 		if (game->map[y_c][x_c] == 'D')
+		{
+			printf("I'm HERE door\n");
 			return (0);
+		}
 		j++;
 	}
 	return (1);

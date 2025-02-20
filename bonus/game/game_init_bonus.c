@@ -6,7 +6,7 @@
 /*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 10:41:48 by hmoukit           #+#    #+#             */
-/*   Updated: 2025/02/19 20:54:56 by hmoukit          ###   ########.fr       */
+/*   Updated: 2025/02/20 14:11:15 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static int	init_player_and_map(t_game *game, t_map *map_inf, t_player *pl_inf)
 	game->pl_inf->walk_dir = 0;
 	game->pl_inf->turn_dir = 0;
 	game->ray_ang = deg2rad(RAY_ANG);
-	game->pl_inf->rot_angle = deg2rad((PI));
+	game->pl_inf->rot_angle = 3 * (PI) / 2;
 	game->map_pix_h = TILE_SIZE * game->map_inf->map_height;
 	game->map_pix_w = TILE_SIZE * game->map_inf->map_width;
 	game->pl_x_pix = game->pl_inf->pl_x * TILE_SIZE + TILE_SIZE / 2;

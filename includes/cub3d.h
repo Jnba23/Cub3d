@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 13:38:41 by asayad            #+#    #+#             */
-/*   Updated: 2025/02/20 11:40:20 by asayad           ###   ########.fr       */
+/*   Updated: 2025/02/20 14:55:27 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -254,6 +254,7 @@ float		rad2deg(float angle_rad);
 bool		valid_ray_intersection(t_game *game, float hx, float hy);
 void		release_ressources(t_game *game, t_map *map_inf, int i);
 void		assign_color(uint32_t *color, t_game *game);
+void		rot_ang(t_game *game);
 
 /*			initializing	*/
 void		game_struct_init(t_map *map_inf, t_game **game, t_player *pl_inf);

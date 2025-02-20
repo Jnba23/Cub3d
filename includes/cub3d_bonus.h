@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 18:29:49 by hmoukit           #+#    #+#             */
-/*   Updated: 2025/02/20 11:23:57 by asayad           ###   ########.fr       */
+/*   Updated: 2025/02/20 14:54:58 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ typedef struct s_list
 # define RAY_ANG (float)((float)FOV / (float)SCREEN_WIDTH)
 # define PLYR_SPEED 10
 # define REV_TILE (float)(1.0 / (float)TILE_SIZE)
-# define PI 3.14
+# define PI (float)3.14
 # define DISTANCE_P (float)(SCREEN_WIDTH / (2 * tan(FOV/2)))
 # define EPSILON 0.00001496
 
@@ -262,6 +262,7 @@ void		render_va(t_game *game, char dir);
 float		rad2deg(float angle_rad);
 bool		valid_ray_intersection(t_game *game, float hx, float hy, int ray);
 int			get_rgba(int r, int g, int b, int a);
+
 
 /*			initializing	*/
 int			game_struct_init(t_map *map_inf, t_game **game, t_player *pl_inf);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 10:42:54 by hmoukit           #+#    #+#             */
-/*   Updated: 2025/02/20 11:23:57 by asayad           ###   ########.fr       */
+/*   Updated: 2025/02/20 14:49:58 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ void	cube3d(void *game)
 {
 	t_game	*gm;
 
-	// int i = -1;
 	gm = (t_game *)game;
 	if (mlx_is_key_down(gm->game, MLX_KEY_W))
 		render_move(gm, 'U');
@@ -76,8 +75,6 @@ void	cube3d(void *game)
 		quit_game(gm);
 	if (gm->render)
 	{
-		// while (++i < SCREEN_WIDTH)
-		// 	gm->rays[i].hit_door = 0;
 		render_2d_map(gm);
 		cast_rays(gm);
 		render_3d_game(gm);

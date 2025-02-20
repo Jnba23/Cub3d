@@ -6,7 +6,7 @@
 /*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 10:42:03 by hmoukit           #+#    #+#             */
-/*   Updated: 2025/02/19 20:08:41 by hmoukit          ###   ########.fr       */
+/*   Updated: 2025/02/20 14:38:25 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,40 @@
 
 int	is_door(float x, float y, t_game *game)
 {
-	int	map_x;
-	int	map_y;
+	// int	map_x;
+	// int	map_y;
 
-	map_x = (int)(x / (float )TILE_SIZE);
-	map_y = (int)(y / (float )TILE_SIZE);
-	if (map_x >= 0 && map_y >= 0 && map_x < game->map_inf->map_width
-		&& map_y < game->map_inf->map_height)
+	// map_x = (int)(x / (float )TILE_SIZE);
+	// map_y = (int)(y / (float )TILE_SIZE);
+	// if (map_x >= 0 && map_y >= 0 && map_x < game->map_inf->map_width
+	// 	&& map_y < game->map_inf->map_height)
+	// {
+	// 	if (game->map[map_y][map_x] == 'D')
+	// 		return (1);
+	// }
+	// return (0);
+	float	a[3][2];
+	int		j;
+	int		x_coo;
+	int		y_coo;
+
+	j = 0;
+	a[0][0] = y;
+	a[0][1] = x;
+	a[1][0] = y + 0.0001f;
+	a[1][1] = x + 0.0001f;
+	a[2][0] = y - 0.0001f;
+	a[2][1] = x - 0.0001f;
+	while (j < 3)
 	{
-		if (game->map[map_y][map_x] == 'D')
+		y_coo = (int)floor(a[j][0] / TILE_SIZE);
+		x_coo = (int)floor(a[j][1] / TILE_SIZE);
+		if (y_coo < 0 || y_coo >= game->map_inf->map_height || x_coo < 0
+			|| x_coo >= ft_strlen(game->map[y_coo]))
+			return (0);
+		if (game->map[y_coo][x_coo] == 'D')
 			return (1);
+		j++;
 	}
 	return (0);
 }
@@ -33,6 +57,7 @@ void	cast_rays(t_game *game)
 	int	ray;
 
 	game->inter->alpha = game->pl_inf->rot_angle - deg2rad(FOV / 2.0);
+	// printf("alpha before ==== ")
 	normalize_ang(&game->inter->alpha);
 	ray = -1;
 	while (++ray < SCREEN_WIDTH)

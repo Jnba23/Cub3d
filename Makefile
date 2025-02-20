@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: asayad <asayad@student.42.fr>              +#+  +:+       +#+         #
+#    By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/19 13:03:43 by hmoukit           #+#    #+#              #
-#    Updated: 2025/02/20 11:54:56 by asayad           ###   ########.fr        #
+#    Updated: 2025/02/20 14:40:27 by hmoukit          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,8 +31,8 @@ CC = cc
 CFLAGS = -Wall -Werror -Wextra -MMD -I$(INCS) -I$(INCMLX) -g3 -Ofast #-fsanitize=address,undefined
 
 # MLX_FLAGS_FW = -L/Users/asayad/.brew/opt/glfw/lib -lglfw -lm #linux_wadoud
-MLX_FLAGS_FW = -L/Users/asayad/.brew/opt/glfw/lib -lglfw -lm -framework Cocoa -framework OpenGL -framework IOKit #MAC-Wadoud
-# MLX_FLAGS_FW = -L/Users/hmoukit/homebrew/opt/glfw/lib -lglfw -lm -framework Cocoa -framework OpenGL -framework IOKit #MAC-Hajar
+# MLX_FLAGS_FW = -L/Users/asayad/.brew/opt/glfw/lib -lglfw -lm -framework Cocoa -framework OpenGL -framework IOKit #MAC-Wadoud
+MLX_FLAGS_FW = -L/Users/hmoukit/homebrew/opt/glfw/lib -lglfw -lm -framework Cocoa -framework OpenGL -framework IOKit #MAC-Hajar
 
 PARSM = infile_pars.c infile_pars1.c infile_pars2.c infile_pars3.c infile_pars4.c infile_pars5.c pars_utils.c \
 	infile_pars6.c infile_pars7.c pars_utils1.c pars_utils2.c get_next_line.c get_next_line_utils.c
@@ -63,7 +63,7 @@ OBJ_GAME_F = $(addprefix objs_man/, $(notdir $(OBJ_GAME_M)))
 OBJ_PARS_BO = $(addprefix objs_bon/, $(notdir $(OBJ_PARS_B)))
 OBJ_GAME_BO = $(addprefix objs_bon/, $(notdir $(OBJ_GAME_B)))
 
-MLX = MLX42/build/libmlx42.a
+MLX = MLX42/libmlx42.a
 
 INCS	= includes
 
@@ -116,6 +116,6 @@ fclean: clean
 	@if [ -f Makefile ]; then make clean -C MLX42/build; fi
 	@rm -f $(NAME) $(BONUS)
 
-re: fclean all
+re: fclean all bonus
 
 -include objs_man/*.d objs_bon/*.d

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_3.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 10:54:23 by asayad            #+#    #+#             */
-/*   Updated: 2025/02/20 11:59:12 by asayad           ###   ########.fr       */
+/*   Updated: 2025/02/20 14:57:21 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,16 @@ void	assign_color(uint32_t *color, t_game *game)
 		| (uint32_t)(game->text->pixel[1] << 16)
 		| (uint32_t)(game->text->pixel[2] << 8)
 		| (uint32_t)game->text->pixel[3];
+}
+
+void rot_ang(t_game *game)
+{
+	if (game->pl_inf->pl_dir == 'N')
+		game->pl_inf->rot_angle = PI / 2;
+	else if (game->pl_inf->pl_dir == 'S')
+		game->pl_inf->rot_angle = 3 * PI / 2;
+	else if (game->pl_inf->pl_dir == 'E')
+		game->pl_inf->rot_angle = 0;
+	else
+		game->pl_inf->rot_angle = PI;
 }
