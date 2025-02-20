@@ -1,10 +1,10 @@
-D ./door.png
+D ./textures/door.png
 
 
-NO ./berlin.png
-SO ./berlin.png
-WE ./berlin.png
-EA ./berlin.png
+NO ./textures/berlin.png
+SO ./textures/berlin.png
+WE ./textures/berlin.png
+EA ./textures/berlin.png
 
 F  220,125,200
 C 225   ,  30  ,0     

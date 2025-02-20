@@ -6,7 +6,7 @@
 /*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 11:57:51 by asayad            #+#    #+#             */
-/*   Updated: 2025/01/29 16:59:34 by asayad           ###   ########.fr       */
+/*   Updated: 2025/02/20 11:51:19 by asayad           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	map_analysis(t_map **map_inf)
 	char	*s;
 	int		i;
 	int		j;
-	
+
 	j = 0;
 	if (!map_elements(map_inf))
 		return (0);
@@ -70,7 +70,8 @@ int	map_elements(t_map **map_inf)
 	printf("F %d\n", (*map_inf)->floor);
 	printf("C %d\n", (*map_inf)->ceiling);
 	if ((*map_inf)->ea != 1 || (*map_inf)->we != 1 || (*map_inf)->no != 1
-		|| (*map_inf)->so != 1 || (*map_inf)->ceiling != 1 || (*map_inf)->floor != 1)
+		|| (*map_inf)->so != 1 || (*map_inf)->ceiling != 1
+		|| (*map_inf)->floor != 1)
 		return (ft_putendl_fd("Missing or duplicate map data !", 2), 0);
 	return (1);
 }
@@ -106,26 +107,13 @@ int	check_empty_lines(t_map **map_inf)
 int	check_rest_of_map(t_list **map)
 {
 	t_list	*tmp;
-	
+
 	tmp = *map;
 	while (tmp)
 	{
 		if (!is_empty((char *)tmp->content))
 			return (ft_putendl_fd("Empty line(s) in the map !", 2), 0);
 		tmp = tmp->next;
-	}
-	return (1);
-}
-
-//0, 1, N, S, E, W, ' '
-int	map_char(char *s)
-{
-	while (*s)
-	{
-		if (*s != '0' && *s != '1' && *s != 'N' && *s != 'S'
-			&& *s != 'E' && *s != 'W' && *s != ' ')
-			return (ft_putendl_fd("Invalid map data !", 2), 0);
-		s++;
 	}
 	return (1);
 }

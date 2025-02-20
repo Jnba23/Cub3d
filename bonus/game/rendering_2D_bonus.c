@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   rendering_2D_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
+/*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 10:42:06 by hmoukit           #+#    #+#             */
-/*   Updated: 2025/02/19 17:05:36 by hmoukit          ###   ########.fr       */
+/*   Updated: 2025/02/20 12:06:57 by asayad           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d_bonus.h>
 
-void	render_2D_map(t_game *game)
+void	render_2d_map(t_game *game)
 {
 	t_mmap	m_map;
 
@@ -32,14 +32,14 @@ void	render_2D_map(t_game *game)
 				if (inside_strip(m_map.img_x, m_map.img_y))
 					mlx_put_pixel(game->mmap_image, (int)m_map.img_x, (int)m_map.img_y, 0x000000AA);
 				else
-					mmap_2D(game, &m_map);
+					mmap_2d(game, &m_map);
 			}
 		}
 	}
 	mmap_cnst(game, &m_map);
 }
 
-void	mmap_2D(t_game *game, t_mmap *m_map)
+void	mmap_2d(t_game *game, t_mmap *m_map)
 {
 	m_map->gm_x = m_map->gm_x0 + m_map->img_x / m_map->scale;
 	m_map->gm_y = m_map->gm_y0 + m_map->img_y / m_map->scale;
@@ -61,7 +61,7 @@ void	mmap_cnst(t_game *game, t_mmap *m_map)
 {
 	mlx_texture_t *n;
 	
-	n = mlx_load_png("./n_arr.png");
+	n = mlx_load_png("./textures/n_arr.png");
 	if (!n)
 	{
 		printf("MINI MAP\n");

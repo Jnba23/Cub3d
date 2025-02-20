@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
+/*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 10:42:54 by hmoukit           #+#    #+#             */
-/*   Updated: 2025/02/19 20:08:49 by hmoukit          ###   ########.fr       */
+/*   Updated: 2025/02/20 11:23:57 by asayad           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	cube3d(void *game)
 	{
 		// while (++i < SCREEN_WIDTH)
 		// 	gm->rays[i].hit_door = 0;
-		render_2D_map(gm);
+		render_2d_map(gm);
 		cast_rays(gm);
 		render_3d_game(gm);
 		gm->render = false;

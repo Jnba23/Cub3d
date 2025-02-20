@@ -6,7 +6,7 @@
 /*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 12:25:49 by hmoukit           #+#    #+#             */
-/*   Updated: 2025/01/29 20:00:20 by asayad           ###   ########.fr       */
+/*   Updated: 2025/02/20 11:15:28 by asayad           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	can_move(float x, float y, t_game *game)
 {
-	float 	a[3][2];
-	int 	j;
+	float	a[3][2];
+	int		j;
 	int		x_coo;
 	int		y_coo;
 
@@ -34,7 +34,7 @@ int	can_move(float x, float y, t_game *game)
 			|| x_coo >= ft_strlen(game->map[y_coo]))
 			return (0);
 		if (game->map[y_coo][x_coo] == '1')
-			return (0) ;
+			return (0);
 		j++;
 	}
 	return (1);
@@ -68,10 +68,7 @@ void	update_map_l_r(t_game *game)
 	float	p_step;
 
 	p_step = game->pl_inf->turn_dir * PLYR_SPEED;
-	if (game->pl_inf->rot_angle < 0)
-		game->pl_inf->rot_angle = fmod(game->pl_inf->rot_angle, 2 * PI) + 2 * PI;
-	else if (game->pl_inf->rot_angle > 2 * PI)
-		game->pl_inf->rot_angle -= 2 * PI;
+	normalize_ang(&game->pl_inf->rot_angle);
 	x = p_step * cos(game->pl_inf->rot_angle - (PI / 2));
 	y = p_step * sin(game->pl_inf->rot_angle - (PI / 2));
 	if (can_move(x, y, game))
@@ -84,8 +81,8 @@ void	update_map_l_r(t_game *game)
 			game->map[game->pl_inf->pl_y][game->pl_inf->pl_x] = '0';
 			game->pl_inf->pl_x = game->pl_x_pix / TILE_SIZE;
 			game->pl_inf->pl_y = game->pl_y_pix / TILE_SIZE;
-			game->map[game->pl_inf->pl_y][game->pl_inf->pl_x] =
-			game->pl_inf->pl_dir;
+			game->map[game->pl_inf->pl_y][game->pl_inf->pl_x]
+				= game->pl_inf->pl_dir;
 		}
 	}
 }
@@ -109,15 +106,15 @@ void	update_map_u_d(t_game *game)
 			game->map[game->pl_inf->pl_y][game->pl_inf->pl_x] = '0';
 			game->pl_inf->pl_y = game->pl_y_pix / TILE_SIZE;
 			game->pl_inf->pl_x = game->pl_x_pix / TILE_SIZE;
-			game->map[game->pl_inf->pl_y][game->pl_inf->pl_x] =
-			game->pl_inf->pl_dir;
+			game->map[game->pl_inf->pl_y][game->pl_inf->pl_x]
+				= game->pl_inf->pl_dir;
 		}
 	}
 }
 
 void	render_va(t_game *game, char dir)
 {
-	if(dir == 'L')
+	if (dir == 'L')
 	{
 		game->pl_inf->turn_dir = -3;
 		game->pl_inf->rot_angle += game->pl_inf->turn_dir * RAY_ANG;
@@ -128,26 +125,9 @@ void	render_va(t_game *game, char dir)
 		game->pl_inf->rot_angle += game->pl_inf->turn_dir * RAY_ANG;
 	}
 	if (game->pl_inf->rot_angle < 0)
-		game->pl_inf->rot_angle = fmod(game->pl_inf->rot_angle, 2 * PI) + 2 * PI;
+		game->pl_inf->rot_angle = fmod(game->pl_inf->rot_angle, 2 * PI)
+			+ 2 * PI;
 	else if (game->pl_inf->rot_angle > 2 * PI)
 		game->pl_inf->rot_angle -= 2 * PI;
 	game->render = true;
-}
-
-void	quit_game(t_game *game)
-{
-	free_table(&game->map_inf, game->map_inf->map_size);
-	free_textures(&game->map_inf);
-	if (game->mmap_inf->n)
-		mlx_delete_image(game->game, game->mmap_inf->n);
-	if (game->text->img_east)
-		mlx_delete_image(game->game, game->text->img_east);
-	if (game->text->img_west)
-		mlx_delete_image(game->game, game->text->img_west);
-	if (game->text->img_north)
-		mlx_delete_image(game->game, game->text->img_north);
-	if (game->text->img_south)
-		mlx_delete_image(game->game, game->text->img_south);
-	delete_images(game);
-	exit(1);
 }

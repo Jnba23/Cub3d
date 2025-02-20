@@ -6,7 +6,7 @@
 /*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 10:16:00 by hmoukit           #+#    #+#             */
-/*   Updated: 2025/01/23 18:27:53 by asayad           ###   ########.fr       */
+/*   Updated: 2025/02/20 11:39:58 by asayad           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,7 @@ int	draw_textured_wall(t_game *game, int i)
 		pixel_pos = (game->text->tex_y
 				* texture->width + game->text->tex_x) * 4;
 		game->text->pixel = (uint8_t *)&texture->pixels[pixel_pos];
-		color = (uint32_t)(game->text->pixel[0] << 24)
-			| (uint32_t)(game->text->pixel[1] << 16)
-			| (uint32_t)(game->text->pixel[2] << 8) | (uint32_t)game->text->pixel[3];
+		assign_color(&color, game);
 		mlx_put_pixel(game->game_img, i, y, color);
 		y++;
 	}
@@ -74,7 +72,7 @@ int	assign_texture(t_game *game, int i, mlx_image_t **texture)
 		*texture = game->text->img_south;
 	else if (!game->rays[i].horiz && game->rays[i].y < game->pl_y_pix)
 		*texture = game->text->img_north;
-	else if (game->rays[i].horiz && game->rays[i].x > game->pl_x_pix)	
+	else if (game->rays[i].horiz && game->rays[i].x > game->pl_x_pix)
 		*texture = game->text->img_east;
 	else
 		*texture = game->text->img_west;

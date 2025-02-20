@@ -6,7 +6,7 @@
 /*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 12:00:45 by asayad            #+#    #+#             */
-/*   Updated: 2025/01/29 19:45:12 by asayad           ###   ########.fr       */
+/*   Updated: 2025/02/20 12:12:10 by asayad           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,13 @@ int	analyze_line(t_list **file_nd, t_map **map_inf)
 {
 	if (!(*map_inf)->map_in && is_empty((char *)((*file_nd)->content)))
 		return (1);
-	else if (!(*map_inf)->map_in && (!ft_strncmp((char *)((*file_nd)->content), "NO", 2)
-			|| !ft_strncmp((char *)((*file_nd)->content), "SO", 2)
-			|| !ft_strncmp((char *)((*file_nd)->content), "WE", 2)
-			|| !ft_strncmp((char *)((*file_nd)->content), "EA", 2)
-			|| !ft_strncmp((char *)((*file_nd)->content), "F", 1)
-			|| !ft_strncmp((char *)((*file_nd)->content), "C", 1)))
+	else if (!(*map_inf)->map_in && (!ft_strncmp((char *)((*file_nd)->content),
+			"NO", 2)
+		|| !ft_strncmp((char *)((*file_nd)->content), "SO", 2)
+		|| !ft_strncmp((char *)((*file_nd)->content), "WE", 2)
+		|| !ft_strncmp((char *)((*file_nd)->content), "EA", 2)
+		|| !ft_strncmp((char *)((*file_nd)->content), "F", 1)
+		|| !ft_strncmp((char *)((*file_nd)->content), "C", 1)))
 	{
 		if (!colors_nd_texture((char *)((*file_nd)->content), map_inf))
 			return (2);
@@ -61,13 +62,15 @@ int	colors_nd_texture(char *l, t_map **map_inf)
 	{
 		(*map_inf)->floor++;
 		if (!check_color(l, map_inf, 'f'))
-			return (free_textures(map_inf), ft_putendl_fd("Invalid colors !", 2), 0);
+			return (free_textures(map_inf),
+				ft_putendl_fd("Invalid colors !", 2), 0);
 	}
 	else if (!ft_strncmp(l, "C", 1))
 	{
 		(*map_inf)->ceiling++;
 		if (!check_color(l, map_inf, 'c'))
-			return (free_textures(map_inf), ft_putendl_fd("Invalid colors !", 2), 0);
+			return (free_textures(map_inf),
+				ft_putendl_fd("Invalid colors !", 2), 0);
 	}
 	return (1);
 }
@@ -99,8 +102,8 @@ int	open_textures(char *l, t_map **map_inf, char *dir)
 
 int	textures(char *l, mlx_texture_t **direction, t_map **map_inf)
 {
-	char *s;
-	char *path;
+	char	*s;
+	char	*path;
 
 	path = (char *)find_path(l);
 	s = ft_strdup(path, ft_strlen(path) - 1);
@@ -108,18 +111,7 @@ int	textures(char *l, mlx_texture_t **direction, t_map **map_inf)
 	free(s);
 	free(path);
 	if (!*direction)
-		return (free_textures(map_inf), printf("%s\n", mlx_strerror(mlx_errno)), 0);
+		return (free_textures(map_inf), printf("%s\n",
+				mlx_strerror(mlx_errno)), 0);
 	return (1);
-}
-
-void	free_textures(t_map **map_inf)
-{
-	if ((*map_inf)->north)
-		mlx_delete_texture((*map_inf)->north);
-	if ((*map_inf)->south)
-		mlx_delete_texture((*map_inf)->south);
-	if ((*map_inf)->east)
-		mlx_delete_texture((*map_inf)->east);
-	if ((*map_inf)->west)
-		mlx_delete_texture((*map_inf)->west);
 }

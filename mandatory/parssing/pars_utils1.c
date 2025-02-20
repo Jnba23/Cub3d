@@ -6,7 +6,7 @@
 /*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 12:06:41 by asayad            #+#    #+#             */
-/*   Updated: 2025/01/29 16:59:05 by asayad           ###   ########.fr       */
+/*   Updated: 2025/02/20 11:57:58 by asayad           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,16 +77,4 @@ void	ft_putendl_fd(char *s, int fd)
 	}
 	if (write(fd, "\n", 1) == -1)
 		perror("Write failed !");
-}
-
-int	table_size(char ** map)
-{
-	int		i;
-	
-	i = 0;
-	if (!map || !map[0])
-		return (0);
-	while (map[i])
-		i++;
-	return (i);
 }

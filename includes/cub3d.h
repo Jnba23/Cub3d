@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
+/*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 13:38:41 by asayad            #+#    #+#             */
-/*   Updated: 2025/02/19 19:21:24 by hmoukit          ###   ########.fr       */
+/*   Updated: 2025/02/20 11:40:20 by asayad           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -252,9 +252,14 @@ void		update_map_l_r(t_game *game);
 void		render_va(t_game *game, char dir);
 float		rad2deg(float angle_rad);
 bool		valid_ray_intersection(t_game *game, float hx, float hy);
+void		release_ressources(t_game *game, t_map *map_inf, int i);
+void		assign_color(uint32_t *color, t_game *game);
 
 /*			initializing	*/
 void		game_struct_init(t_map *map_inf, t_game **game, t_player *pl_inf);
+void 		init_game_struct(t_map *map_inf, t_game **game, t_player *pl_inf);
+void 		init_inter_struct(t_game **game, t_map *map_inf);
+void		init_rays_struct(t_game **game, t_map *map_inf);
 
 /*			intersections	*/
 int			va_y_up(float va);
@@ -270,12 +275,12 @@ void		render_move(t_game *game, char dir);
 void		render_va(t_game *game, char dir);
 
 /*			rendering		*/
-void		render_2D_map(t_game *game);
+void		render_2d_map(t_game *game);
 void		cast_rays(t_game *game);
 void		render_ray(t_game *game, t_coor *coo);
 void		shortest_distance(t_game *game, int ray);
 void		normalize_ang(float *alpha);
-void		render_3D_game(t_game *game);
+void		render_3d_game(t_game *game);
 void		draw_wall(int i, t_game *game, int bott_pix, int top_pix);
 void		draw_ceiling_floor(int i, t_game *game, int bott_pix, int top_pix);
 
@@ -283,7 +288,7 @@ void		draw_ceiling_floor(int i, t_game *game, int bott_pix, int top_pix);
 
 bool		inside_mmap(float x_pix, float y_pix);
 bool		inside_strip(float x_pix, float y_pix);
-void		mmap_2D(t_game *game, t_mmap *m_map);
+void		mmap_2d(t_game *game, t_mmap *m_map);
 void		mmap_cnst(t_game *game, t_mmap *m_map);
 void		draw_player(t_game *game);
 void	    draw_ray(t_game *game, t_coor *coo);

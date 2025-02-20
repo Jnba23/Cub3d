@@ -6,7 +6,7 @@
 /*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 17:32:13 by asayad            #+#    #+#             */
-/*   Updated: 2025/01/23 17:39:20 by asayad           ###   ########.fr       */
+/*   Updated: 2025/02/20 11:42:46 by asayad           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ int	va_x_right(float va)
 	return (0);
 }
 
-bool valid_ray_intersection(t_game *game, float hx, float hy)
+bool	valid_ray_intersection(t_game *game, float hx, float hy)
 {
-	float 	a[3][2];
-	int 	j;
+	float	a[3][2];
+	int		j;
 	int		x_coo;
 	int		y_coo;
 
@@ -43,9 +43,10 @@ bool valid_ray_intersection(t_game *game, float hx, float hy)
 	while (j < 3)
 	{
 		y_coo = (int)floor(a[j][0] * REV_TILE);
-        x_coo = (int)floor(a[j][1] * REV_TILE);
+		x_coo = (int)floor(a[j][1] * REV_TILE);
 		if (y_coo < 0 || y_coo >= game->map_inf->map_height || x_coo < 0
-			|| x_coo >= ft_strlen(game->map[y_coo]) || game->map[y_coo][x_coo] == '1')
+			|| x_coo >= ft_strlen(game->map[y_coo])
+			|| game->map[y_coo][x_coo] == '1')
 			return (0);
 		j++;
 	}
@@ -62,7 +63,8 @@ void	normalize_ang(float *alpha)
 
 bool	inside_mmap(float x_pix, float y_pix)
 {
-	if (powf(x_pix - MINI_MAP_RADIUS, 2) + powf(y_pix - MINI_MAP_RADIUS, 2) <= RADIUS_SQUARE)
+	if (powf(x_pix - MINI_MAP_RADIUS, 2) + powf(y_pix - MINI_MAP_RADIUS, 2)
+		<= RADIUS_SQUARE)
 		return (1);
 	return (0);
 }

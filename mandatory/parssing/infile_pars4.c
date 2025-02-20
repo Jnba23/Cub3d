@@ -6,7 +6,7 @@
 /*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 11:54:40 by asayad            #+#    #+#             */
-/*   Updated: 2024/11/16 12:12:39 by asayad           ###   ########.fr       */
+/*   Updated: 2025/02/20 11:51:52 by asayad           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	cnvrt_lst_2_map(t_map **map_inf)
 		l = (char *)tmp->content;
 		(*map_inf)->map_2d[j] = malloc (sizeof(char) * (ft_strlen(l) + 1));
 		if (!(*map_inf)->map_2d[j])
-			return(free_table(map_inf, j), 0);
+			return (free_table(map_inf, j), 0);
 		ft_strcpy(l, (*map_inf)->map_2d[j]);
 		tmp = tmp->next;
 		j++;

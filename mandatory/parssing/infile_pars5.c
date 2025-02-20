@@ -6,7 +6,7 @@
 /*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 13:32:07 by asayad            #+#    #+#             */
-/*   Updated: 2025/01/29 13:01:36 by asayad           ###   ########.fr       */
+/*   Updated: 2025/02/20 11:53:46 by asayad           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	check_pre_line(char **map_line, int idx)
 	return (1);
 }
 
-int check_begin_lines(char **map, int idx)
+int	check_begin_lines(char **map, int idx)
 {
 	int	i;
 	int	j;
@@ -57,18 +57,20 @@ int check_begin_lines(char **map, int idx)
 		return (0);
 	if (i < j)
 	{
-		if (j - 1 < ft_strlen(map[idx]) && (map[idx - 1][j] != '1' || map[idx][j - 1] != '1'))
+		if (j - 1 < ft_strlen(map[idx]) && (map[idx - 1][j] != '1'
+			|| map[idx][j - 1] != '1'))
 			return (0);
 	}
 	else if (i > j)
 	{
-		if (i - 1 < ft_strlen(map[idx - 1]) && (map[idx][i] != '1' || map[idx - 1][i - 1] != '1'))
+		if (i - 1 < ft_strlen(map[idx - 1]) && (map[idx][i] != '1'
+			|| map[idx - 1][i - 1] != '1'))
 			return (0);
 	}
 	return (1);
 }
 
-int check_end_lines(char **map, int idx)
+int	check_end_lines(char **map, int idx)
 {
 	int	i;
 	int	j;
@@ -79,12 +81,14 @@ int check_end_lines(char **map, int idx)
 		return (0);
 	if (i < j)
 	{
-		if (map[idx][i - 1] != '1' || map[idx - 1][i] != '1' || !ones_nd_spaces(map[idx - 1], i + 1))
+		if (map[idx][i - 1] != '1' || map[idx - 1][i] != '1'
+			|| !ones_nd_spaces(map[idx - 1], i + 1))
 			return (0);
 	}
 	else if (i > j)
 	{
-		if (map[idx - 1][j - 1] != '1' || map[idx][j] != '1' || !ones_nd_spaces(map[idx], j + 1))
+		if (map[idx - 1][j - 1] != '1' || map[idx][j] != '1'
+			|| !ones_nd_spaces(map[idx], j + 1))
 			return (0);
 	}
 	return (1);
@@ -92,8 +96,8 @@ int check_end_lines(char **map, int idx)
 
 int	check_line(t_map **map_inf, int idx)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
 	char	**map;
 
 	i = 0;
@@ -109,87 +113,6 @@ int	check_line(t_map **map_inf, int idx)
 		if (!check_diff_dirs(map, idx, i))
 			return (0);
 		i++;
-	}
-	return (1);
-}
-
-int	ones_nd_spaces(char *l, int i)
-{
-	while (l[i])
-	{
-		if (l[i] != '1' && l[i] != ' ')
-			return (0);
-		i++;
-	}
-	return (1);
-}
-
-int	is_map_element(t_map *map_inf, int x, int y)
-{
-	char	**map;
-
-	map = map_inf->map_2d;
-	while (map[x][y])
-	{
-		if (map[x][y] != '0' && map[x][y] != '1' && map[x][y] != 'N' && map[x][y] != 'S'
-			&& map[x][y] != 'E' && map[x][y] != 'W')
-			return (0);
-		if (map[x][y] == 'N' || map[x][y] == 'S' || map[x][y] == 'E' || map[x][y] == 'W')
-		{
-			if (map_inf->player_in)
-				return (0);
-			map_inf->player_in = true;
-			map_inf->pl_dir = map[x][y];
-			map_inf->p_pos_y = x;
-			map_inf->p_pos_x = y;
-		}
-		y++;
-	}
-	return (1);
-}
-
-int	check_player(char **map, int i, int j)
-{
-	if (map[i] + j + 1 && map[i][j + 1] == ' ' && map[i][j - 1] == ' ')
-	{
-		if (i > ft_strlen(map[i - 1]) || (map + i + 1 && i > ft_strlen(map[i + 1])))
-			return (0);
-	}
-	return (1);
-}
-
-void	skip_spaces(char *line, int *i)
-{
-	while (line[*i])
-	{
-		if (line[*i] != ' ')
-			break ;
-		(*i)++;
-	}
-}
-
-int	check_diff_dirs(char **map, int line, int c)
-{
-	if (map[line][c] == '0' || map[line][c] == 'N' || map[line][c] == 'S'
-		|| map[line][c] == 'E' || map[line][c] == 'W')
-	{
-		if (map[line][c + 1] == ' ')
-			return (0);
-		if (c  >= ft_strlen(map[line - 1]))
-			return (0);
-		if (c  >= ft_strlen(map[line + 1]))
-			return (0);
-		if (line == 1)
-		{
-			if (map[line - 1][c] == '0' || map[line - 1][c] == ' ')
-				return (0);
-		}
-		if (line == table_size(map) - 1)
-		{
-			puts(map[line]);
-			if (map[line][c] == '0')
-				return (0);
-		}
 	}
 	return (1);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
+/*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 18:29:49 by hmoukit           #+#    #+#             */
-/*   Updated: 2025/02/19 20:27:04 by hmoukit          ###   ########.fr       */
+/*   Updated: 2025/02/20 11:23:57 by asayad           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -280,7 +280,7 @@ void		render_va(t_game *game, char dir);
 void		update_map_u_d(t_game *game);
 
 /*			rendering		*/
-void		render_2D_map(t_game *game);
+void		render_2d_map(t_game *game);
 void		cast_rays(t_game *game);
 void		render_ray(t_game *game, t_coor *coo);
 void		shortest_distance(t_game *game, int ray);
@@ -292,7 +292,7 @@ void		draw_ceiling_floor(int i, t_game *game, int bott_pix, int top_pix);
 /*			Mini map		*/
 bool		inside_mmap(float x_pix, float y_pix);
 bool		inside_strip(float x_pix, float y_pix);
-void		mmap_2D(t_game *game, t_mmap *m_map);
+void		mmap_2d(t_game *game, t_mmap *m_map);
 void		mmap_cnst(t_game *game, t_mmap *m_map);
 void		draw_player(t_game *game);
 void	    draw_ray(t_game *game, t_coor *coo);
