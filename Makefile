@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+         #
+#    By: asayad <asayad@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/19 13:03:43 by hmoukit           #+#    #+#              #
-#    Updated: 2025/02/24 14:23:42 by hmoukit          ###   ########.fr        #
+#    Updated: 2025/02/24 14:58:13 by asayad           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,8 +30,9 @@ CC = cc
 
 CFLAGS = -Wall -Werror -Wextra -MMD -I$(INCS) -I$(INCMLX) -g3 -Ofast #-fsanitize=address
 
+MLX_FLAGS_FW = -L/usr/lib/x86_64-linux-gnu -lglfw -lm -ldl -pthread #linux -Wadoud
 # MLX_FLAGS_FW = -L/Users/asayad/.brew/opt/glfw/lib -lglfw -lm -framework Cocoa -framework OpenGL -framework IOKit #MAC-Wadoud
-MLX_FLAGS_FW = -L/Users/hmoukit/homebrew/opt/glfw/lib -lglfw -lm -framework Cocoa -framework OpenGL -framework IOKit #MAC-Hajar
+# MLX_FLAGS_FW = -L/Users/hmoukit/homebrew/opt/glfw/lib -lglfw -lm -framework Cocoa -framework OpenGL -framework IOKit #MAC-Hajar
 
 PARSM = infile_pars.c infile_pars1.c infile_pars2.c infile_pars3.c infile_pars4.c infile_pars5.c pars_utils.c \
 	infile_pars6.c infile_pars7.c pars_utils1.c pars_utils2.c get_next_line.c get_next_line_utils.c
@@ -62,7 +63,7 @@ OBJ_GAME_F = $(addprefix objs_man/, $(notdir $(OBJ_GAME_M)))
 OBJ_PARS_BO = $(addprefix objs_bon/, $(notdir $(OBJ_PARS_B)))
 OBJ_GAME_BO = $(addprefix objs_bon/, $(notdir $(OBJ_GAME_B)))
 
-MLX = MLX42/libmlx42.a
+MLX = MLX42/build/libmlx42.a
 
 INCS	= includes
 
@@ -86,7 +87,8 @@ $(MLX):
 	@make -C MLX42/build > /dev/null
 
 $(NAME): $(OBJ_PARS_F) $(OBJ_GAME_F)
-	$(CC) $(CFLAGS) $(MLX)  $(MLX_FLAGS_FW) $^ -o $@
+	$(CC) $(CFLAGS) $^ $(MLX)  $(MLX_FLAGS_FW) -o $@
+#$(CC) $(CFLAGS) $(MLX)  $(MLX_FLAGS_FW) $^ -o $@
 
 objs_man/%.o: mandatory/parssing/%.c
 	mkdir -p objs_man
@@ -97,7 +99,8 @@ objs_man/%.o: mandatory/game/%.c
 	$(CC) $(CFLAGS) $< -c -o $@
 
 $(BONUS): $(OBJ_PARS_BO) $(OBJ_GAME_BO)
-	$(CC) $(CFLAGS) $(MLX)  $(MLX_FLAGS_FW) $^ -o $@
+	$(CC) $(CFLAGS) $^ $(MLX)  $(MLX_FLAGS_FW) -o $@
+#$(CC) $(CFLAGS) $(MLX)  $(MLX_FLAGS_FW) $^ -o $@
 
 objs_bon/%.o: bonus/parssing/%.c
 	mkdir -p objs_bon

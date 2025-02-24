@@ -6,7 +6,7 @@
 /*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 17:32:13 by asayad            #+#    #+#             */
-/*   Updated: 2025/02/20 11:42:46 by asayad           ###   ########.fr       */
+/*   Updated: 2025/02/24 18:36:59 by asayad           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,10 @@ bool	valid_ray_intersection(t_game *game, float hx, float hy)
 	j = 0;
 	a[0][0] = game->pl_y_pix + hy;
 	a[0][1] = game->pl_x_pix + hx;
-	a[1][0] = game->pl_y_pix + hy + 0.0001f;
-	a[1][1] = game->pl_x_pix + hx + 0.0001f;
-	a[2][0] = game->pl_y_pix + hy - 0.0001f;
-	a[2][1] = game->pl_x_pix + hx - 0.0001f;
+	a[1][0] = game->pl_y_pix + hy + 0.01f;
+	a[1][1] = game->pl_x_pix + hx + 0.01f;
+	a[2][0] = game->pl_y_pix + hy - 0.01f;
+	a[2][1] = game->pl_x_pix + hx - 0.01f;
 	while (j < 3)
 	{
 		y_coo = (int)floor(a[j][0] * REV_TILE);

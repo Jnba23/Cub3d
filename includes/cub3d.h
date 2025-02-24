@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
+/*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 13:38:41 by asayad            #+#    #+#             */
-/*   Updated: 2025/02/24 13:42:58 by hmoukit          ###   ########.fr       */
+/*   Updated: 2025/02/24 19:13:38 by asayad           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,7 +195,7 @@ char		*rm_spaces(char *s);
 int			analyze_line(t_list **file_nd, t_map **map_inf);
 int			colors_nd_texture(char *l, t_map **map_inf);
 int			open_textures(char *l, t_map **map_inf, char *dir);
-int			textures(char *l, mlx_texture_t **direction, t_map **map_inf);
+int			textures(char *l, mlx_texture_t **direction, t_map **map_inf, char *s);
 int			map_in(t_list **file_nd, t_map **map_inf);
 int			check_rest_of_line(char *c, t_list *l);
 int			check_fst_line(t_list *l);
@@ -253,6 +253,8 @@ void		release_ressources(t_game *game, t_map *map_inf, int i);
 void		assign_color(uint32_t *color, t_game *game);
 void		rot_ang(t_game *game);
 int			get_rgba(int r, int g, int b, int a);
+int			check_order(t_map **map_inf, char *s);
+int			in_mmap(t_game *game, t_mmap *m_map);
 
 /*			initializing	*/
 void		game_struct_init(t_map *map_inf, t_game **game, t_player *pl_inf);
@@ -299,6 +301,6 @@ int			assign_texture(t_game *game, int i, mlx_image_t **texture);
 void		calculate_tex_x(t_game *game, mlx_image_t *texture, int i);
 double		calculate_wallx(t_game *game, int i);
 int			draw_textured_wall(t_game *game, int i);
-int	draw_texture_range(t_game *game, mlx_image_t *texture, int i, float true_wall_h);
+int			draw_texture_range(t_game *game, mlx_image_t *texture, int i, float true_wall_h);
 
 #endif

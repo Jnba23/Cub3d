@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   infile_pars5.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
+/*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 13:32:07 by asayad            #+#    #+#             */
-/*   Updated: 2025/02/23 20:20:55 by hmoukit          ###   ########.fr       */
+/*   Updated: 2025/02/24 14:52:01 by asayad           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,6 @@ int	check_nd_fill_map(t_map **map_inf)
 
 int	check_pre_line(char **map_line, int idx)
 {
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
 	if (!check_begin_lines(map_line, idx))
 		return (0);
 	if (!check_end_lines(map_line, idx))

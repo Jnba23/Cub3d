@@ -6,7 +6,7 @@
 /*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 12:25:49 by hmoukit           #+#    #+#             */
-/*   Updated: 2025/02/20 11:15:28 by asayad           ###   ########.fr       */
+/*   Updated: 2025/02/24 19:14:13 by asayad           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,23 @@
 
 int	can_move(float x, float y, t_game *game)
 {
-	float	a[3][2];
+	float	a[4][2];
 	int		j;
 	int		x_coo;
 	int		y_coo;
+	float	pl_radius;
 
+	pl_radius = 0.05f * TILE_SIZE;
 	j = 0;
-	a[0][0] = y + game->pl_y_pix;
-	a[0][1] = x + game->pl_x_pix;
-	a[1][0] = y + game->pl_y_pix + 0.001f;
-	a[1][1] = x + game->pl_x_pix + 0.001f;
-	a[2][0] = y + game->pl_y_pix - 0.001f;
-	a[2][1] = x + game->pl_x_pix - 0.001f;
-	while (j < 3)
+	a[0][0] = y - pl_radius + game->pl_y_pix;
+	a[0][1] = x - pl_radius + game->pl_x_pix;
+	a[1][0] = y + pl_radius + game->pl_y_pix;
+	a[1][1] = x - pl_radius + game->pl_x_pix;
+	a[2][0] = y + pl_radius + game->pl_y_pix;
+	a[2][1] = x + pl_radius + game->pl_x_pix;
+	a[3][0] = y - pl_radius + game->pl_y_pix;
+	a[3][1] = x + pl_radius + game->pl_x_pix;
+	while (j < 4)
 	{
 		y_coo = (int)floor(a[j][0] / TILE_SIZE);
 		x_coo = (int)floor(a[j][1] / TILE_SIZE);

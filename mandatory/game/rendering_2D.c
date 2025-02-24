@@ -6,7 +6,7 @@
 /*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 10:42:06 by hmoukit           #+#    #+#             */
-/*   Updated: 2025/02/20 12:07:02 by asayad           ###   ########.fr       */
+/*   Updated: 2025/02/24 19:13:17 by asayad           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,16 +78,27 @@ void	mmap_2d(t_game *game, t_mmap *m_map)
 		&& m_map->map_x >= 0 && m_map->map_x
 		< ft_strlen(game->map[m_map->map_y]))
 	{
-		if (game->map[m_map->map_y][m_map->map_x] == '1')
-			mlx_put_pixel(game->mmap_image, m_map->img_x, m_map->img_y,
-				0x000000FF);
-		else
+		if (in_mmap(game, m_map))
 			mlx_put_pixel(game->mmap_image, m_map->img_x, m_map->img_y,
 				0xFFFFFFFF);
+		else
+			mlx_put_pixel(game->mmap_image, m_map->img_x, m_map->img_y,
+				0x000000FF);
 	}
 	else
 		mlx_put_pixel(game->mmap_image, m_map->img_x, m_map->img_y,
 			0x000000FF);
+}
+
+int	in_mmap(t_game *game, t_mmap *m_map)
+{
+	if (game->map[m_map->map_y][m_map->map_x] != '0'
+		&& game->map[m_map->map_y][m_map->map_x] != 'N'
+		&& game->map[m_map->map_y][m_map->map_x] != 'S'
+		&& game->map[m_map->map_y][m_map->map_x] != 'E'
+		&& game->map[m_map->map_y][m_map->map_x] != 'W')
+			return (0);
+	return (1);
 }
 
 void	mmap_cnst(t_game *game, t_mmap *m_map)

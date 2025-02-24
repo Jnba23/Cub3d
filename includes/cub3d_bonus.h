@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
+/*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 18:29:49 by hmoukit           #+#    #+#             */
-/*   Updated: 2025/02/23 20:14:43 by hmoukit          ###   ########.fr       */
+/*   Updated: 2025/02/24 19:01:21 by asayad           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ typedef struct s_list
 # define STRIP_RADIUS_SQUARE (float)((MINI_MAP_RADIUS - 10.0) * (MINI_MAP_RADIUS - 10.0))
 # define FOV 60	
 # define RAY_ANG (float)((float)FOV / (float)SCREEN_WIDTH)
-# define PLYR_SPEED 10
+# define PLYR_SPEED 1
 # define REV_TILE (float)(1.0 / (float)TILE_SIZE)
 # define PI (float)3.14
 # define DISTANCE_P (float)(SCREEN_WIDTH / (2 * tan(FOV/2)))

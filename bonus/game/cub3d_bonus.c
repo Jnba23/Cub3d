@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
+/*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 10:42:54 by hmoukit           #+#    #+#             */
-/*   Updated: 2025/02/23 18:00:29 by hmoukit          ###   ########.fr       */
+/*   Updated: 2025/02/24 14:57:15 by asayad           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d_bonus.h>
- void f()
- {
-	system("leaks cub3d_bonus");
-	// system("lsof cub3d_bonus");
- }
+//  void f()
+//  {
+// 	system("leaks cub3d_bonus");
+// 	// system("lsof cub3d_bonus");
+//  }
 int	main(int ac, char **av)
 {
 	t_map	map_inf;

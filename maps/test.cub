@@ -1,6 +1,3 @@
-
-
-
 NO ./textures/berlin.png
 SO ./textures/berlin.png
 WE ./textures/berlin.png
@@ -10,8 +7,8 @@ EA ./textures/berlin.png
 
 
 
-C 225        ,  30  ,0           
 F 170,170,170
+C 225,30,0           
 
 11111111111111111111111111111111111111111111
   111110000000000000000000000000000000000011111
