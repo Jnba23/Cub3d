@@ -6,7 +6,7 @@
 /*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 12:00:45 by asayad            #+#    #+#             */
-/*   Updated: 2025/02/23 21:26:29 by hmoukit          ###   ########.fr       */
+/*   Updated: 2025/02/24 13:52:47 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,15 +62,13 @@ int	colors_nd_texture(char *l, t_map **map_inf)
 	{
 		(*map_inf)->floor++;
 		if (!check_color(l, map_inf, 'f'))
-			return (free_textures(map_inf),
-				ft_putendl_fd("Invalid colors !", 2), 0);
+			return (ft_putendl_fd("Invalid colors !", 2), 0);
 	}
 	else if (!ft_strncmp(l, "C", 1))
 	{
 		(*map_inf)->ceiling++;
 		if (!check_color(l, map_inf, 'c'))
-			return (free_textures(map_inf),
-				ft_putendl_fd("Invalid colors !", 2), 0);
+			return (ft_putendl_fd("Invalid colors !", 2), 0);
 	}
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 13:38:41 by asayad            #+#    #+#             */
-/*   Updated: 2025/02/24 11:44:32 by hmoukit          ###   ########.fr       */
+/*   Updated: 2025/02/24 13:42:58 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,6 @@ typedef	struct s_player
 
 typedef struct s_color
 {
-	int	nbr_cnt;
 	int	comma_cnt;
 	int	i;
 }	t_clr;

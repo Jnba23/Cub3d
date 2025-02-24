@@ -6,7 +6,7 @@
 /*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 22:20:42 by asayad            #+#    #+#             */
-/*   Updated: 2025/02/24 13:20:46 by hmoukit          ###   ########.fr       */
+/*   Updated: 2025/02/24 13:32:01 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@ void	render_walls_and_ceiling_floor(t_game *game)
 	i = -1;
 	while (++i < SCREEN_WIDTH)
 	{
-		draw_textured_wall(game, i);
+		if (!draw_textured_wall(game, i))
+			return ; // free return 0
 		draw_ceiling_floor(i, game, game->rays[i].bott_pix,
 			game->rays[i].top_pix);
 	}

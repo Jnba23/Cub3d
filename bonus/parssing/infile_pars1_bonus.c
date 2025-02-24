@@ -6,7 +6,7 @@
 /*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 12:00:45 by asayad            #+#    #+#             */
-/*   Updated: 2025/02/23 19:04:25 by hmoukit          ###   ########.fr       */
+/*   Updated: 2025/02/24 14:26:33 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,13 +126,28 @@ int	textures(char *l, mlx_texture_t **direction, t_map **map_inf)
 void	free_textures(t_map **map_inf)
 {
 	if ((*map_inf)->north)
+	{
 		mlx_delete_texture((*map_inf)->north);
+		(*map_inf)->north = NULL;
+	}
 	if ((*map_inf)->south)
+	{
 		mlx_delete_texture((*map_inf)->south);
+		(*map_inf)->south = NULL;
+	}
 	if ((*map_inf)->east)
+	{
 		mlx_delete_texture((*map_inf)->east);
+		(*map_inf)->east = NULL;
+	}
 	if ((*map_inf)->west)
+	{
 		mlx_delete_texture((*map_inf)->west);
+		(*map_inf)->west = NULL;
+	}
 	if ((*map_inf)->door)
+	{
 		mlx_delete_texture((*map_inf)->door);
+		(*map_inf)->door = NULL;
+	}
 }

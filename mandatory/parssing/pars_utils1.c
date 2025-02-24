@@ -6,7 +6,7 @@
 /*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 12:06:41 by asayad            #+#    #+#             */
-/*   Updated: 2025/02/23 21:38:24 by hmoukit          ###   ########.fr       */
+/*   Updated: 2025/02/24 14:04:28 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	ft_atoi(char **str, bool *a)
 	int		sign;
 	int		num;
 	bool	b;
+	int		i;
 
 	num = 0;
 	sign = 1;
@@ -24,18 +25,53 @@ int	ft_atoi(char **str, bool *a)
 	skip_spaces_ptr(&(*str));
 	if (!check_sign(&(*str)))
 		return (*a = true, 0);
+	while (**str == '0')
+	{
+		if (*(*str + 1) == '\0' || *(*str + 1) == ','
+			|| *(*str + 1) == ' ')
+				break ;
+		else
+			(*str)++;
+	}
+	i = 0;
 	while (**str >= 48 && **str <= 57)
 	{
 		b = true;
 		num = (num * 10) + (**str - 48);
-		if (num > 255)
-			return (0);
+		if (num > 255 || i > 3)
+			return (*a = true, 0);
 		(*str)++;
+		i++;
 	}
 	if (b == false)
 		return (*a = true, 0);
 	return (num);
 }
+
+// int	ft_atoi(char **str, bool *a)
+// {
+// 	int		sign;
+// 	int		num;
+// 	bool	b;
+
+// 	num = 0;
+// 	sign = 1;
+// 	b = false;
+// 	skip_spaces_ptr(&(*str));
+// 	if (!check_sign(&(*str)))
+// 		return (*a = true, 0);
+// 	while (**str >= 48 && **str <= 57)
+// 	{
+// 		b = true;
+// 		num = (num * 10) + (**str - 48);
+// 		if (num > 255)
+// 			return (0);
+// 		(*str)++;
+// 	}
+// 	if (b == false)
+// 		return (*a = true, 0);
+// 	return (num);
+// }
 
 void	skip_spaces_ptr(char **line)
 {
