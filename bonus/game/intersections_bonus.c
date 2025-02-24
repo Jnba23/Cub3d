@@ -6,7 +6,7 @@
 /*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 16:13:15 by hmoukit           #+#    #+#             */
-/*   Updated: 2025/02/20 14:30:01 by hmoukit          ###   ########.fr       */
+/*   Updated: 2025/02/22 19:36:20 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,19 +34,9 @@ void	shortest_distance(t_game *game, int ray)
 		game->rays[ray].d = d1;
 	}
 	if (is_door(game->rays[ray].x, game->rays[ray].y, game))
-	{
-		puts("here dooor");
-		game->door_x = game->rays[ray].x / TILE_SIZE;
-		game->door_y = game->rays[ray].y / TILE_SIZE;
 		game->rays[ray].hit_door = 1;
-	}
 	else
-	{
-		printf("%f, %f\n", game->rays[ray].x / TILE_SIZE, game->rays[ray].y / TILE_SIZE);
-		printf("%c\n",game->map[(int)(game->rays[ray].y / TILE_SIZE)][(int)(game->rays[ray].x / TILE_SIZE)]);
-		puts("not dooor");
 		game->rays[ray].hit_door = 0;
-	}
 }
 
 void	inter_horizontal(t_game *game, int ray)

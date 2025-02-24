@@ -6,7 +6,7 @@
 /*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 11:15:59 by asayad            #+#    #+#             */
-/*   Updated: 2025/02/19 18:34:48 by hmoukit          ###   ########.fr       */
+/*   Updated: 2025/02/23 19:29:10 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	initialize_map(t_map *map_inf)
 	map_inf->map_size = 0;
 	map_inf->player_in = false;
 	map_inf->d = 0;
+	map_inf->door = 0;
 }
 
 int	check_infile(char *in, t_map *map_inf)
@@ -97,8 +98,7 @@ int	check_if_valid_data(t_list **in_list, t_map **map_inf)
 			break ;
 		tmp = tmp->next;
 	}
-	if (!(*map_inf)->map_in || !map_analysis(map_inf)
-		|| !cnvrt_lst_2_map(map_inf))
+	if (!map_analysis(map_inf) || !cnvrt_lst_2_map(map_inf))
 		return (free_textures(map_inf), 0);
 	if (!(*map_inf)->map_in || !check_nd_fill_map(map_inf))
 		return (free_textures(map_inf), free_table(map_inf,

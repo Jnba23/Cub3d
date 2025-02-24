@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   infile_pars4.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 11:54:40 by asayad            #+#    #+#             */
-/*   Updated: 2025/02/20 11:51:52 by asayad           ###   ########.fr       */
+/*   Updated: 2025/02/23 21:39:42 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,15 @@ int	cnvrt_lst_2_map(t_map **map_inf)
 
 	j = 0;
 	tmp = *(*map_inf)->map;
+	if ((*map_inf)->map_size == 0)
+		return (ft_putendl_fd("No Map !", 2), 0);
 	(*map_inf)->map_2d = malloc(sizeof(char *) * ((*map_inf)->map_size + 1));
 	if (!(*map_inf)->map_2d)
 		return (ft_putendl_fd("Malloc failed !", 2), 0);
 	while (tmp && j < (*map_inf)->map_size)
 	{
 		l = (char *)tmp->content;
-		(*map_inf)->map_2d[j] = malloc (sizeof(char) * (ft_strlen(l) + 1));
+		(*map_inf)->map_2d[j] = malloc(sizeof(char) * (ft_strlen(l) + 1));
 		if (!(*map_inf)->map_2d[j])
 			return (free_table(map_inf, j), 0);
 		ft_strcpy(l, (*map_inf)->map_2d[j]);

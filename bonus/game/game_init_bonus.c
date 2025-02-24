@@ -6,7 +6,7 @@
 /*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 10:41:48 by hmoukit           #+#    #+#             */
-/*   Updated: 2025/02/20 14:11:15 by hmoukit          ###   ########.fr       */
+/*   Updated: 2025/02/22 19:38:49 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,6 @@ static int	init_player_and_map(t_game *game, t_map *map_inf, t_player *pl_inf)
 	game->inter->hy = 0.0;
 	game->inter->vx = 0.0;
 	game->inter->vy = 0.0;
-	game->inter->last_d_x = 0.0;
-	game->inter->last_d_y = 0.0;
 	game->render = true;
 	return (1);
 }
@@ -101,8 +99,6 @@ int	game_struct_init(t_map *map_inf, t_game **game, t_player *pl_inf)
 		free(*game);
 		return (0);
 	}
-	(*game)->door_x = 0;
-	(*game)->door_y = 0;
 	return (1);
 }
 

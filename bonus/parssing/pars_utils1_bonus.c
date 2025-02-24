@@ -6,7 +6,7 @@
 /*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 12:06:41 by asayad            #+#    #+#             */
-/*   Updated: 2025/02/19 19:09:59 by hmoukit          ###   ########.fr       */
+/*   Updated: 2025/02/23 18:47:57 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	ft_atoi(char **str, bool *a)
 	int		sign;
 	int		num;
 	bool	b;
+	int		i;
 
 	num = 0;
 	sign = 1;
@@ -25,14 +26,20 @@ int	ft_atoi(char **str, bool *a)
 	if (!check_sign(&(*str)))
 		return (*a = true, 0);
 	while (**str == '0')
+	{
+		if (*(*str + 1) == '\0' || *(*str + 1) == ',')
+			break ;
 		(*str)++;
+	}
+	i = 0;
 	while (**str >= 48 && **str <= 57)
 	{
 		b = true;
 		num = (num * 10) + (**str - 48);
-		if (num > 255)
-			return (0);
+		if (num > 255 || i > 3)
+			return (*a = true, 0);
 		(*str)++;
+		i++;
 	}
 	if (b == false)
 		return (*a = true, 0);

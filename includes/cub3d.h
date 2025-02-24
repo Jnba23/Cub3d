@@ -6,11 +6,9 @@
 /*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 13:38:41 by asayad            #+#    #+#             */
-/*   Updated: 2025/02/20 14:55:27 by hmoukit          ###   ########.fr       */
+/*   Updated: 2025/02/24 10:57:06 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-			// relink in this file
 
 #ifndef CUB3D_H
 # define CUB3D_H
@@ -83,10 +81,11 @@ typedef struct s_map
 
 typedef struct	s_texture
 {
-	mlx_image_t	*img_north; // to convert the texture into an image
-	mlx_image_t	*img_south; // to convert the texture into an image
-	mlx_image_t	*img_east; // to convert the texture into an image
-	mlx_image_t	*img_west; // to convert the texture into an image
+	mlx_image_t	*img_north;
+	mlx_image_t	*img_south;
+	mlx_image_t	*img_east;
+	mlx_image_t	*img_west;
+	float		true_wall_h;
 	int			tex_x;
 	int			tex_y;
 	double		wall_x;
@@ -169,7 +168,7 @@ typedef	struct s_game
 	mlx_t		*game;
 	mlx_image_t	*game_img;
 	t_mmap		*mmap_inf;
-	mlx_image_t	*mmap_image; // to draw the minimap
+	mlx_image_t	*mmap_image;
 	t_player	*pl_inf;
 	t_map		*map_inf;
 	t_ray		*rays;
@@ -241,7 +240,6 @@ void		quit_game(t_game *game);
 
 /*			Game			*/
 int			start_game(t_map *map_inf);
-// void		reset_mvs_indic(t_game *game);
 
 /*			utils		*/
 float		deg2rad(float angle_deg);
@@ -255,6 +253,7 @@ bool		valid_ray_intersection(t_game *game, float hx, float hy);
 void		release_ressources(t_game *game, t_map *map_inf, int i);
 void		assign_color(uint32_t *color, t_game *game);
 void		rot_ang(t_game *game);
+int			get_rgba(int r, int g, int b, int a);
 
 /*			initializing	*/
 void		game_struct_init(t_map *map_inf, t_game **game, t_player *pl_inf);

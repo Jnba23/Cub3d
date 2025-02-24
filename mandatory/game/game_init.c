@@ -6,7 +6,7 @@
 /*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 10:41:48 by hmoukit           #+#    #+#             */
-/*   Updated: 2025/02/20 14:57:09 by hmoukit          ###   ########.fr       */
+/*   Updated: 2025/02/24 10:56:21 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,20 @@ void	game_struct_init(t_map *map_inf, t_game **game, t_player *pl_inf)
 		free((*game)->rays);
 		exit(1);
 	}
+	(*game)->text->tex_x = 0;
+	(*game)->text->tex_y = 0;
+	(*game)->text->wall_x = 0.0;
+	(*game)->text->pos = 0.0;
+	(*game)->text->true_wall_h = 0.0;
+	window_init(*game, map_inf);
+	(*game)->text->img_north = mlx_texture_to_image
+		((*game)->game, (*game)->map_inf->north);
+	(*game)->text->img_south = mlx_texture_to_image
+		((*game)->game, (*game)->map_inf->south);
+	(*game)->text->img_east = mlx_texture_to_image
+		((*game)->game, (*game)->map_inf->east);
+	(*game)->text->img_west = mlx_texture_to_image
+		((*game)->game, (*game)->map_inf->west);
 }
 
 void	init_game_struct(t_map *map_inf, t_game **game, t_player *pl_inf)

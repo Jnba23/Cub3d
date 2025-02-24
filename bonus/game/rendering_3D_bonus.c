@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rendering_3D_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 22:20:42 by asayad            #+#    #+#             */
-/*   Updated: 2025/02/20 11:23:57 by asayad           ###   ########.fr       */
+/*   Updated: 2025/02/24 11:22:41 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,15 +70,9 @@ void	render_walls_and_ceiling_floor(t_game *game)
 	while (++i < SCREEN_WIDTH)
 	{
 		if (game->rays[i].hit_door)
-		{
 			draw_texture(game, i, 'd');
-		}
 		else
-		{
-			fprintf(stderr, "door_x %d\n", game->door_x);
-			fprintf(stderr, "door_y %d\n", game->door_x);
 			draw_texture(game, i, 'w');
-		}
 		draw_ceiling_floor(i, game, game->rays[i].bott_pix,
 			game->rays[i].top_pix);
 	}

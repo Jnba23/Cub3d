@@ -6,12 +6,12 @@
 /*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 16:14:49 by hmoukit           #+#    #+#             */
-/*   Updated: 2025/02/19 16:15:16 by hmoukit          ###   ########.fr       */
+/*   Updated: 2025/02/23 20:17:18 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d_bonus.h>
-
+	
 void	render_ray(t_game *game, t_coor *coo)
 {
 	coo->x0 = (int)MINI_MAP_RADIUS;

@@ -6,7 +6,7 @@
 /*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 11:54:40 by asayad            #+#    #+#             */
-/*   Updated: 2025/02/19 19:03:50 by hmoukit          ###   ########.fr       */
+/*   Updated: 2025/02/23 20:19:29 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ int	cnvrt_lst_2_map(t_map **map_inf)
 
 	j = 0;
 	tmp = *(*map_inf)->map;
+	if ((*map_inf)->map_size == 0)
+		return (ft_putendl_fd( "No Map !", 2), 0);
 	(*map_inf)->map_2d = malloc(sizeof(char *) * ((*map_inf)->map_size + 1));
 	if (!(*map_inf)->map_2d)
 		return (ft_putendl_fd("Malloc failed !", 2), 0);

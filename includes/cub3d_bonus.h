@@ -6,7 +6,7 @@
 /*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 18:29:49 by hmoukit           #+#    #+#             */
-/*   Updated: 2025/02/20 14:54:58 by hmoukit          ###   ########.fr       */
+/*   Updated: 2025/02/23 20:14:43 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,6 @@ typedef	struct s_player
 
 typedef struct s_color
 {
-	int	nbr_cnt;
 	int	comma_cnt;
 	int	i;
 }	t_clr;
@@ -127,9 +126,7 @@ typedef struct s_ray
 	double	wall_h;
 	int		bott_pix;
 	int		top_pix;
-	// float	interx;
-	// float	intery;
-} t_ray;
+}	t_ray;
 
 typedef struct s_inter
 {
@@ -193,8 +190,6 @@ typedef	struct s_game
 	int			torch_frame;
 	int			i;
 	int			inside_door;
-	int			door_x;
-	int			door_y;
 }	t_game;
 
 /*			Parssing			*/
@@ -262,7 +257,7 @@ void		render_va(t_game *game, char dir);
 float		rad2deg(float angle_rad);
 bool		valid_ray_intersection(t_game *game, float hx, float hy, int ray);
 int			get_rgba(int r, int g, int b, int a);
-
+int	get_rgb(int r, int g, int b);
 
 /*			initializing	*/
 int			game_struct_init(t_map *map_inf, t_game **game, t_player *pl_inf);

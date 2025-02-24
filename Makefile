@@ -6,7 +6,7 @@
 #    By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/19 13:03:43 by hmoukit           #+#    #+#              #
-#    Updated: 2025/02/20 14:40:27 by hmoukit          ###   ########.fr        #
+#    Updated: 2025/02/23 21:41:30 by hmoukit          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,22 +28,21 @@ RESET	= \033[0m
 
 CC = cc
 
-CFLAGS = -Wall -Werror -Wextra -MMD -I$(INCS) -I$(INCMLX) -g3 -Ofast #-fsanitize=address,undefined
+CFLAGS = -Wall -Werror -Wextra -MMD -I$(INCS) -I$(INCMLX) -g3 -Ofast -fsanitize=address
 
-# MLX_FLAGS_FW = -L/Users/asayad/.brew/opt/glfw/lib -lglfw -lm #linux_wadoud
 # MLX_FLAGS_FW = -L/Users/asayad/.brew/opt/glfw/lib -lglfw -lm -framework Cocoa -framework OpenGL -framework IOKit #MAC-Wadoud
 MLX_FLAGS_FW = -L/Users/hmoukit/homebrew/opt/glfw/lib -lglfw -lm -framework Cocoa -framework OpenGL -framework IOKit #MAC-Hajar
 
 PARSM = infile_pars.c infile_pars1.c infile_pars2.c infile_pars3.c infile_pars4.c infile_pars5.c pars_utils.c \
 	infile_pars6.c infile_pars7.c pars_utils1.c pars_utils2.c get_next_line.c get_next_line_utils.c
 GAMEM = game_init.c utils.c utils_2.c utils_3.c ray_casting.c cub3d.c rendering_2D.c rendering_3D.c movements.c intersections.c draw_line.c \
-		textures.c
+		textures.c textures_drawing.c
 
 PARSB = infile_pars_bonus.c infile_pars1_bonus.c infile_pars2_bonus.c infile_pars3_bonus.c infile_pars4_bonus.c infile_pars5_bonus.c \
 		pars_utils_bonus.c pars_utils1_bonus.c pars_utils2_bonus.c get_next_line.c get_next_line_utils.c
 GAMEB = animation_bonus.c cub3d_bonus.c draw_line_bonus.c game_init_bonus.c intersections_bonus.c mouse_bonus.c movements_bonus.c \
 		ray_casting_bonus.c rendering_2D_bonus.c rendering_3D_bonus.c textures_bonus.c utils_bonus.c utils_2_bonus.c utils_3_bonus.c \
-		update_move.c textures_drawing.c
+		update_move.c textures_drawing_bonus.c
 
 PARSF = $(addprefix mandatory/parssing/, $(PARSM))
 GAMEF = $(addprefix mandatory/game/, $(GAMEM))
@@ -69,11 +68,11 @@ INCS	= includes
 
 INCMLX	= MLX42/include/MLX42/
 
-NAME 	= cub3d
+NAME 	= cub3D
 
 HEADER_MAN	= ./includes/cub3d.h ./includes/get_next_line.h
 
-BONUS	= cub3d_bonus
+BONUS	= cub3D_bonus
 
 HEADER_BON	= ./includes/cub3d_bonus.h ./includes/get_next_line.h
 

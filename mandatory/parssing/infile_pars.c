@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   infile_pars.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 11:15:59 by asayad            #+#    #+#             */
-/*   Updated: 2025/02/20 11:44:58 by asayad           ###   ########.fr       */
+/*   Updated: 2025/02/23 20:19:12 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,7 @@ int	check_if_valid_data(t_list **in_list, t_map **map_inf)
 			break ;
 		tmp = tmp->next;
 	}
-	if (!(*map_inf)->map_in || !map_analysis(map_inf)
-		|| !cnvrt_lst_2_map(map_inf))
+	if (!map_analysis(map_inf) || !cnvrt_lst_2_map(map_inf))
 		return (free_textures(map_inf), 0);
 	if (!(*map_inf)->map_in || !check_nd_fill_map(map_inf))
 		return (free_textures(map_inf), free_table(map_inf,

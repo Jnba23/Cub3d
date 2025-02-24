@@ -6,7 +6,7 @@
 /*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 10:42:54 by hmoukit           #+#    #+#             */
-/*   Updated: 2025/02/19 19:12:41 by hmoukit          ###   ########.fr       */
+/*   Updated: 2025/02/23 23:56:56 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,9 @@ int	start_game(t_map *map_inf)
 	t_player	player_inf;
 
 	game_struct_init(map_inf, &game, &player_inf);
-	window_init(game, map_inf);
+	// window_init(game, map_inf);
+	// init_textures(game); // just changed init_texture position to game_struct_init, and now the overflow is in draw_textured_wall function, in texture_drawing.c
 	mlx_loop_hook(game->game, cube3d, (void *)game);
-	init_textures(game);
 	mlx_loop(game->game);
 	return (0);
 }

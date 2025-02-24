@@ -6,7 +6,7 @@
 /*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 10:16:00 by hmoukit           #+#    #+#             */
-/*   Updated: 2025/02/19 18:03:31 by hmoukit          ###   ########.fr       */
+/*   Updated: 2025/02/23 20:30:20 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	init_textures(t_game *game)
 		(game->game, game->map_inf->door);
 	if (!game->text->img_north || !game->text->img_south
 		|| !game->text->img_east || !game->text->img_west
-		|| !game->text->img_west)
+		|| !game->text->img_west || !game->text->img_door)
 		return (0);
 	return (1);
 }

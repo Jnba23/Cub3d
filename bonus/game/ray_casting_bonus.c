@@ -6,7 +6,7 @@
 /*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 10:42:03 by hmoukit           #+#    #+#             */
-/*   Updated: 2025/02/20 14:38:25 by hmoukit          ###   ########.fr       */
+/*   Updated: 2025/02/22 19:36:24 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ void	cast_rays(t_game *game)
 	int	ray;
 
 	game->inter->alpha = game->pl_inf->rot_angle - deg2rad(FOV / 2.0);
-	// printf("alpha before ==== ")
 	normalize_ang(&game->inter->alpha);
 	ray = -1;
 	while (++ray < SCREEN_WIDTH)

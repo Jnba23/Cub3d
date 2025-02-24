@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pars_utils1.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 12:06:41 by asayad            #+#    #+#             */
-/*   Updated: 2025/02/20 11:57:58 by asayad           ###   ########.fr       */
+/*   Updated: 2025/02/23 21:38:24 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@ int	ft_atoi(char **str, bool *a)
 	skip_spaces_ptr(&(*str));
 	if (!check_sign(&(*str)))
 		return (*a = true, 0);
-	while (**str == '0')
-		(*str)++;
 	while (**str >= 48 && **str <= 57)
 	{
 		b = true;

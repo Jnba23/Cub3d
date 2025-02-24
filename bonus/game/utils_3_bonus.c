@@ -6,7 +6,7 @@
 /*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 16:39:04 by hmoukit           #+#    #+#             */
-/*   Updated: 2025/02/19 18:32:15 by hmoukit          ###   ########.fr       */
+/*   Updated: 2025/02/23 20:21:30 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,15 @@ void	draw_ceiling_floor(int i, t_game *game, int bott_pix, int top_pix)
 	j = 0;
 	while (j < top_pix)
 	{
-		mlx_put_pixel(game->game_img, i, j, get_rgba(game->map_inf->red_f,
-				game->map_inf->green_f, game->map_inf->blue_f, 255));
+		mlx_put_pixel(game->game_img, i, j, get_rgba(game->map_inf->red_c,
+				game->map_inf->green_c, game->map_inf->blue_c, 255));
 		j++;
 	}
 	j = bott_pix;
 	while (j < SCREEN_HEIGHT)
 	{
-		mlx_put_pixel(game->game_img, i, j, get_rgba(game->map_inf->red_c,
-				game->map_inf->green_c, game->map_inf->blue_c, 255));
+		mlx_put_pixel(game->game_img, i, j, get_rgba(game->map_inf->red_f,
+				game->map_inf->green_f, game->map_inf->blue_f, 255));
 		j++;
 	}
 }

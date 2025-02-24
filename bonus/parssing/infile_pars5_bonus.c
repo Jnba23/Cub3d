@@ -6,7 +6,7 @@
 /*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 13:32:07 by asayad            #+#    #+#             */
-/*   Updated: 2025/02/19 19:08:43 by hmoukit          ###   ########.fr       */
+/*   Updated: 2025/02/23 19:19:48 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ int	check_nd_fill_map(t_map **map_inf)
 			return (ft_putendl_fd("Invalid map !", 2), 0);
 		i++;
 	}
+	if (!(*map_inf)->player_in)
+		return (ft_putendl_fd("No Player !", 2), 0);
 	return (1);
 }
 

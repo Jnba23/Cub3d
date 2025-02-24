@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 12:54:39 by asayad            #+#    #+#             */
-/*   Updated: 2024/10/28 22:18:18 by asayad           ###   ########.fr       */
+/*   Updated: 2025/02/22 19:36:49 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,29 +96,3 @@ char	*get_next_line(int fd)
 	line_read = make_stash(line_read);
 	return (free(buff), buff = NULL, line_with_nl);
 }
-
-// int main()
-// {
-// 	int fd = open("TEST.txt",O_CREAT | O_RDWR, 0777);
-// 	char *line;
-// 	while (line)
-// 	{
-// 		line = get_next_line(fd);
-// 		printf("%s", line);
-// 	}
-	// INT_MAX
-	// while (line)
-		// line = get_next_line(fd);
-	// close (fd);
-	// fd = open("TEST.txt",O_CREAT | O_RDWR, 0777);
-	// i = 5;
-	// printf("after blabla 2 : ");
-	// while (i--)
-	// {
-	// 	line = get_next_line(fd);
-	// 	printf("%s", line);
-	// 	free(line);
-	// }
-	// // printf("%s", get_next_line(fd));
-	// printf("%s", get_next_line(fd));paco 
-// }

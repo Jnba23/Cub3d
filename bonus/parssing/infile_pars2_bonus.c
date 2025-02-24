@@ -6,7 +6,7 @@
 /*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 11:59:02 by asayad            #+#    #+#             */
-/*   Updated: 2025/02/19 19:02:42 by hmoukit          ###   ########.fr       */
+/*   Updated: 2025/02/23 18:36:23 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,10 @@ int	check_color(char *l, t_map **map_inf, char c)
 	i = 1;
 	skip_spaces(l, &i);
 	if (!check_clrs_struct(l + i))
+	{
+		// printf("I'm HERE\n");
 		return (0);
+	}
 	if (!colors(&clrs, l + i, 0))
 		return (0);
 	if (c == 'f')
@@ -110,23 +113,24 @@ int	check_clrs_struct(char *l)
 	t_clr	vars;
 
 	vars.comma_cnt = 0;
-	vars.nbr_cnt = 0;
 	vars.i = -1;
 	while (l[++vars.i])
 	{
-		if (ft_isdigit(l[vars.i]))
-			vars.nbr_cnt++;
+		if (!ft_isdigit(l[vars.i]) && l[vars.i] != ',' && !ft_isspace(l[vars.i]))
+			return (0);
 		else if (ft_isspace(l[vars.i]))
 			continue ;
 		else if (l[vars.i] == ',')
 		{
 			vars.comma_cnt++;
-			if (vars.nbr_cnt == 0 || vars.nbr_cnt > 3)
+			if (l[vars.i + 1] && l[vars.i + 1] == ',')
 				return (0);
-			vars.nbr_cnt = 0;
 		}
-		else
-			return (0);
+		// else
+		// {
+		// 	printf("I'm HERE\n");
+		// 	return (0);
+		// }
 	}
 	if (vars.comma_cnt != 2)
 		return (0);
