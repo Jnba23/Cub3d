@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: asayad <asayad@student.42.fr>              +#+  +:+       +#+         #
+#    By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/19 13:03:43 by hmoukit           #+#    #+#              #
-#    Updated: 2025/02/24 14:58:13 by asayad           ###   ########.fr        #
+#    Updated: 2025/02/24 19:18:11 by hmoukit          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,9 +30,9 @@ CC = cc
 
 CFLAGS = -Wall -Werror -Wextra -MMD -I$(INCS) -I$(INCMLX) -g3 -Ofast #-fsanitize=address
 
-MLX_FLAGS_FW = -L/usr/lib/x86_64-linux-gnu -lglfw -lm -ldl -pthread #linux -Wadoud
+# MLX_FLAGS_FW = -L/usr/lib/x86_64-linux-gnu -lglfw -lm -ldl -pthread #linux -Wadoud
 # MLX_FLAGS_FW = -L/Users/asayad/.brew/opt/glfw/lib -lglfw -lm -framework Cocoa -framework OpenGL -framework IOKit #MAC-Wadoud
-# MLX_FLAGS_FW = -L/Users/hmoukit/homebrew/opt/glfw/lib -lglfw -lm -framework Cocoa -framework OpenGL -framework IOKit #MAC-Hajar
+MLX_FLAGS_FW = -L/Users/hmoukit/homebrew/opt/glfw/lib -lglfw -lm -framework Cocoa -framework OpenGL -framework IOKit #MAC-Hajar
 
 PARSM = infile_pars.c infile_pars1.c infile_pars2.c infile_pars3.c infile_pars4.c infile_pars5.c pars_utils.c \
 	infile_pars6.c infile_pars7.c pars_utils1.c pars_utils2.c get_next_line.c get_next_line_utils.c

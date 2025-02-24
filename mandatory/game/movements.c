@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movements.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 12:25:49 by hmoukit           #+#    #+#             */
-/*   Updated: 2025/02/24 19:14:13 by asayad           ###   ########.fr       */
+/*   Updated: 2025/02/24 19:26:52 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,18 @@ int	can_move(float x, float y, t_game *game)
 	int		j;
 	int		x_coo;
 	int		y_coo;
-	float	pl_radius;
+	// float	pl_radius;
 
-	pl_radius = 0.05f * TILE_SIZE;
+	// pl_radius = 0.05f * TILE_SIZE;
 	j = 0;
-	a[0][0] = y - pl_radius + game->pl_y_pix;
-	a[0][1] = x - pl_radius + game->pl_x_pix;
-	a[1][0] = y + pl_radius + game->pl_y_pix;
-	a[1][1] = x - pl_radius + game->pl_x_pix;
-	a[2][0] = y + pl_radius + game->pl_y_pix;
-	a[2][1] = x + pl_radius + game->pl_x_pix;
-	a[3][0] = y - pl_radius + game->pl_y_pix;
-	a[3][1] = x + pl_radius + game->pl_x_pix;
+	a[0][0] = y + game->pl_y_pix + 2.0f;
+	a[0][1] = x + game->pl_x_pix;
+	a[1][0] = y + game->pl_y_pix - 2.0f;
+	a[1][1] = x + game->pl_x_pix;
+	a[2][0] = y + game->pl_y_pix;
+	a[2][1] = x + game->pl_x_pix + 2.0f;
+	a[3][0] = y + game->pl_y_pix;
+	a[3][1] = x + game->pl_x_pix - 2.0f;
 	while (j < 4)
 	{
 		y_coo = (int)floor(a[j][0] / TILE_SIZE);
