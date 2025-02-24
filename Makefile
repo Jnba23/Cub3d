@@ -6,7 +6,7 @@
 #    By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/19 13:03:43 by hmoukit           #+#    #+#              #
-#    Updated: 2025/02/23 21:41:30 by hmoukit          ###   ########.fr        #
+#    Updated: 2025/02/24 13:08:07 by hmoukit          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,7 @@ MLX_FLAGS_FW = -L/Users/hmoukit/homebrew/opt/glfw/lib -lglfw -lm -framework Coco
 PARSM = infile_pars.c infile_pars1.c infile_pars2.c infile_pars3.c infile_pars4.c infile_pars5.c pars_utils.c \
 	infile_pars6.c infile_pars7.c pars_utils1.c pars_utils2.c get_next_line.c get_next_line_utils.c
 GAMEM = game_init.c utils.c utils_2.c utils_3.c ray_casting.c cub3d.c rendering_2D.c rendering_3D.c movements.c intersections.c draw_line.c \
-		textures.c textures_drawing.c
+		textures.c #textures_drawing.c
 
 PARSB = infile_pars_bonus.c infile_pars1_bonus.c infile_pars2_bonus.c infile_pars3_bonus.c infile_pars4_bonus.c infile_pars5_bonus.c \
 		pars_utils_bonus.c pars_utils1_bonus.c pars_utils2_bonus.c get_next_line.c get_next_line_utils.c

@@ -6,7 +6,7 @@
 /*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 22:20:42 by asayad            #+#    #+#             */
-/*   Updated: 2025/02/24 11:22:50 by hmoukit          ###   ########.fr       */
+/*   Updated: 2025/02/24 13:20:46 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,6 @@ void	calculate_ray_data(t_game *game, int i, float angle_beta, float min_d)
 		game->rays[i].top_pix = 0;
 }
 
-void	render_ray_and_update_angle(t_game *game, int i)
-{
-	draw_textured_wall(game, i);
-	draw_ceiling_floor(i, game, game->rays[i].bott_pix, game->rays[i].top_pix);
-	game->inter->alpha += game->ray_ang;
-	normalize_ang(&game->inter->alpha);
-}
-
 void	ray_casting_and_calculation(t_game *game)
 {
 	float	angle_beta;
@@ -55,7 +47,8 @@ void	ray_casting_and_calculation(t_game *game)
 		angle_beta = game->inter->alpha - game->pl_inf->rot_angle;
 		normalize_ang(&angle_beta);
 		calculate_ray_data(game, i, angle_beta, min_distance);
-		render_ray_and_update_angle(game, i);
+		game->inter->alpha += game->ray_ang;
+		normalize_ang(&game->inter->alpha);
 	}
 }
 

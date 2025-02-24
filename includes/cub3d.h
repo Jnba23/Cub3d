@@ -6,7 +6,7 @@
 /*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 13:38:41 by asayad            #+#    #+#             */
-/*   Updated: 2025/02/24 10:57:06 by hmoukit          ###   ########.fr       */
+/*   Updated: 2025/02/24 11:44:32 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -300,5 +300,6 @@ int			assign_texture(t_game *game, int i, mlx_image_t **texture);
 void		calculate_tex_x(t_game *game, mlx_image_t *texture, int i);
 double		calculate_wallx(t_game *game, int i);
 int			draw_textured_wall(t_game *game, int i);
+int	draw_texture_range(t_game *game, mlx_image_t *texture, int i, float true_wall_h);
 
 #endif
