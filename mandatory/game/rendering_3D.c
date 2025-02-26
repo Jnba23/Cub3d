@@ -3,23 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   rendering_3D.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 22:20:42 by asayad            #+#    #+#             */
-/*   Updated: 2025/02/26 13:34:23 by asayad           ###   ########.fr       */
+/*   Updated: 2025/02/26 18:52:00 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
 
-void	calculate_ray_data(t_game *game, int i, float angle_beta, float min_d)
+static void	calculate_ray_data(t_game *game, int i, float ang_beta, float min_d)
 {
 	int	wall_center;
 
-	game->rays[i].d *= cos(angle_beta);
+	game->rays[i].d *= cos(ang_beta);
 	if (game->rays[i].d < min_d)
 		game->rays[i].d = min_d;
-	if (!cos(angle_beta) || !game->rays[i].d)
+	if (!cos(ang_beta) || !game->rays[i].d)
 		game->rays[i].d = 1;
 	game->rays[i].wall_h = ((float)TILE_SIZE / (float)game->rays[i].d)
 		* ((SCREEN_WIDTH / 2) / tan(deg2rad(FOV / 2)));
@@ -32,7 +32,7 @@ void	calculate_ray_data(t_game *game, int i, float angle_beta, float min_d)
 		game->rays[i].top_pix = 0;
 }
 
-void	ray_casting_and_calculation(t_game *game)
+static void	ray_casting_and_calculation(t_game *game)
 {
 	float	angle_beta;
 	float	min_distance;
@@ -52,7 +52,7 @@ void	ray_casting_and_calculation(t_game *game)
 	}
 }
 
-void	render_walls_and_ceiling_floor(t_game *game)
+static int	render_walls_and_ceiling_floor(t_game *game)
 {
 	int	i;
 
@@ -60,16 +60,19 @@ void	render_walls_and_ceiling_floor(t_game *game)
 	while (++i < SCREEN_WIDTH)
 	{
 		if (!draw_textured_wall(game, i))
-			return ;// free return 0
+			return (0);
 		draw_ceiling_floor(i, game, game->rays[i].bott_pix,
 			game->rays[i].top_pix);
 	}
+	return (1);
 }
 
-void	render_3d_game(t_game *game)
+int	render_3d_game(t_game *game)
 {
 	ray_casting_and_calculation(game);
-	render_walls_and_ceiling_floor(game);
+	if (!render_walls_and_ceiling_floor(game))
+		return (0);
+	return (1);
 }
 
 void	draw_ceiling_floor(int i, t_game *game, int bott_pix, int top_pix)

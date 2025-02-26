@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_init_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 10:41:48 by hmoukit           #+#    #+#             */
-/*   Updated: 2025/02/26 11:41:27 by asayad           ###   ########.fr       */
+/*   Updated: 2025/02/26 20:05:12 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,12 +64,6 @@ static int	init_textures_and_images(t_game *game)
 	game->text = malloc(sizeof(t_texture));
 	if (!game->text)
 		return (0);
-	game->img = malloc(sizeof(mlx_image_t *) * 4);
-	if (!game->img)
-	{
-		free(game->text);
-		return (0);
-	}
 	game->torch_frame = 0;
 	game->inside_door = 0;
 	game->text->true_wall_h = 0;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_3_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 16:39:04 by hmoukit           #+#    #+#             */
-/*   Updated: 2025/02/26 11:42:48 by asayad           ###   ########.fr       */
+/*   Updated: 2025/02/26 20:17:59 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,14 @@ void	quit_game(t_game *game)
 		mlx_delete_image(game->game, game->text->img_north);
 	if (game->text->img_south)
 		mlx_delete_image(game->game, game->text->img_south);
+	if (game->text->img_door)
+		mlx_delete_image(game->game, game->text->img_door);
 	delete_images(game);
+	delete_text(11, game);
+	free(game->inter);
+	free(game->rays);
+	free(game->text);
+	free(game);
 	exit(1);
 }
 

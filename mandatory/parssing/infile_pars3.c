@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   infile_pars3.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 11:57:51 by asayad            #+#    #+#             */
-/*   Updated: 2025/02/26 13:04:06 by asayad           ###   ########.fr       */
+/*   Updated: 2025/02/26 21:41:21 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,22 +84,22 @@ int	check_empty_lines(t_map *map_inf)
 
 	i = 0;
 	flag = 0;
-	tmp = *map_inf->map;
-	if (tmp)
+	if (!map_inf->map)
+		tmp = NULL;
+	else
+		tmp = *map_inf->map;
+	while (tmp)
 	{
-		while (tmp)
+		if (is_empty((char *)tmp->content) || !tmp->next)
 		{
-			if (is_empty((char *)tmp->content) || !tmp->next)
-			{
-				if (flag == 0)
-					map_inf->map_size = i + 1;
-				if (!check_rest_of_map(&tmp->next))
-					return (0);
-				flag = 1;
-			}
-			i++;
-			tmp = tmp->next;
+			if (flag == 0)
+				map_inf->map_size = i + 1;
+			if (!check_rest_of_map(&tmp->next))
+				return (0);
+			flag = 1;
 		}
+		i++;
+		tmp = tmp->next;
 	}
 	return (1);
 }

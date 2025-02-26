@@ -6,7 +6,7 @@
 /*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 10:41:48 by hmoukit           #+#    #+#             */
-/*   Updated: 2025/02/24 13:26:07 by hmoukit          ###   ########.fr       */
+/*   Updated: 2025/02/26 18:47:42 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	game_struct_init(t_map *map_inf, t_game **game, t_player *pl_inf)
 	(*game)->text->tex_y = 0;
 	(*game)->text->wall_x = 0.0;
 	(*game)->text->pos = 0.0;
-	(*game)->text->true_wall_h = 0.0;
+	(*game)->text->true_w = 0.0;
 	window_init(*game, map_inf);
 	init_textures(*game);
 }

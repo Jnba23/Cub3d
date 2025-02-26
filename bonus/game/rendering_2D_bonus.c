@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rendering_2D_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 10:42:06 by hmoukit           #+#    #+#             */
-/*   Updated: 2025/02/26 18:00:52 by asayad           ###   ########.fr       */
+/*   Updated: 2025/02/26 19:16:19 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ void	mmap_cnst(t_game *game, t_mmap *m_map)
 		exit(1);
 	}
 	m_map->n = mlx_texture_to_image(game->game, n);
+	mlx_delete_texture(n);
 	mlx_resize_image(m_map->n, 40, 40);
 	if (mlx_image_to_window(game->game, m_map->n,
 			MINI_MAP_RADIUS - 20, 0) == -1)

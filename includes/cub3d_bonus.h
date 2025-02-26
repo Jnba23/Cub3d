@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 18:29:49 by hmoukit           #+#    #+#             */
-/*   Updated: 2025/02/26 13:52:30 by asayad           ###   ########.fr       */
+/*   Updated: 2025/02/26 19:25:55 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -313,6 +313,7 @@ void		mouse_hook(double xpos, double ypos, void *param);
 /*			animation		*/
 void		init_torch_animation(t_game *game);
 void 		animate_torch(void *param);
-int	is_door(float x, float y, t_game *game);
+void	delete_text(int i, t_game *game);
+int			is_door(float x, float y, t_game *game);
 
 #endif

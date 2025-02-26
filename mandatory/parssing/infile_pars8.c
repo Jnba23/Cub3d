@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   infile_pars8.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 13:18:29 by asayad            #+#    #+#             */
-/*   Updated: 2025/02/26 13:35:27 by asayad           ###   ########.fr       */
+/*   Updated: 2025/02/26 21:10:28 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,23 +17,25 @@ int	check_order(t_map *map_inf, char *s)
 	if (!strcmp(s, "no"))
 	{
 		if (map_inf->ea != 0 || map_inf->so != 0
-			|| map_inf->we != 0)
+			|| map_inf->we != 0 || map_inf->no > 1)
 			return (0);
 	}
 	if (!strcmp(s, "so"))
 	{
 		if (map_inf->no != 1 || (map_inf->ea != 0
-				|| map_inf->we != 0))
+				|| map_inf->we != 0 || map_inf->so > 1))
 			return (0);
 	}
 	if (!strcmp(s, "we"))
 	{
-		if ((map_inf->no != 1 || map_inf->so != 1) || map_inf->ea != 0)
+		if ((map_inf->no != 1 || map_inf->so != 1) || map_inf->ea != 0
+				|| map_inf->we > 1)
 			return (0);
 	}
 	if (!strcmp(s, "ea"))
 	{
-		if (map_inf->no != 1 || map_inf->so != 1 || map_inf->we != 1)
+		if (map_inf->no != 1 || map_inf->so != 1 || map_inf->we != 1
+				|| map_inf->ea > 1)
 			return (0);
 	}
 	if (map_inf->ceiling != 0 || map_inf->floor != 0)
@@ -56,7 +58,7 @@ int	check_clrs_struct(char *l)
 	while (vars.i[vars.idx])
 	{
 		if (!valid_color(vars.i[vars.idx]))
-			return (0);
+			return (free_table(vars.i, size), 0);
 		vars.idx++;
 	}
 	free_table(vars.i, size);
@@ -72,8 +74,10 @@ int	valid_color(char *clr)
 	space = false;
 	while (clr[++i])
 	{
-		if (!ft_isdigit(clr[i]) && !ft_isspace(clr[i]))
+		if (!ft_isdigit(clr[i]) && !ft_isspace(clr[i]) && clr[i] != '+')
+		{
 			return (0);
+		}
 		if (ft_isspace(clr[i]))
 			space = true;
 		if (ft_isdigit(clr[i] && space))

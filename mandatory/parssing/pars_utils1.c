@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pars_utils1.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 12:06:41 by asayad            #+#    #+#             */
-/*   Updated: 2025/02/26 12:52:18 by asayad           ###   ########.fr       */
+/*   Updated: 2025/02/26 21:17:05 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ int	ft_atoi(char **str, bool *a)
 
 	num = 0;
 	b = false;
-	skip_spaces_ptr(&(*str));
-	if (!check_sign(&(*str)))
+	skip_spaces_ptr(str);
+	if (!check_sign(str))
 		return (*a = true, 0);
 	while (**str == '0' && ft_isdigit(*(*str + 1)))
 		(*str)++;
@@ -52,7 +52,7 @@ int	check_sign(char **str)
 	{
 		if (**str == '-')
 			return (0);
-		str++;
+		(*str)++;
 	}
 	return (1);
 }

@@ -6,13 +6,13 @@
 /*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 20:40:24 by hmoukit           #+#    #+#             */
-/*   Updated: 2025/02/23 17:12:21 by hmoukit          ###   ########.fr       */
+/*   Updated: 2025/02/26 19:58:04 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d_bonus.h>
 
-static void	delete_text(int i, t_game *game)
+void	delete_text(int i, t_game *game)
 {
 	int	j;
 
@@ -20,9 +20,11 @@ static void	delete_text(int i, t_game *game)
 	while (j < i)
 	{
 		mlx_delete_image(game->game, game->img[j]);
+		game->img[j] = NULL;
 		j++;
 	}
 	free(game->img);
+	game->img = NULL;
 }
 
 static int	load_torch_textures(t_game *game, char *paths[], int num_frames)
@@ -62,7 +64,7 @@ void	init_torch_animation(t_game *game)
 	num_frames = 11;
 	game->img = malloc(sizeof(mlx_image_t *) * num_frames);
 	if (!game->img)
-		return ;
+		return ; // return 0
 	game->torch_frame = 0;
 	paths[0] = "./torch/1.png";
 	paths[1] = "./torch/3.png";
@@ -76,7 +78,7 @@ void	init_torch_animation(t_game *game)
 	paths[9] = "./torch/12.png";
 	paths[10] = "./torch/13.png";
 	if (!load_torch_textures(game, paths, num_frames))
-		return ;
+		return ; // return 0
 }
 
 void	animate_torch(void *param)

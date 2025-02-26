@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_3.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 10:54:23 by asayad            #+#    #+#             */
-/*   Updated: 2025/02/26 18:03:58 by asayad           ###   ########.fr       */
+/*   Updated: 2025/02/26 18:41:16 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@ void	quit_game(t_game *game)
 {
 	free_table(game->map_inf->map_2d, game->map_inf->map_size);
 	free_textures(game->map_inf);
-	// if (game->mmap_inf->n)
-	// 	mlx_delete_image(game->game, game->mmap_inf->n);
 	if (game->text->img_east)
 		mlx_delete_image(game->game, game->text->img_east);
 	if (game->text->img_west)

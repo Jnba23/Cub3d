@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 13:38:41 by asayad            #+#    #+#             */
-/*   Updated: 2025/02/26 13:32:44 by asayad           ###   ########.fr       */
+/*   Updated: 2025/02/26 18:54:30 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ typedef struct	s_texture
 	mlx_image_t	*img_south;
 	mlx_image_t	*img_east;
 	mlx_image_t	*img_west;
-	float		true_wall_h;
+	float		true_w;
 	int			tex_x;
 	int			tex_y;
 	double		wall_x;
@@ -256,7 +256,6 @@ void		assign_color(uint32_t *color, t_game *game);
 void		rot_ang(t_game *game);
 int			get_rgba(int r, int g, int b, int a);
 int			check_order(t_map *map_inf, char *s);
-int			in_mmap(t_game *game, t_mmap *m_map);
 char		**ft_split(char *s, char c);
 size_t		ft_strlcpy_split(char *dst, const char *src, size_t dstsize);
 int			valid_color(char *clr);
@@ -282,31 +281,25 @@ void		render_move(t_game *game, char dir);
 void		render_va(t_game *game, char dir);
 
 /*			rendering		*/
-void		render_2d_map(t_game *game);
 void		cast_rays(t_game *game);
 void		render_ray(t_game *game, t_coor *coo);
 void		shortest_distance(t_game *game, int ray);
 void		normalize_ang(float *alpha);
-void		render_3d_game(t_game *game);
-void		draw_wall(int i, t_game *game, int bott_pix, int top_pix);
+int			render_3d_game(t_game *game);
 void		draw_ceiling_floor(int i, t_game *game, int bott_pix, int top_pix);
 
 /*			Mini map		*/
 
 bool		inside_mmap(float x_pix, float y_pix);
 bool		inside_strip(float x_pix, float y_pix);
-void		mmap_2d(t_game *game, t_mmap *m_map);
-void		mmap_cnst(t_game *game, t_mmap *m_map);
-void		draw_player(t_game *game);
-void	    draw_ray(t_game *game, t_coor *coo);
 
 /*			textures		*/
 
 int			init_textures(t_game *game);
 int			assign_texture(t_game *game, int i, mlx_image_t **texture);
 void		calculate_tex_x(t_game *game, mlx_image_t *texture, int i);
+void		calculate_tex_y(t_game *game, mlx_image_t *texture, int y);
 double		calculate_wallx(t_game *game, int i);
 int			draw_textured_wall(t_game *game, int i);
-int			draw_texture_range(t_game *game, mlx_image_t *texture, int i, float true_wall_h);
 
 #endif

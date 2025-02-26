@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   infile_pars8_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 13:53:42 by asayad            #+#    #+#             */
-/*   Updated: 2025/02/26 16:23:50 by asayad           ###   ########.fr       */
+/*   Updated: 2025/02/26 19:03:29 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,7 @@ int	textures(char *l, mlx_texture_t **direction)
 	free(s);
 	free(path);
 	if (!*direction)
-		return (/*free_textures(map_inf)*/
-			print_error((char *)mlx_strerror(mlx_errno)), 0);
+		return (print_error((char *)mlx_strerror(mlx_errno)), 0);
 	return (1);
 }
 
