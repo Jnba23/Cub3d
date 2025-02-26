@@ -6,11 +6,9 @@
 /*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 13:38:41 by asayad            #+#    #+#             */
-/*   Updated: 2025/01/23 20:38:07 by asayad           ###   ########.fr       */
+/*   Updated: 2025/02/26 13:32:44 by asayad           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-			// relink in this file
 
 #ifndef CUB3D_H
 # define CUB3D_H
@@ -83,10 +81,11 @@ typedef struct s_map
 
 typedef struct	s_texture
 {
-	mlx_image_t	*img_north; // to convert the texture into an image
-	mlx_image_t	*img_south; // to convert the texture into an image
-	mlx_image_t	*img_east; // to convert the texture into an image
-	mlx_image_t	*img_west; // to convert the texture into an image
+	mlx_image_t	*img_north;
+	mlx_image_t	*img_south;
+	mlx_image_t	*img_east;
+	mlx_image_t	*img_west;
+	float		true_wall_h;
 	int			tex_x;
 	int			tex_y;
 	double		wall_x;
@@ -105,6 +104,11 @@ typedef	struct s_player
 	float		rot_speed;
 }	t_player;
 
+typedef struct s_color
+{
+	int		idx;
+	char	**i;
+}	t_clr;
 
 typedef struct s_ray
 {
@@ -162,7 +166,8 @@ typedef	struct s_game
 {
 	mlx_t		*game;
 	mlx_image_t	*game_img;
-	mlx_image_t	*mmap_image; // to draw the minimap
+	t_mmap		*mmap_inf;
+	mlx_image_t	*mmap_image;
 	t_player	*pl_inf;
 	t_map		*map_inf;
 	t_ray		*rays;
@@ -183,49 +188,59 @@ void		initialize_map(t_map *map_inf);
 int			ft_strcmp(char *s1, char *s2);
 int			ft_strncmp(char *s1, char *s2, size_t n);
 int			check_infile(char *in, t_map *map_inf);
-int			check_if_valid_data(t_list **in_list, t_map **map_inf);
+int			check_if_valid_data(t_list **in_list, t_map *map_inf);
 void		ft_lstadd_back(t_list **lst, t_list *new);
 t_list		*ft_lstnew(void *content);
 char		*rm_spaces(char *s);
-int			analyze_line(t_list **file_nd, t_map **map_inf);
-int			colors_nd_texture(char *l, t_map **map_inf);
-int			open_textures(char *l, t_map **map_inf, char *dir);
-int			textures(char *l, mlx_texture_t **direction);
-int			map_in(t_list **file_nd, t_map **map_inf);
+int			analyze_line(t_list **file_nd, t_map *map_inf);
+int			colors_nd_texture(char *l, t_map *map_inf);
+int			open_textures(char *l, t_map *map_inf, char *dir);
+int			textures(char *l, mlx_texture_t **direction, t_map *map_inf, char *s);
+int			map_in(t_list **file_nd, t_map *map_inf);
 int			check_rest_of_line(char *c, t_list *l);
 int			check_fst_line(t_list *l);
 const char	*find_path(char *l);
-int			map_analysis(t_map **map_inf);
-int			check_empty_lines(t_map **map_inf);
+int			map_analysis(t_map *map_inf);
+int			check_empty_lines(t_map *map_inf);
 int			map_char(char *s);
 void		ft_putendl_fd(char *s, int fd);
-int			map_elements(t_map **map_inf);
-int			check_color(char *l, t_map **map_inf, char c);
+int			map_elements(t_map *map_inf);
+int			check_color(char *l, t_map *map_inf, char c);
 char		*ft_strdup_c(char *s, char c);
-color		colors(char *rgb_s, int i);
+int			colors(color *clrs,char *rgb_s, int i);
 int			ft_atoi(char **str, bool *a);
 int			ft_isdigit(int c);
 int			is_empty(char *l);
-int			cnvrt_lst_2_map(t_map **map_inf);
+int			cnvrt_lst_2_map(t_map *map_inf);
 int			check_rest_of_map(t_list **map);
-void		free_table(t_map **map_inf, int j);
-int			check_nd_fill_map(t_map **map_inf);
+void		free_table(char **map, int j);
+int			check_nd_fill_map(t_map *map_inf);
 void		ft_strcpy(char *src, char *dst);
-int			check_pre_line(int pre_l, char **map_line, int idx);
+int			check_pre_line(char **map_line, int idx);
 int			table_size(char **map);
 int			is_map_element(t_map *map_inf, int x, int y);
 int			check_player(char **map, int i, int j);
 void		skip_spaces(char *line, int *i);
 void		skip_spaces_ptr(char **line);
-int			check_line(t_map **map_inf, int idx);
+int			check_line(t_map *map_inf, int idx);
 int			check_diff_dirs(char **map, int line, int c);
-void		check_sign(char **str, int *sign);
-void		add_map_inf(t_map **map_inf);
+int			check_sign(char **str);
+void		add_map_inf(t_map *map_inf);
 void		window_init(t_game *game, t_map *map_inf);
+void		free_in_list(t_list *lst);
+int			check_begin_lines(char **map, int idx);
+int			check_end_lines(char **map, int idx);
+int			ones_nd_spaces(char *l, int i);
+void		free_textures(t_map *map_inf);
+int			check_clrs_struct(char *l);
+int			ft_isspace(char c);
+void		delete_images(t_game *game);
+void		quit_game(t_game *game);
+void		print_error(char *err);
+int			check_floor_nd_ceiling(char *l, t_map *map_inf);
 
 /*			Game			*/
 int			start_game(t_map *map_inf);
-// void		reset_mvs_indic(t_game *game);
 
 /*			utils		*/
 float		deg2rad(float angle_deg);
@@ -236,9 +251,22 @@ void		update_map_l_r(t_game *game);
 void		render_va(t_game *game, char dir);
 float		rad2deg(float angle_rad);
 bool		valid_ray_intersection(t_game *game, float hx, float hy);
+void		release_ressources(t_game *game, t_map *map_inf, int i);
+void		assign_color(uint32_t *color, t_game *game);
+void		rot_ang(t_game *game);
+int			get_rgba(int r, int g, int b, int a);
+int			check_order(t_map *map_inf, char *s);
+int			in_mmap(t_game *game, t_mmap *m_map);
+char		**ft_split(char *s, char c);
+size_t		ft_strlcpy_split(char *dst, const char *src, size_t dstsize);
+int			valid_color(char *clr);
+int			check_commas(char *l);
 
 /*			initializing	*/
 void		game_struct_init(t_map *map_inf, t_game **game, t_player *pl_inf);
+void 		init_game_struct(t_map *map_inf, t_game **game, t_player *pl_inf);
+void 		init_inter_struct(t_game **game, t_map *map_inf);
+void		init_rays_struct(t_game **game, t_map *map_inf);
 
 /*			intersections	*/
 int			va_y_up(float va);
@@ -254,12 +282,12 @@ void		render_move(t_game *game, char dir);
 void		render_va(t_game *game, char dir);
 
 /*			rendering		*/
-void		render_2D_map(t_game *game);
+void		render_2d_map(t_game *game);
 void		cast_rays(t_game *game);
 void		render_ray(t_game *game, t_coor *coo);
 void		shortest_distance(t_game *game, int ray);
 void		normalize_ang(float *alpha);
-void		render_3D_game(t_game *game);
+void		render_3d_game(t_game *game);
 void		draw_wall(int i, t_game *game, int bott_pix, int top_pix);
 void		draw_ceiling_floor(int i, t_game *game, int bott_pix, int top_pix);
 
@@ -267,7 +295,7 @@ void		draw_ceiling_floor(int i, t_game *game, int bott_pix, int top_pix);
 
 bool		inside_mmap(float x_pix, float y_pix);
 bool		inside_strip(float x_pix, float y_pix);
-void		mmap_2D(t_game *game, t_mmap *m_map);
+void		mmap_2d(t_game *game, t_mmap *m_map);
 void		mmap_cnst(t_game *game, t_mmap *m_map);
 void		draw_player(t_game *game);
 void	    draw_ray(t_game *game, t_coor *coo);
@@ -279,5 +307,6 @@ int			assign_texture(t_game *game, int i, mlx_image_t **texture);
 void		calculate_tex_x(t_game *game, mlx_image_t *texture, int i);
 double		calculate_wallx(t_game *game, int i);
 int			draw_textured_wall(t_game *game, int i);
+int			draw_texture_range(t_game *game, mlx_image_t *texture, int i, float true_wall_h);
 
 #endif
