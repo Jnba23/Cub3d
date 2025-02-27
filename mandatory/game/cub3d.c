@@ -6,7 +6,7 @@
 /*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 10:42:54 by hmoukit           #+#    #+#             */
-/*   Updated: 2025/02/26 18:45:10 by hmoukit          ###   ########.fr       */
+/*   Updated: 2025/02/27 16:20:12 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	main(int ac, char **av)
 {
 	t_map	map_inf;
 
-	atexit(f);
+	// atexit(f);
 	if (ac == 2)
 	{
 		if (ft_strlen(av[1]) >= 4 && !ft_strcmp(av[1]

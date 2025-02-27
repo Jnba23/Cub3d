@@ -6,7 +6,7 @@
 /*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 11:57:51 by asayad            #+#    #+#             */
-/*   Updated: 2025/02/26 21:41:21 by hmoukit          ###   ########.fr       */
+/*   Updated: 2025/02/27 16:19:52 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,10 +84,7 @@ int	check_empty_lines(t_map *map_inf)
 
 	i = 0;
 	flag = 0;
-	if (!map_inf->map)
-		tmp = NULL;
-	else
-		tmp = *map_inf->map;
+	tmp = *map_inf->map;
 	while (tmp)
 	{
 		if (is_empty((char *)tmp->content) || !tmp->next)

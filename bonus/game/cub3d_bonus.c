@@ -6,7 +6,7 @@
 /*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 10:42:54 by hmoukit           #+#    #+#             */
-/*   Updated: 2025/02/26 20:05:21 by hmoukit          ###   ########.fr       */
+/*   Updated: 2025/02/27 16:48:13 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ int	start_game(t_map *map_inf)
 
 	game_struct_init(map_inf, &game, &player_inf);
 	window_init(game, map_inf);
-	// mlx_cursor_hook(game->game, mouse_hook, game);
-	// mlx_set_cursor_mode(game->game, MLX_MOUSE_HIDDEN);
+	mlx_cursor_hook(game->game, mouse_hook, game);
+	mlx_set_cursor_mode(game->game, MLX_MOUSE_HIDDEN);
 	mlx_loop_hook(game->game, cube3d, (void *)game);
 	mlx_loop_hook(game->game, animate_torch, (void *)game);
 	init_textures(game);
@@ -81,7 +81,6 @@ void	cube3d(void *game)
 		render_2d_map(gm);
 		cast_rays(gm);
 		render_3d_game(gm);
-		// exit(1);
 		gm->render = false;
 	}
 }
