@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   infile_pars6.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 11:47:42 by asayad            #+#    #+#             */
-/*   Updated: 2025/02/26 13:05:16 by asayad           ###   ########.fr       */
+/*   Updated: 2025/02/28 11:16:25 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ int	ft_isspace(char c)
 	return (0);
 }
 
-//0, 1, N, S, E, W, ' '
 int	map_char(char *s)
 {
 	while (*s)

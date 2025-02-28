@@ -6,7 +6,7 @@
 /*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 10:41:48 by hmoukit           #+#    #+#             */
-/*   Updated: 2025/02/26 20:05:12 by hmoukit          ###   ########.fr       */
+/*   Updated: 2025/02/28 12:01:29 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,9 @@ void	window_init(t_game *game, t_map *map_inf)
 		free_table(map_inf->map_2d, map_inf->map_size);
 		free_textures(map_inf);
 		delete_images(game);
+		free(game->inter);
+		free(game->rays);
+		free(game);
 		exit(1);
 	}
 	if (mlx_image_to_window(game->game, game->game_img, 0, 0) == -1
@@ -116,7 +119,19 @@ void	window_init(t_game *game, t_map *map_inf)
 		free_table(map_inf->map_2d, map_inf->map_size);
 		free_textures(map_inf);
 		delete_images(game);
+		free(game->inter);
+		free(game->rays);
+		free(game);
 		exit(1);
 	}
-	init_torch_animation(game);
+	if (!init_torch_animation(game))
+	{
+		free_table(map_inf->map_2d, map_inf->map_size);
+		free_textures(map_inf);
+		delete_images(game);
+		free(game->inter);
+		free(game->rays);
+		free(game);
+		exit(1);
+	}
 }

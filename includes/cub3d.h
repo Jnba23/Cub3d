@@ -6,12 +6,13 @@
 /*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 13:38:41 by asayad            #+#    #+#             */
-/*   Updated: 2025/02/26 18:54:30 by hmoukit          ###   ########.fr       */
+/*   Updated: 2025/02/28 12:16:29 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
+
 # include <stdio.h>
 # include <unistd.h>
 # include <fcntl.h>
@@ -22,13 +23,6 @@
 # include <strings.h>
 # include <string.h>
 # include <math.h>
-
-typedef unsigned int	color;
-typedef struct s_list
-{
-	void			*content;
-	struct s_list	*next;
-}	t_list;
 
 # define SCREEN_WIDTH 1200
 # define SCREEN_HEIGHT 1200
@@ -46,6 +40,14 @@ typedef struct s_list
 # define DISTANCE_P (float)(SCREEN_WIDTH / (2 * tan(FOV/2)))
 # define EPSILON 0.00001496
 
+typedef unsigned int	t_color;
+
+typedef struct s_list
+{
+	void			*content;
+	struct s_list	*next;
+}	t_list;
+
 typedef struct s_map
 {
 	int				no;
@@ -54,12 +56,12 @@ typedef struct s_map
 	int				ea;
 	int				ceiling;
 	int				floor;
-	color			red_c;
-	color			green_c;
-	color			blue_c;
-	color			red_f;
-	color			green_f;
-	color			blue_f;
+	t_color			red_c;
+	t_color			green_c;
+	t_color			blue_c;
+	t_color			red_f;
+	t_color			green_f;
+	t_color			blue_f;
 	bool			map_in;
 	int				prev_line_l;
 	int				wall_begin_indx;
@@ -76,10 +78,9 @@ typedef struct s_map
 	mlx_texture_t	*south;
 	mlx_texture_t	*east;
 	mlx_texture_t	*west;
-	
 }	t_map;
 
-typedef struct	s_texture
+typedef struct s_texture
 {
 	mlx_image_t	*img_north;
 	mlx_image_t	*img_south;
@@ -91,9 +92,9 @@ typedef struct	s_texture
 	double		wall_x;
 	double		pos;
 	uint8_t		*pixel;
-} 	t_texture;
+}	t_texture;
 
-typedef	struct s_player
+typedef struct s_player
 {
 	int			pl_x;
 	int			pl_y;
@@ -123,7 +124,7 @@ typedef struct s_ray
 	double	wall_h;
 	int		bott_pix;
 	int		top_pix;
-} t_ray;
+}	t_ray;
 
 typedef struct s_inter
 {
@@ -162,7 +163,7 @@ typedef struct s_mmap
 	mlx_image_t	*n;
 }	t_mmap;
 
-typedef	struct s_game
+typedef struct s_game
 {
 	mlx_t		*game;
 	mlx_image_t	*game_img;
@@ -195,7 +196,8 @@ char		*rm_spaces(char *s);
 int			analyze_line(t_list **file_nd, t_map *map_inf);
 int			colors_nd_texture(char *l, t_map *map_inf);
 int			open_textures(char *l, t_map *map_inf, char *dir);
-int			textures(char *l, mlx_texture_t **direction, t_map *map_inf, char *s);
+int			textures(char *l, mlx_texture_t **direction,
+				t_map *map_inf, char *s);
 int			map_in(t_list **file_nd, t_map *map_inf);
 int			check_rest_of_line(char *c, t_list *l);
 int			check_fst_line(t_list *l);
@@ -207,7 +209,7 @@ void		ft_putendl_fd(char *s, int fd);
 int			map_elements(t_map *map_inf);
 int			check_color(char *l, t_map *map_inf, char c);
 char		*ft_strdup_c(char *s, char c);
-int			colors(color *clrs,char *rgb_s, int i);
+int			colors(t_color *clrs, char *rgb_s, int i);
 int			ft_atoi(char **str, bool *a);
 int			ft_isdigit(int c);
 int			is_empty(char *l);
@@ -263,8 +265,8 @@ int			check_commas(char *l);
 
 /*			initializing	*/
 void		game_struct_init(t_map *map_inf, t_game **game, t_player *pl_inf);
-void 		init_game_struct(t_map *map_inf, t_game **game, t_player *pl_inf);
-void 		init_inter_struct(t_game **game, t_map *map_inf);
+void		init_game_struct(t_map *map_inf, t_game **game, t_player *pl_inf);
+void		init_inter_struct(t_game **game, t_map *map_inf);
 void		init_rays_struct(t_game **game, t_map *map_inf);
 
 /*			intersections	*/

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   infile_pars5.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 13:32:07 by asayad            #+#    #+#             */
-/*   Updated: 2025/02/26 13:05:00 by asayad           ###   ########.fr       */
+/*   Updated: 2025/02/28 11:48:44 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,11 @@ int	check_nd_fill_map(t_map *map_inf)
 	map = map_inf->map_2d;
 	while (map[i])
 	{
+		if (ft_strlen(map[i]) == 0)
+		{
+			i++;
+			continue ;
+		}
 		if (!check_pre_line(map, i))
 			return (print_error("Map not surrounded by walls !"), 0);
 		if (!check_line(map_inf, i))

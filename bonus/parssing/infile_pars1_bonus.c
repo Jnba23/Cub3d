@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   infile_pars1_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 12:00:45 by asayad            #+#    #+#             */
-/*   Updated: 2025/02/26 17:54:37 by asayad           ###   ########.fr       */
+/*   Updated: 2025/02/28 11:57:32 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,9 @@ int	is_empty(char *l)
 
 int	colors_nd_texture(char *l, t_map *map_inf)
 {
-	if (!ft_strncmp(l, "NO", 2))
+	if (!ft_strncmp(l, "D", 1))
+		return (open_textures(l, map_inf, "d"));
+	else if (!ft_strncmp(l, "NO", 2))
 		return (open_textures(l, map_inf, "no"));
 	else if (!ft_strncmp(l, "SO", 2))
 		return (open_textures(l, map_inf, "so"));
@@ -59,17 +61,31 @@ int	colors_nd_texture(char *l, t_map *map_inf)
 		return (open_textures(l, map_inf, "we"));
 	else if (!ft_strncmp(l, "EA", 2))
 		return (open_textures(l, map_inf, "ea"));
-	else if (!ft_strncmp(l, "D", 1))
-		return (open_textures(l, map_inf, "d"));
-	else if (!ft_strncmp(l, "F", 1))
+	else if (!ft_strncmp(l, "F", 1) || !ft_strncmp(l, "C", 1))
+	{
+		if (!check_floor_nd_ceiling(l, map_inf))
+			return (0);
+	}
+	return (1);
+}
+
+int	check_floor_nd_ceiling(char *l, t_map *map_inf)
+{
+	if (!ft_strncmp(l, "F", 1))
 	{
 		map_inf->floor++;
+		if (map_inf->ceiling != 0)
+			return (free_textures(map_inf),
+				print_error("Wrong element's order !"), 0);
 		if (!check_color(l, map_inf, 'f'))
 			return (print_error("Invalid colors !"), 0);
 	}
 	else if (!ft_strncmp(l, "C", 1))
 	{
 		map_inf->ceiling++;
+		if (map_inf->floor != 1)
+			return (free_textures(map_inf),
+				print_error("Wrong element's order !"), 0);
 		if (!check_color(l, map_inf, 'c'))
 			return (print_error("Invalid colors !"), 0);
 	}
@@ -79,28 +95,26 @@ int	colors_nd_texture(char *l, t_map *map_inf)
 int	open_textures(char *l, t_map *map_inf, char *dir)
 {
 	if (!ft_strcmp(dir, "d"))
-	{
-		map_inf->d++;
-		return (textures(l, &map_inf->door));
-	}
-	if (!ft_strcmp(dir, "no") || !ft_strcmp(dir, "so"))
-		return (north_south(l, map_inf, dir));
-	if (!ft_strcmp(dir, "ea") || !ft_strcmp(dir, "we"))
-		return (east_west(l, map_inf, dir));
-	return (0);
-}
-
-int	north_south(char *l, t_map *map_inf, char *dir)
-{
+		return (map_inf->d++, textures(l, &map_inf->door, map_inf, "d"));
 	if (!ft_strcmp(dir, "no"))
 	{
 		map_inf->no++;
-		return (textures(l, &map_inf->north));
+		return (textures(l, &map_inf->north, map_inf, "no"));
 	}
-	else if (!ft_strcmp(dir, "so"))
+	if (!ft_strcmp(dir, "so"))
 	{
 		map_inf->so++;
-		return (textures(l, &map_inf->south));
+		return (textures(l, &map_inf->south, map_inf, "so"));
 	}
-	return (1);
+	if (!ft_strcmp(dir, "ea"))
+	{
+		map_inf->ea++;
+		return (textures(l, &map_inf->east, map_inf, "ea"));
+	}
+	if (!ft_strcmp(dir, "we"))
+	{
+		map_inf->we++;
+		return (textures(l, &map_inf->west, map_inf, "we"));
+	}
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 20:40:24 by hmoukit           #+#    #+#             */
-/*   Updated: 2025/02/26 19:58:04 by hmoukit          ###   ########.fr       */
+/*   Updated: 2025/02/28 12:00:57 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static int	load_torch_textures(t_game *game, char *paths[], int num_frames)
 	return (1);
 }
 
-void	init_torch_animation(t_game *game)
+int	init_torch_animation(t_game *game)
 {
 	int		num_frames;
 	char	*paths[11];
@@ -64,7 +64,7 @@ void	init_torch_animation(t_game *game)
 	num_frames = 11;
 	game->img = malloc(sizeof(mlx_image_t *) * num_frames);
 	if (!game->img)
-		return ; // return 0
+		return (print_error("Malloc Failed"), 0);
 	game->torch_frame = 0;
 	paths[0] = "./torch/1.png";
 	paths[1] = "./torch/3.png";
@@ -78,7 +78,8 @@ void	init_torch_animation(t_game *game)
 	paths[9] = "./torch/12.png";
 	paths[10] = "./torch/13.png";
 	if (!load_torch_textures(game, paths, num_frames))
-		return ; // return 0
+		return (print_error("Failed to load the torch frames"), 0);
+	return (1);
 }
 
 void	animate_torch(void *param)

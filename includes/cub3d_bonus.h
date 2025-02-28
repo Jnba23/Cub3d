@@ -6,12 +6,13 @@
 /*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 18:29:49 by hmoukit           #+#    #+#             */
-/*   Updated: 2025/02/26 19:25:55 by hmoukit          ###   ########.fr       */
+/*   Updated: 2025/02/28 12:11:35 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_BONUS_H
 # define CUB3D_BONUS_H
+
 # include <stdio.h>
 # include <unistd.h>
 # include <fcntl.h>
@@ -22,13 +23,6 @@
 # include <strings.h>
 # include <string.h>
 # include <math.h>
-
-typedef unsigned int	color;
-typedef struct s_list
-{
-	void			*content;
-	struct s_list	*next;
-}	t_list;
 
 # define SCREEN_WIDTH 1200
 # define SCREEN_HEIGHT 1200
@@ -46,6 +40,14 @@ typedef struct s_list
 # define DISTANCE_P (float)(SCREEN_WIDTH / (2 * tan(FOV/2)))
 # define EPSILON 0.00001496
 
+typedef unsigned int	t_color;
+
+typedef struct s_list
+{
+	void			*content;
+	struct s_list	*next;
+}	t_list;
+
 typedef struct s_map
 {
 	int				no;
@@ -55,12 +57,12 @@ typedef struct s_map
 	int				ceiling;
 	int				floor;
 	int				d;
-	color			red_c;
-	color			green_c;
-	color			blue_c;
-	color			red_f;
-	color			green_f;
-	color			blue_f;
+	t_color			red_c;
+	t_color			green_c;
+	t_color			blue_c;
+	t_color			red_f;
+	t_color			green_f;
+	t_color			blue_f;
 	bool			map_in;
 	int				prev_line_l;
 	int				wall_begin_indx;
@@ -78,10 +80,9 @@ typedef struct s_map
 	mlx_texture_t	*east;
 	mlx_texture_t	*west;
 	mlx_texture_t	*door;
-	
 }	t_map;
 
-typedef struct	s_texture
+typedef struct s_texture
 {
 	mlx_image_t	*img_north;
 	mlx_image_t	*img_south;
@@ -94,9 +95,9 @@ typedef struct	s_texture
 	double		pos;
 	uint8_t		*pixel;
 	float		true_wall_h;
-} 	t_texture;
+}	t_texture;
 
-typedef	struct s_player
+typedef struct s_player
 {
 	int			pl_x;
 	int			pl_y;
@@ -167,7 +168,7 @@ typedef struct s_mmap
 	mlx_image_t	*n;
 }	t_mmap;
 
-typedef	struct s_game
+typedef struct s_game
 {
 	mlx_t		*game;
 	mlx_image_t	*game_img;
@@ -204,7 +205,8 @@ char		*rm_spaces(char *s);
 int			analyze_line(t_list **file_nd, t_map *map_inf);
 int			colors_nd_texture(char *l, t_map *map_inf);
 int			open_textures(char *l, t_map *map_inf, char *dir);
-int			textures(char *l, mlx_texture_t **direction);
+int			textures(char *l, mlx_texture_t **direction,
+				t_map *map_inf, char *dir);
 int			map_in(t_list **file_nd, t_map *map_inf);
 int			check_rest_of_line(char *c, t_list *l);
 int			check_fst_line(t_list *l);
@@ -216,7 +218,7 @@ void		ft_putendl_fd(char *s, int fd);
 int			map_elements(t_map *map_inf);
 int			check_color(char *l, t_map *map_inf, char c);
 char		*ft_strdup_c(char *s, char c);
-int			colors(color *clrs,char *rgb_s, int i);
+int			colors(t_color *clrs, char *rgb_s, int i);
 int			ft_atoi(char **str, bool *a);
 int			ft_isdigit(int c);
 int			is_empty(char *l);
@@ -249,8 +251,7 @@ int			valid_color(char *clr);
 int			check_commas(char *l);
 char		**ft_split(char *s, char c);
 void		print_error(char *err);
-int			north_south(char *l, t_map *map_inf, char *dir);
-int			east_west(char *l, t_map *map_inf, char *dir);
+int			check_floor_nd_ceiling(char *l, t_map *map_inf);
 
 /*			Game			*/
 int			start_game(t_map *map_inf);
@@ -288,7 +289,6 @@ void		render_ray(t_game *game, t_coor *coo);
 void		shortest_distance(t_game *game, int ray);
 void		normalize_ang(float *alpha);
 void		render_3d_game(t_game *game);
-void		draw_wall(int i, t_game *game, int bott_pix, int top_pix);
 void		draw_ceiling_floor(int i, t_game *game, int bott_pix, int top_pix);
 
 /*			Mini map		*/
@@ -296,8 +296,9 @@ bool		inside_mmap(float x_pix, float y_pix);
 bool		inside_strip(float x_pix, float y_pix);
 void		mmap_2d(t_game *game, t_mmap *m_map);
 void		mmap_cnst(t_game *game, t_mmap *m_map);
+int			in_mmap(t_game *game, t_mmap *m_map);
 void		draw_player(t_game *game);
-void	    draw_ray(t_game *game, t_coor *coo);
+void		draw_ray(t_game *game, t_coor *coo);
 
 /*			textures		*/
 int			init_textures(t_game *game);
@@ -311,9 +312,9 @@ uint32_t	get_texture_pixel(mlx_image_t *texture, int x, int y);
 void		mouse_hook(double xpos, double ypos, void *param);
 
 /*			animation		*/
-void		init_torch_animation(t_game *game);
-void 		animate_torch(void *param);
-void	delete_text(int i, t_game *game);
+int			init_torch_animation(t_game *game);
+void		animate_torch(void *param);
+void		delete_text(int i, t_game *game);
 int			is_door(float x, float y, t_game *game);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 21:43:32 by hmoukit           #+#    #+#             */
-/*   Updated: 2025/02/23 16:50:21 by hmoukit          ###   ########.fr       */
+/*   Updated: 2025/02/28 11:32:13 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,6 @@ float	rad2deg(float angle_rad)
 {
 	return ((angle_rad / PI) * 180);
 }
-
-// C 18,53,25
-// F 153,204,255
 
 int	get_rgba(int r, int g, int b, int a)
 {

@@ -1,0 +1,17 @@
+NO ./textures/berlin.png
+SO ./textures/berlin.png
+WE ./textures/berlin.png
+EA ./textures/berlin.png
+
+
+F 80, 80, 80
+C     25, 25, 112
+
+
+11111111111
+10000000001
+1N000000001
+10000000001
+11111111111
+
+

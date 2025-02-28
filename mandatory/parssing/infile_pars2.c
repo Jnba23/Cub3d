@@ -6,7 +6,7 @@
 /*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 11:59:02 by asayad            #+#    #+#             */
-/*   Updated: 2025/02/26 21:11:10 by hmoukit          ###   ########.fr       */
+/*   Updated: 2025/02/28 12:17:16 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,13 @@ int	map_in(t_list **file_nd, t_map *map_inf)
 
 int	check_fst_line(t_list *l)
 {
-	int		i;
+	int	i;
 
 	i = 0;
 	while (i < ft_strlen((char *)(l->content)))
 	{
-		if (((char *)(l->content))[i] == ' '
-			|| ((char *)(l->content))[i] != '1')
+		if (((char *)(l->content))[i] != ' '
+			&& ((char *)(l->content))[i] != '1')
 		{
 			print_error("Invalid map !");
 			return (0);
@@ -82,7 +82,7 @@ const char	*find_path(char *l)
 int	check_color(char *l, t_map *map_inf, char c)
 {
 	int		i;
-	color	clrs;
+	t_color	clrs;
 
 	i = 1;
 	skip_spaces(l, &i);

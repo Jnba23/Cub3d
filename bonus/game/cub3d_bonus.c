@@ -6,18 +6,18 @@
 /*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 10:42:54 by hmoukit           #+#    #+#             */
-/*   Updated: 2025/02/27 16:48:13 by hmoukit          ###   ########.fr       */
+/*   Updated: 2025/02/28 12:07:48 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d_bonus.h>
 
- void f()
- {
+void	f(void)
+{
 	system("leaks cub3D_bonus");
-	// system("lsof cub3d_bonus");
- }
- 
+	system("lsof cub3D_bonus");
+}
+
 int	main(int ac, char **av)
 {
 	t_map	map_inf;

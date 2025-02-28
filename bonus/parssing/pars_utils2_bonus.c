@@ -6,7 +6,7 @@
 /*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 20:48:25 by asayad            #+#    #+#             */
-/*   Updated: 2025/02/26 19:51:59 by hmoukit          ###   ########.fr       */
+/*   Updated: 2025/02/28 11:21:27 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,29 +31,6 @@ void	delete_images(t_game *game)
 		mlx_delete_image(game->game, game->game_img);
 	if (game->mmap_image)
 		mlx_delete_image(game->game, game->mmap_image);
-}
-
-size_t	ft_strlcpy_split(char *dst, const char *src, size_t dstsize)
-{
-	size_t	i;
-	size_t	j;
-
-	i = 0;
-	j = 0;
-	while (src[j])
-		j++;
-	if (dstsize == 0)
-		return (j);
-	else
-	{
-		while (src[i] != '\0' && i < dstsize - 1)
-		{
-			dst[i] = src[i];
-			i++;
-		}
-		dst[i] = '\0';
-	}
-	return (j);
 }
 
 void	print_error(char *err)

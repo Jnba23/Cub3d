@@ -3,97 +3,72 @@
 /*                                                        :::      ::::::::   */
 /*   infile_pars6_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 13:37:04 by asayad            #+#    #+#             */
-/*   Updated: 2025/02/26 16:33:23 by asayad           ###   ########.fr       */
+/*   Updated: 2025/02/28 11:36:32 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d_bonus.h>
 
-int	check_color(char *l, t_map *map_inf, char c)
+void	free_textures(t_map *map_inf)
 {
-	int		i;
-	color	clrs;
-
-	i = 1;
-	skip_spaces(l, &i);
-	if (!check_clrs_struct(l + i))
-		return (0);
-	if (!colors(&clrs, l + i, 0))
-		return (0);
-	if (c == 'f')
+	if (map_inf->north)
 	{
-		map_inf->red_f = clrs >> 16 & 0xFF;
-		map_inf->green_f = clrs >> 8 & 0xFF;
-		map_inf->blue_f = clrs & 0xFF;
+		mlx_delete_texture(map_inf->north);
+		map_inf->north = NULL;
 	}
-	if (c == 'c')
+	if (map_inf->south)
 	{
-		map_inf->red_c = clrs >> 16 & 0xFF;
-		map_inf->green_c = clrs >> 8 & 0xFF;
-		map_inf->blue_c = clrs & 0xFF;
+		mlx_delete_texture(map_inf->south);
+		map_inf->south = NULL;
 	}
-	return (1);
+	if (map_inf->east)
+	{
+		mlx_delete_texture(map_inf->east);
+		map_inf->east = NULL;
+	}
+	if (map_inf->west)
+	{
+		mlx_delete_texture(map_inf->west);
+		map_inf->west = NULL;
+	}
+	if (map_inf->door)
+	{
+		mlx_delete_texture(map_inf->door);
+		map_inf->door = NULL;
+	}
 }
 
-int	check_clrs_struct(char *l)
+size_t	ft_strlcpy_split(char *dst, const char *src, size_t dstsize)
 {
-	t_clr	vars;
-	int		size;
+	size_t	i;
+	size_t	j;
 
-	vars.idx = 0;
-	vars.i = ft_split(l, ',');
-	size = table_size(vars.i);
-	if (size != 3)
-		return (0);
-	if (!check_commas(l))
-		return (free_table(vars.i, size), 0);
-	while (vars.i[vars.idx])
+	i = 0;
+	j = 0;
+	while (src[j])
+		j++;
+	if (dstsize == 0)
+		return (j);
+	else
 	{
-		if (!valid_color(vars.i[vars.idx]))
-			return (0);
-		vars.idx++;
+		while (src[i] != '\0' && i < dstsize - 1)
+		{
+			dst[i] = src[i];
+			i++;
+		}
+		dst[i] = '\0';
 	}
-	free_table(vars.i, size);
-	return (1);
+	return (j);
 }
 
-int	valid_color(char *clr)
+int	ft_isspace(char c)
 {
-	int		i;
-	bool	space;
-
-	i = -1;
-	space = false;
-	while (clr[++i])
-	{
-		if (!ft_isdigit(clr[i]) && !ft_isspace(clr[i]))
-			return (0);
-		if (ft_isspace(clr[i]))
-			space = true;
-		if (ft_isdigit(clr[i] && space))
-			return (0);
-	}
-	return (1);
-}
-
-int	check_commas(char *l)
-{
-	int	i;
-	int	comma_cnt;
-
-	i = -1;
-	comma_cnt = 0;
-	while (l[++i])
-	{
-		if (l[i] == ',')
-			comma_cnt++;
-	}
-	if (comma_cnt != 2)
-		return (0);
-	return (1);
+	if ((c >= 9 && c <= 13) || c == 32)
+		return (1);
+	return (0);
 }
 
 int	map_char(char *s)

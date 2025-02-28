@@ -6,7 +6,7 @@
 /*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 11:15:59 by asayad            #+#    #+#             */
-/*   Updated: 2025/02/26 21:41:15 by hmoukit          ###   ########.fr       */
+/*   Updated: 2025/02/28 11:06:49 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ int	check_infile(char *in, t_map *map_inf)
 		ft_lstadd_back(&in_list, ft_lstnew(s));
 		s = get_next_line(fd);
 	}
+	close(fd);
 	if (!check_if_valid_data(&in_list, map_inf))
 		return (free_in_list(in_list), 0);
 	free_in_list(in_list);

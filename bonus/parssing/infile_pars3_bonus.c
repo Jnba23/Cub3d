@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   infile_pars3_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 11:57:51 by asayad            #+#    #+#             */
-/*   Updated: 2025/02/26 17:57:37 by asayad           ###   ########.fr       */
+/*   Updated: 2025/02/28 12:07:38 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d_bonus.h>
 
-int	colors(color *clrs, char *rgb_s, int i)
+int	colors(t_color *clrs, char *rgb_s, int i)
 {
 	bool			a;
 	unsigned int	val;
@@ -85,22 +85,21 @@ int	check_empty_lines(t_map *map_inf)
 
 	i = 0;
 	flag = 0;
+	if (!map_inf->map)
+		return (print_error("No map !"), 0);
 	tmp = *map_inf->map;
-	if (tmp)
+	while (tmp)
 	{
-		while (tmp)
+		if (is_empty((char *)tmp->content) || !tmp->next)
 		{
-			if (is_empty((char *)tmp->content) || !tmp->next)
-			{
-				if (flag == 0)
-					map_inf->map_size = i + 1;
-				if (!check_rest_of_map(&tmp->next))
-					return (0);
-				flag = 1;
-			}
-			i++;
-			tmp = tmp->next;
+			if (flag == 0)
+				map_inf->map_size = i + 1;
+			if (!check_rest_of_map(&tmp->next))
+				return (0);
+			flag = 1;
 		}
+		i++;
+		tmp = tmp->next;
 	}
 	return (1);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   infile_pars2_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 11:59:02 by asayad            #+#    #+#             */
-/*   Updated: 2025/02/26 13:38:46 by asayad           ###   ########.fr       */
+/*   Updated: 2025/02/28 12:06:58 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ int	check_fst_line(t_list *l)
 	i = 0;
 	while (i < ft_strlen((char *)(l->content)))
 	{
-		if (((char *)(l->content))[i] == ' '
-			|| ((char *)(l->content))[i] != '1')
+		if (((char *)(l->content))[i] != ' '
+			&& ((char *)(l->content))[i] != '1')
 		{
 			print_error("Invalid map !");
 			return (0);
@@ -79,9 +79,28 @@ const char	*find_path(char *l)
 	return (NULL);
 }
 
-int	ft_isspace(char c)
+int	check_color(char *l, t_map *map_inf, char c)
 {
-	if ((c >= 9 && c <= 13) || c == 32)
-		return (1);
-	return (0);
+	int		i;
+	t_color	clrs;
+
+	i = 1;
+	skip_spaces(l, &i);
+	if (!check_clrs_struct(l + i))
+		return (0);
+	if (!colors(&clrs, l + i, 0))
+		return (0);
+	if (c == 'f')
+	{
+		map_inf->red_f = clrs >> 16 & 0xFF;
+		map_inf->green_f = clrs >> 8 & 0xFF;
+		map_inf->blue_f = clrs & 0xFF;
+	}
+	if (c == 'c')
+	{
+		map_inf->red_c = clrs >> 16 & 0xFF;
+		map_inf->green_c = clrs >> 8 & 0xFF;
+		map_inf->blue_c = clrs & 0xFF;
+	}
+	return (1);
 }

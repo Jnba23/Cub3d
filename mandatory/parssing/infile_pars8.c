@@ -6,7 +6,7 @@
 /*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 13:18:29 by asayad            #+#    #+#             */
-/*   Updated: 2025/02/26 21:10:28 by hmoukit          ###   ########.fr       */
+/*   Updated: 2025/02/28 11:48:21 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,13 @@ int	check_order(t_map *map_inf, char *s)
 	if (!strcmp(s, "we"))
 	{
 		if ((map_inf->no != 1 || map_inf->so != 1) || map_inf->ea != 0
-				|| map_inf->we > 1)
+			|| map_inf->we > 1)
 			return (0);
 	}
 	if (!strcmp(s, "ea"))
 	{
 		if (map_inf->no != 1 || map_inf->so != 1 || map_inf->we != 1
-				|| map_inf->ea > 1)
+			|| map_inf->ea > 1)
 			return (0);
 	}
 	if (map_inf->ceiling != 0 || map_inf->floor != 0)

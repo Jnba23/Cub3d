@@ -6,13 +6,13 @@
 /*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 11:57:51 by asayad            #+#    #+#             */
-/*   Updated: 2025/02/27 16:19:52 by hmoukit          ###   ########.fr       */
+/*   Updated: 2025/02/28 12:17:27 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
 
-int	colors(color *clrs, char *rgb_s, int i)
+int	colors(t_color *clrs, char *rgb_s, int i)
 {
 	bool			a;
 	unsigned int	val;
@@ -84,6 +84,8 @@ int	check_empty_lines(t_map *map_inf)
 
 	i = 0;
 	flag = 0;
+	if (!map_inf->map)
+		return (print_error("No map !"), 0);
 	tmp = *map_inf->map;
 	while (tmp)
 	{
