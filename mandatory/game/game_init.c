@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_init.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
+/*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 10:41:48 by hmoukit           #+#    #+#             */
-/*   Updated: 2025/02/26 18:47:42 by hmoukit          ###   ########.fr       */
+/*   Updated: 2025/03/01 13:08:18 by asayad           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	init_game_struct(t_map *map_inf, t_game **game, t_player *pl_inf)
 	(*game)->pl_inf->pl_dir = map_inf->pl_dir;
 	(*game)->pl_inf->walk_dir = 0;
 	(*game)->pl_inf->turn_dir = 0;
-	(*game)->ray_ang = deg2rad(RAY_ANG);
+	(*game)->ray_ang = deg2rad((float)((float)FOV / (float)SCREEN_WIDTH));
 	rot_ang(*game);
 	(*game)->map_pix_h = TILE_SIZE * (*game)->map_inf->map_height;
 	(*game)->map_pix_w = TILE_SIZE * (*game)->map_inf->map_width;
@@ -56,6 +56,8 @@ void	init_game_struct(t_map *map_inf, t_game **game, t_player *pl_inf)
 			* TILE_SIZE + TILE_SIZE / 2);
 	(*game)->pl_y_pix = (float)((*game)->pl_inf->pl_y
 			* TILE_SIZE + TILE_SIZE / 2);
+	(*game)->ang_increment = (float)((float)FOV / (float)SCREEN_WIDTH);
+	(*game)->rev_tile = (float)(1.0 / (float)TILE_SIZE);
 }
 
 void	init_inter_struct(t_game **game, t_map *map_inf)
@@ -101,11 +103,8 @@ void	window_init(t_game *game, t_map *map_inf)
 {
 	game->game = mlx_init(SCREEN_WIDTH, SCREEN_HEIGHT, "lo3ba", 1);
 	game->game_img = mlx_new_image(game->game, SCREEN_WIDTH, SCREEN_HEIGHT);
-	game->mmap_image = mlx_new_image(game->game, 2 * MINI_MAP_RADIUS,
-			2 * MINI_MAP_RADIUS);
-	if (!game->game || !game->game_img || !game->mmap_image)
+	if (!game->game || !game->game_img)
 		release_ressources(game, map_inf, 1);
-	if (mlx_image_to_window(game->game, game->game_img, 0, 0) == -1
-		|| mlx_image_to_window(game->game, game->mmap_image, 5, 5) == -1)
+	if (mlx_image_to_window(game->game, game->game_img, 0, 0) == -1)
 		release_ressources(game, map_inf, 1);
 }

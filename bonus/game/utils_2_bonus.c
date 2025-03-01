@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_2_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
+/*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 21:43:32 by hmoukit           #+#    #+#             */
-/*   Updated: 2025/02/28 11:32:13 by hmoukit          ###   ########.fr       */
+/*   Updated: 2025/03/01 13:56:36 by asayad           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,12 @@ float	square(float i)
 	return (i * i);
 }
 
-bool	inside_strip(float x_pix, float y_pix)
+bool	inside_strip(t_game *game, float x_pix, float y_pix)
 {
-	if (powf(x_pix - MINI_MAP_RADIUS, 2)
-		+ powf(y_pix - MINI_MAP_RADIUS, 2) >= STRIP_RADIUS_SQUARE)
+	if (powf(x_pix - game->mmap_radius, 2)
+		+ powf(y_pix - game->mmap_radius, 2) >= powf(game->mmap_radius - 8, 2))
+	{
 		return (1);
+	}
 	return (0);
 }

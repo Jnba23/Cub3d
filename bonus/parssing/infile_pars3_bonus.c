@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   infile_pars3_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
+/*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 11:57:51 by asayad            #+#    #+#             */
-/*   Updated: 2025/02/28 12:07:38 by hmoukit          ###   ########.fr       */
+/*   Updated: 2025/03/01 14:04:03 by asayad           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,22 +61,6 @@ int	map_analysis(t_map *map_inf)
 	return (1);
 }
 
-int	map_elements(t_map *map_inf)
-{
-	printf("NO %d\n", map_inf->no);
-	printf("SO %d\n", map_inf->so);
-	printf("EA %d\n", map_inf->ea);
-	printf("WE %d\n", map_inf->we);
-	printf("F %d\n", map_inf->floor);
-	printf("C %d\n", map_inf->ceiling);
-	printf("D %d\n", map_inf->d);
-	if (map_inf->ea != 1 || map_inf->we != 1 || map_inf->no != 1
-		|| map_inf->so != 1 || map_inf->ceiling != 1
-		|| map_inf->floor != 1 || map_inf->d != 1)
-		return (print_error("Missing or duplicate map data !"), 0);
-	return (1);
-}
-
 int	check_empty_lines(t_map *map_inf)
 {
 	t_list	*tmp;
@@ -116,4 +100,16 @@ int	check_rest_of_map(t_list **map)
 		tmp = tmp->next;
 	}
 	return (1);
+}
+
+void	ft_strcpy(char *src, char *dst)
+{
+	int	i;
+
+	i = -1;
+	if (!src || !dst)
+		return ;
+	while (src[++i])
+		dst[i] = src[i];
+	dst[i] = '\0';
 }

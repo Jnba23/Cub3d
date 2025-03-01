@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
+/*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 13:38:41 by asayad            #+#    #+#             */
-/*   Updated: 2025/02/28 12:16:29 by hmoukit          ###   ########.fr       */
+/*   Updated: 2025/03/01 13:12:14 by asayad           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,24 +20,15 @@
 # include <MLX42.h>
 # include <get_next_line.h>
 # include <errno.h>
-# include <strings.h>
 # include <string.h>
 # include <math.h>
 
 # define SCREEN_WIDTH 1200
 # define SCREEN_HEIGHT 1200
 # define TILE_SIZE	64
-# define MINI_MAP_RADIUS ((float)(SCREEN_WIDTH * 0.08))  
-# define MMAP_DIAMETER MINI_MAP_RADIUS * 2
-# define SCALE (float)(MMAP_DIAMETER / (8 * TILE_SIZE))
-# define RADIUS_SQUARE (float)(MINI_MAP_RADIUS * MINI_MAP_RADIUS)
-# define STRIP_RADIUS_SQUARE (float)((MINI_MAP_RADIUS - 10.0) * (MINI_MAP_RADIUS - 10.0))
 # define FOV 60	
-# define RAY_ANG (float)((float)FOV / (float)SCREEN_WIDTH)
 # define PLYR_SPEED 10
-# define REV_TILE (float)(1.0 / (float)TILE_SIZE)
 # define PI 3.14
-# define DISTANCE_P (float)(SCREEN_WIDTH / (2 * tan(FOV/2)))
 # define EPSILON 0.00001496
 
 typedef unsigned int	t_color;
@@ -148,27 +139,10 @@ typedef struct s_coor
 	int		dec_param;
 }	t_coor;
 
-typedef struct s_mmap
-{
-	float		img_x;
-	float		img_y;
-	float		gm_x0;
-	float		gm_y0;
-	float		gm_x;
-	float		gm_y;
-	int			map_x;
-	int			map_y;
-	float		diameter;
-	float		scale;
-	mlx_image_t	*n;
-}	t_mmap;
-
 typedef struct s_game
 {
 	mlx_t		*game;
 	mlx_image_t	*game_img;
-	t_mmap		*mmap_inf;
-	mlx_image_t	*mmap_image;
 	t_player	*pl_inf;
 	t_map		*map_inf;
 	t_ray		*rays;
@@ -182,6 +156,8 @@ typedef struct s_game
 	int			wall_h;
 	float		ray_ang;
 	t_texture	*text;
+	float		rev_tile;
+	float		ang_increment;
 }	t_game;
 
 /*			Parssing			*/
@@ -240,6 +216,8 @@ void		delete_images(t_game *game);
 void		quit_game(t_game *game);
 void		print_error(char *err);
 int			check_floor_nd_ceiling(char *l, t_map *map_inf);
+int			north_south(t_map *map_inf, char *s);
+int			east_west(t_map *map_inf, char *s);
 
 /*			Game			*/
 int			start_game(t_map *map_inf);
@@ -284,16 +262,10 @@ void		render_va(t_game *game, char dir);
 
 /*			rendering		*/
 void		cast_rays(t_game *game);
-void		render_ray(t_game *game, t_coor *coo);
 void		shortest_distance(t_game *game, int ray);
 void		normalize_ang(float *alpha);
 int			render_3d_game(t_game *game);
 void		draw_ceiling_floor(int i, t_game *game, int bott_pix, int top_pix);
-
-/*			Mini map		*/
-
-bool		inside_mmap(float x_pix, float y_pix);
-bool		inside_strip(float x_pix, float y_pix);
 
 /*			textures		*/
 

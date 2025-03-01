@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
+/*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 18:29:49 by hmoukit           #+#    #+#             */
-/*   Updated: 2025/02/28 12:11:35 by hmoukit          ###   ########.fr       */
+/*   Updated: 2025/03/01 13:45:02 by asayad           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,17 +27,9 @@
 # define SCREEN_WIDTH 1200
 # define SCREEN_HEIGHT 1200
 # define TILE_SIZE	64
-# define MINI_MAP_RADIUS ((float)(SCREEN_WIDTH * 0.08))  
-# define MMAP_DIAMETER MINI_MAP_RADIUS * 2
-# define SCALE (float)(MMAP_DIAMETER / (8 * TILE_SIZE))
-# define RADIUS_SQUARE (float)(MINI_MAP_RADIUS * MINI_MAP_RADIUS)
-# define STRIP_RADIUS_SQUARE (float)((MINI_MAP_RADIUS - 10.0) * (MINI_MAP_RADIUS - 10.0))
 # define FOV 60	
-# define RAY_ANG (float)((float)FOV / (float)SCREEN_WIDTH)
 # define PLYR_SPEED 10
-# define REV_TILE (float)(1.0 / (float)TILE_SIZE)
-# define PI (float)3.14
-# define DISTANCE_P (float)(SCREEN_WIDTH / (2 * tan(FOV/2)))
+# define PI 3.14
 # define EPSILON 0.00001496
 
 typedef unsigned int	t_color;
@@ -191,6 +183,10 @@ typedef struct s_game
 	int			torch_frame;
 	int			i;
 	int			inside_door;
+	float		mmap_radius;
+	float		mmap_diameter;
+	float		rev_tile;
+	float		ang_increment;
 }	t_game;
 
 /*			Parssing			*/
@@ -252,6 +248,9 @@ int			check_commas(char *l);
 char		**ft_split(char *s, char c);
 void		print_error(char *err);
 int			check_floor_nd_ceiling(char *l, t_map *map_inf);
+int			north_south(t_map *map_inf, char *s);
+int			east_west(t_map *map_inf, char *s);
+void		init_macros(t_game **game);
 
 /*			Game			*/
 int			start_game(t_map *map_inf);
@@ -292,8 +291,8 @@ void		render_3d_game(t_game *game);
 void		draw_ceiling_floor(int i, t_game *game, int bott_pix, int top_pix);
 
 /*			Mini map		*/
-bool		inside_mmap(float x_pix, float y_pix);
-bool		inside_strip(float x_pix, float y_pix);
+bool		inside_mmap(t_game *game, float x_pix, float y_pix);
+bool		inside_strip(t_game *game, float x_pix, float y_pix);
 void		mmap_2d(t_game *game, t_mmap *m_map);
 void		mmap_cnst(t_game *game, t_mmap *m_map);
 int			in_mmap(t_game *game, t_mmap *m_map);

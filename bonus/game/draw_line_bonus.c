@@ -6,7 +6,7 @@
 /*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 16:14:49 by hmoukit           #+#    #+#             */
-/*   Updated: 2025/02/26 13:59:58 by asayad           ###   ########.fr       */
+/*   Updated: 2025/03/01 13:23:14 by asayad           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	render_ray(t_game *game, t_coor *coo)
 {
-	coo->x0 = (int)MINI_MAP_RADIUS;
-	coo->y0 = (int)MINI_MAP_RADIUS;
+	coo->x0 = (int)game->mmap_radius;
+	coo->y0 = (int)game->mmap_radius;
 	coo->dx = abs(coo->x1 - coo->x0);
 	coo->dy = abs(coo->y1 - coo->y0);
 	if (coo->x0 < coo->x1)

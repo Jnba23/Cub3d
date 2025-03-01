@@ -6,7 +6,7 @@
 /*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 12:25:49 by hmoukit           #+#    #+#             */
-/*   Updated: 2025/02/26 12:04:39 by asayad           ###   ########.fr       */
+/*   Updated: 2025/03/01 13:39:52 by asayad           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,12 +66,12 @@ void	render_va(t_game *game, char dir)
 	if (dir == 'L')
 	{
 		game->pl_inf->turn_dir = -3;
-		game->pl_inf->rot_angle += game->pl_inf->turn_dir * RAY_ANG;
+		game->pl_inf->rot_angle += game->pl_inf->turn_dir * game->ang_increment;
 	}
 	else if (dir == 'R')
 	{
 		game->pl_inf->turn_dir = 3;
-		game->pl_inf->rot_angle += game->pl_inf->turn_dir * RAY_ANG;
+		game->pl_inf->rot_angle += game->pl_inf->turn_dir * game->ang_increment;
 	}
 	if (game->pl_inf->rot_angle < 0)
 		game->pl_inf->rot_angle = fmod(game->pl_inf->rot_angle, 2 * PI)

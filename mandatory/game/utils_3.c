@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_3.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
+/*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 10:54:23 by asayad            #+#    #+#             */
-/*   Updated: 2025/02/26 18:41:16 by hmoukit          ###   ########.fr       */
+/*   Updated: 2025/03/01 11:30:25 by asayad           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,10 @@ void	release_ressources(t_game *game, t_map *map_inf, int i)
 	free_table(map_inf->map_2d, map_inf->map_size);
 	free_textures(map_inf);
 	delete_images(game);
+	free(game->inter);
+	free(game->rays);
+	free(game->text);
+	free(game);
 	if (i == 1)
 		exit(1);
 }
@@ -25,15 +29,11 @@ void	quit_game(t_game *game)
 {
 	free_table(game->map_inf->map_2d, game->map_inf->map_size);
 	free_textures(game->map_inf);
-	if (game->text->img_east)
-		mlx_delete_image(game->game, game->text->img_east);
-	if (game->text->img_west)
-		mlx_delete_image(game->game, game->text->img_west);
-	if (game->text->img_north)
-		mlx_delete_image(game->game, game->text->img_north);
-	if (game->text->img_south)
-		mlx_delete_image(game->game, game->text->img_south);
 	delete_images(game);
+	free(game->inter);
+	free(game->rays);
+	free(game->text);
+	free(game);
 	exit(1);
 }
 

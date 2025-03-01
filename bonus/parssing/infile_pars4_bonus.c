@@ -6,7 +6,7 @@
 /*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 11:54:40 by asayad            #+#    #+#             */
-/*   Updated: 2025/02/26 13:44:19 by asayad           ###   ########.fr       */
+/*   Updated: 2025/03/01 14:04:53 by asayad           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,14 +49,44 @@ void	free_table(char **table, int j)
 	free(table);
 }
 
-void	ft_strcpy(char *src, char *dst)
+size_t	ft_strlcpy_split(char *dst, const char *src, size_t dstsize)
 {
-	int	i;
+	size_t	i;
+	size_t	j;
 
-	i = -1;
-	if (!src || !dst)
-		return ;
-	while (src[++i])
-		dst[i] = src[i];
-	dst[i] = '\0';
+	i = 0;
+	j = 0;
+	while (src[j])
+		j++;
+	if (dstsize == 0)
+		return (j);
+	else
+	{
+		while (src[i] != '\0' && i < dstsize - 1)
+		{
+			dst[i] = src[i];
+			i++;
+		}
+		dst[i] = '\0';
+	}
+	return (j);
+}
+
+int	ft_isspace(char c)
+{
+	if ((c >= 9 && c <= 13) || c == 32)
+		return (1);
+	return (0);
+}
+
+int	map_char(char *s)
+{
+	while (*s)
+	{
+		if (*s != '0' && *s != '1' && *s != 'N' && *s != 'S'
+			&& *s != 'E' && *s != 'W' && *s != ' ' && *s != 'D')
+			return (print_error("Invalid map data !"), 0);
+		s++;
+	}
+	return (1);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_3_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
+/*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 16:39:04 by hmoukit           #+#    #+#             */
-/*   Updated: 2025/02/26 20:17:59 by hmoukit          ###   ########.fr       */
+/*   Updated: 2025/03/01 13:44:18 by asayad           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,6 @@ void	quit_game(t_game *game)
 {
 	free_table(game->map_inf->map_2d, game->map_inf->map_size);
 	free_textures(game->map_inf);
-	if (game->mmap_inf->n)
-		mlx_delete_image(game->game, game->mmap_inf->n);
-	if (game->text->img_east)
-		mlx_delete_image(game->game, game->text->img_east);
-	if (game->text->img_west)
-		mlx_delete_image(game->game, game->text->img_west);
-	if (game->text->img_north)
-		mlx_delete_image(game->game, game->text->img_north);
-	if (game->text->img_south)
-		mlx_delete_image(game->game, game->text->img_south);
-	if (game->text->img_door)
-		mlx_delete_image(game->game, game->text->img_door);
 	delete_images(game);
 	delete_text(11, game);
 	free(game->inter);
@@ -55,4 +43,12 @@ void	draw_ceiling_floor(int i, t_game *game, int bott_pix, int top_pix)
 				game->map_inf->green_f, game->map_inf->blue_f, 255));
 		j++;
 	}
+}
+
+void	init_macros(t_game **game)
+{
+	(*game)->mmap_radius = (float)(SCREEN_WIDTH * 0.08);
+	(*game)->mmap_diameter = (*game)->mmap_radius * 2;
+	(*game)->ang_increment = (float)((float)FOV / (float)SCREEN_WIDTH);
+	(*game)->rev_tile = (float)(1.0 / (float)TILE_SIZE);
 }

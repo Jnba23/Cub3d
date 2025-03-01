@@ -6,7 +6,7 @@
 /*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 17:32:13 by asayad            #+#    #+#             */
-/*   Updated: 2025/02/25 01:07:59 by asayad           ###   ########.fr       */
+/*   Updated: 2025/03/01 13:04:15 by asayad           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ bool	valid_ray_intersection(t_game *game, float hx, float hy)
 	a[2][1] = game->pl_x_pix + hx - 0.0004554f;
 	while (j < 3)
 	{
-		y_coo = (int)floor(a[j][0] * REV_TILE);
-		x_coo = (int)floor(a[j][1] * REV_TILE);
+		y_coo = (int)floor(a[j][0] * game->rev_tile);
+		x_coo = (int)floor(a[j][1] * game->rev_tile);
 		if (y_coo < 0 || y_coo >= game->map_inf->map_height || x_coo < 0
 			|| x_coo >= ft_strlen(game->map[y_coo])
 			|| game->map[y_coo][x_coo] == '1')
@@ -59,12 +59,4 @@ void	normalize_ang(float *alpha)
 		*alpha = fmod(*alpha, 2 * PI) + 2 * PI;
 	if (*alpha > 2 * PI)
 		*alpha -= 2 * PI;
-}
-
-bool	inside_mmap(float x_pix, float y_pix)
-{
-	if (powf(x_pix - MINI_MAP_RADIUS, 2) + powf(y_pix - MINI_MAP_RADIUS, 2)
-		<= RADIUS_SQUARE)
-		return (1);
-	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rendering_2D_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
+/*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 10:42:06 by hmoukit           #+#    #+#             */
-/*   Updated: 2025/02/28 11:41:07 by hmoukit          ###   ########.fr       */
+/*   Updated: 2025/03/01 13:56:05 by asayad           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ void	render_2d_map(t_game *game)
 {
 	t_mmap	m_map;
 
-	m_map.diameter = MMAP_DIAMETER;
-	m_map.scale = SCALE;
-	m_map.gm_x0 = game->pl_x_pix - (MINI_MAP_RADIUS / m_map.scale);
-	m_map.gm_y0 = game->pl_y_pix - (MINI_MAP_RADIUS / m_map.scale);
+	m_map.diameter = game->mmap_diameter;
+	m_map.scale = (float)m_map.diameter / (8 * TILE_SIZE);
+	m_map.gm_x0 = game->pl_x_pix - (game->mmap_radius / m_map.scale);
+	m_map.gm_y0 = game->pl_y_pix - (game->mmap_radius / m_map.scale);
 	m_map.img_y = -1.0;
 	game->mmap_inf = &m_map;
 	while (++m_map.img_y < m_map.diameter)
@@ -27,9 +27,9 @@ void	render_2d_map(t_game *game)
 		m_map.img_x = -1.0;
 		while (++m_map.img_x < m_map.diameter)
 		{
-			if (inside_mmap(m_map.img_x, m_map.img_y))
+			if (inside_mmap(game, m_map.img_x, m_map.img_y))
 			{
-				if (inside_strip(m_map.img_x, m_map.img_y))
+				if (inside_strip(game, m_map.img_x, m_map.img_y))
 					mlx_put_pixel(game->mmap_image, (int)m_map.img_x,
 						(int)m_map.img_y, 0x000000AA);
 				else
@@ -88,7 +88,7 @@ void	mmap_cnst(t_game *game, t_mmap *m_map)
 	m_map->n = mlx_texture_to_image(game->game, n);
 	mlx_delete_texture(n);
 	mlx_resize_image(m_map->n, 40, 40);
-	if (mlx_image_to_window(game->game, m_map->n, MINI_MAP_RADIUS - 20, 0)
+	if (mlx_image_to_window(game->game, m_map->n, game->mmap_radius - 20, 0)
 		== -1)
 	{
 		free_table(game->map_inf->map_2d, game->map_inf->map_size);
