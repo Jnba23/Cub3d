@@ -3,14 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   utils_3_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 16:39:04 by hmoukit           #+#    #+#             */
-/*   Updated: 2025/03/01 13:44:18 by asayad           ###   ########.fr       */
+/*   Updated: 2025/03/04 01:39:53 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d_bonus.h>
+
+void	release_ressources(t_game *game, t_map *map_inf)
+{
+	free_table(map_inf->map_2d, map_inf->map_size);
+	free_textures(map_inf);
+	delete_images(game);
+}
 
 void	quit_game(t_game *game)
 {
@@ -19,9 +26,14 @@ void	quit_game(t_game *game)
 	delete_images(game);
 	delete_text(11, game);
 	free(game->inter);
+	game->inter = NULL;
 	free(game->rays);
+	game->rays = NULL;
 	free(game->text);
+	game->text = NULL;
+	mlx_terminate(game->game);
 	free(game);
+	game = NULL;
 	exit(1);
 }
 

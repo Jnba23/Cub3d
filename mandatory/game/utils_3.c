@@ -3,37 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   utils_3.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 10:54:23 by asayad            #+#    #+#             */
-/*   Updated: 2025/03/01 11:30:25 by asayad           ###   ########.fr       */
+/*   Updated: 2025/03/04 01:53:13 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
 
-void	release_ressources(t_game *game, t_map *map_inf, int i)
+void	release_ressources(t_game *game, t_map *map_inf)
 {
 	free_table(map_inf->map_2d, map_inf->map_size);
 	free_textures(map_inf);
 	delete_images(game);
-	free(game->inter);
-	free(game->rays);
-	free(game->text);
-	free(game);
-	if (i == 1)
-		exit(1);
 }
 
 void	quit_game(t_game *game)
 {
-	free_table(game->map_inf->map_2d, game->map_inf->map_size);
-	free_textures(game->map_inf);
-	delete_images(game);
+	release_ressources(game, game->map_inf);
 	free(game->inter);
+	game->inter = NULL;
 	free(game->rays);
+	game->rays = NULL;
 	free(game->text);
+	game->text = NULL;
+	mlx_terminate(game->game);
 	free(game);
+	game = NULL;
 	exit(1);
 }
 

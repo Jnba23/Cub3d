@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_init_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 10:41:48 by hmoukit           #+#    #+#             */
-/*   Updated: 2025/03/01 13:43:57 by asayad           ###   ########.fr       */
+/*   Updated: 2025/03/04 00:50:46 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,22 +77,24 @@ int	game_struct_init(t_map *map_inf, t_game **game, t_player *pl_inf)
 		return (0);
 	if (!init_player_and_map(*game, map_inf, pl_inf))
 	{
+		release_ressources(*game, (*game)->map_inf);
 		free(*game);
 		return (0);
 	}
 	init_macros(game);
 	if (!init_rays(*game))
 	{
+		release_ressources(*game, (*game)->map_inf);
 		free((*game)->inter);
 		free(*game);
 		return (0);
 	}
 	if (!init_textures_and_images(*game))
 	{
+		release_ressources(*game, (*game)->map_inf);
 		free((*game)->inter);
 		free((*game)->rays);
-		free(*game);
-		return (0);
+		return (free(*game), 0);
 	}
 	return (1);
 }

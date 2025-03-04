@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_init.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 10:41:48 by hmoukit           #+#    #+#             */
-/*   Updated: 2025/03/01 13:08:18 by asayad           ###   ########.fr       */
+/*   Updated: 2025/03/04 00:45:15 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ void	game_struct_init(t_map *map_inf, t_game **game, t_player *pl_inf)
 	(*game)->text = malloc(sizeof(t_texture));
 	if (!((*game)->text))
 	{
-		release_ressources(*game, map_inf, 0);
-		free(*game);
+		release_ressources(*game, map_inf);
 		free((*game)->inter);
 		free((*game)->rays);
+		free(*game);
 		exit(1);
 	}
 	(*game)->text->tex_x = 0;
@@ -32,14 +32,15 @@ void	game_struct_init(t_map *map_inf, t_game **game, t_player *pl_inf)
 	(*game)->text->pos = 0.0;
 	(*game)->text->true_w = 0.0;
 	window_init(*game, map_inf);
-	init_textures(*game);
+	if (!init_textures(*game))
+		quit_game(*game);
 }
 
 void	init_game_struct(t_map *map_inf, t_game **game, t_player *pl_inf)
 {
 	(*game) = malloc(sizeof(t_game));
 	if (!(*game))
-		release_ressources(*game, map_inf, 1);
+		release_ressources(*game, map_inf);
 	(*game)->map = map_inf->map_2d;
 	(*game)->map_inf = map_inf;
 	(*game)->pl_inf = pl_inf;
@@ -65,7 +66,7 @@ void	init_inter_struct(t_game **game, t_map *map_inf)
 	(*game)->inter = malloc(sizeof(t_inter));
 	if (!((*game)->inter))
 	{
-		release_ressources(*game, map_inf, 0);
+		release_ressources(*game, map_inf);
 		free(*game);
 		exit(1);
 	}
@@ -84,9 +85,9 @@ void	init_rays_struct(t_game **game, t_map *map_inf)
 	(*game)->rays = malloc(sizeof(t_ray) * SCREEN_WIDTH);
 	if (!((*game)->rays))
 	{
-		release_ressources(*game, map_inf, 0);
-		free(*game);
+		release_ressources(*game, map_inf);
 		free((*game)->inter);
+		free(*game);
 		exit(1);
 	}
 	while (++i < SCREEN_WIDTH)
@@ -104,7 +105,7 @@ void	window_init(t_game *game, t_map *map_inf)
 	game->game = mlx_init(SCREEN_WIDTH, SCREEN_HEIGHT, "lo3ba", 1);
 	game->game_img = mlx_new_image(game->game, SCREEN_WIDTH, SCREEN_HEIGHT);
 	if (!game->game || !game->game_img)
-		release_ressources(game, map_inf, 1);
+		release_ressources(game, map_inf);
 	if (mlx_image_to_window(game->game, game->game_img, 0, 0) == -1)
-		release_ressources(game, map_inf, 1);
+		release_ressources(game, map_inf);
 }

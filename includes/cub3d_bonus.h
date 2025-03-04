@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 18:29:49 by hmoukit           #+#    #+#             */
-/*   Updated: 2025/03/01 13:45:02 by asayad           ###   ########.fr       */
+/*   Updated: 2025/03/04 01:59:27 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -263,7 +263,7 @@ void		render_va(t_game *game, char dir);
 float		rad2deg(float angle_rad);
 bool		valid_ray_intersection(t_game *game, float hx, float hy, int ray);
 int			get_rgba(int r, int g, int b, int a);
-int			get_rgb(int r, int g, int b);
+void		release_ressources(t_game *game, t_map *map_inf);
 
 /*			initializing	*/
 int			game_struct_init(t_map *map_inf, t_game **game, t_player *pl_inf);

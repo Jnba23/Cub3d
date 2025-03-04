@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 10:42:54 by hmoukit           #+#    #+#             */
-/*   Updated: 2025/03/01 13:42:59 by asayad           ###   ########.fr       */
+/*   Updated: 2025/03/04 01:29:53 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ int	start_game(t_map *map_inf)
 	mlx_loop_hook(game->game, animate_torch, (void *)game);
 	init_textures(game);
 	mlx_loop(game->game);
+	quit_game(game);
+	mlx_terminate(game->game);
 	return (0);
 }
 

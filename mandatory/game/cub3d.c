@@ -3,26 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asayad <asayad@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hmoukit <hmoukit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 10:42:54 by hmoukit           #+#    #+#             */
-/*   Updated: 2025/03/01 12:17:27 by asayad           ###   ########.fr       */
+/*   Updated: 2025/03/04 01:52:40 by hmoukit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
 
-void	f(void)
-{
-	system("leaks cub3D");
-	system("lsof cub3D_bonus");
-}
-
 int	main(int ac, char **av)
 {
 	t_map	map_inf;
 
-	atexit(f);
 	if (ac == 2)
 	{
 		if (ft_strlen(av[1]) >= 4 && !ft_strcmp(av[1]
@@ -49,6 +42,7 @@ int	start_game(t_map *map_inf)
 	game_struct_init(map_inf, &game, &player_inf);
 	mlx_loop_hook(game->game, cube3d, (void *)game);
 	mlx_loop(game->game);
+	quit_game(game);
 	return (0);
 }
 
