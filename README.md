@@ -16,6 +16,27 @@ Turn a `.cub` map into a first-person 3D view using raycasting and vector math.
 - Textured walls
 - MLX42 usage for windowing, textures & events
 
+## 🎓 What I Learned
+
+Building this engine was a deep dive into **computational geometry** and **low-level graphics**.
+
+#### 1. The Raycasting Engine
+I developed a "pseudo-3D" renderer by calculating 2D intersections in a grid.
+* **The Projection:** Learned to map the distance of a ray to a vertical column height, creating a depth illusion from a 2D map.
+* **Ray Traversal:** Implemented an incremental coordinate-step method to track ray paths and detect wall collisions in a discrete grid.
+
+
+
+#### 2. Trigonometric Corrections
+* **The "Fish-Bowl" Effect:** Solved perspective distortion by using **perpendicular distance** ($dist \times \cos(\theta)$) to ensure flat walls appear straight rather than curved.
+* **FOV Logic:** Mastered the relationship between the player’s viewing angle and the screen’s horizontal resolution.
+
+
+
+#### 3. Precision & Performance
+* **Floating Point Math:** Utilized high-precision `double` calculations to prevent "wall-bleeding" and ensure smooth movement.
+* **Buffer Management:** Achieved high frame rates by writing raw data to an **image buffer** in memory, bypassing slow pixel-by-pixel drawing methods.
+
 ## 🔧 Build & Run
 ```bash
 make
